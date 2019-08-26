@@ -1,7 +1,8 @@
 node_modules/
 src/
 .babelrc
-.browserlistrc
+.browserslistrc
 .gitignore
 .package-lock.json
 tsconfig.json
+webpack.config.js
