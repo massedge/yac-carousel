@@ -57,6 +57,9 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
       this.touchLastCoordinate = this.getTouchEventCoordinate(e);
 
       this.attachTouchFns()
+
+      // SAFARI - prevent scrolling the screen while dragging is active
+      e.preventDefault();
     }
 
     private touchMove(e: TouchEvent) {
