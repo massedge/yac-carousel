@@ -8,6 +8,8 @@ export {default as PointerDraggable} from './mixins/pointer-draggable'
 export {default as TouchDraggable} from './mixins/touch-draggable'
 export {default as Wheelable} from './mixins/wheelable'
 
+// enums
+export {default as Direction} from './enums/direction'
 
 
 // default carousel build
