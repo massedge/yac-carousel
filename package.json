@@ -16,6 +16,7 @@
     "clean": "rimraf dist",
     "develop": "webpack-dev-server --mode development --open",
     "build": "npm run clean && npm run typescript-build && npm run webpack-build",
+    "prepublishOnly": "npm run build",
     "webpack-build": "webpack --mode production",
     "typescript-build": "tsc",
     "typescript-check": "tsc --noEmit",
