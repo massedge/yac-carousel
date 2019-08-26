@@ -1,0 +1,42 @@
+{
+  "name": "yac-carousel",
+  "version": "0.0.1",
+  "description": "YAC (Yet Another Carousel) Carousel",
+  "contributors": [
+    {
+      "name": "Andrej Pavlovic",
+      "email": "andrej.pavlovic@massedge.com"
+    }
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "./dist/index",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "develop": "webpack-dev-server --mode development --open",
+    "build": "npm run clean && npm run typescript-build && npm run babel-build",
+    "babel-build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
+    "typescript-build": "tsc --emitDeclarationOnly",
+    "typescript-check": "tsc --noEmit",
+    "typescript-watch": "tsc --noEmit --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/lodash-es": "^4.17.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.15"
+  }
+}

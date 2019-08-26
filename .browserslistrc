@@ -1,0 +1,5 @@
+chrome >= 70
+edge >= 17
+firefox >= 60
+ie >= 10
+safari >= 11

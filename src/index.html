@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+
+<style type="text/css">
+.carousel {
+  user-select: none;
+  display: block;
+  overflow: hidden;
+  width: 300px;
+  white-space: nowrap;
+  touch-action: pan-y;
+  background-color: #eee;
+}
+.carousel.flex { display: flex }
+.item {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 50px;
+  white-space: normal;
+  margin: 10px;
+  background-color: #ddd;
+}
+
+.carousel.flex.vertical {
+  flex-direction: column;
+  height: 300px;
+  touch-action: pan-x;
+}
+</style>
+
+</head>
+<body>
+
+<div class="carousel flex">
+  <div class="item">
+    <p>some text</p>
+    <a href="https://www.pokret.org/" target="_blank">link</a>
+    <input type="text" value="test test">
+  </div>
+  <div class="item">2 2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+  <div class="item">9</div>
+  <div class="item">10</div>
+  <div class="item">11</div>
+</div>
+
+<br />
+
+<div class="carousel flex vertical">
+  <div class="item">
+    <p>some text</p>
+    <a href="https://www.pokret.org/" target="_blank">link</a>
+    <input type="text" value="test test">
+  </div>
+  <div class="item">2 2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</div>
+
+<script>
+
+  var el = document.querySelector('.carousel.flex');
+  const c = new YacCarousel.default({
+    container: el
+  })
+  c.render();
+
+  var el = document.querySelector('.carousel.flex.vertical');
+  const cVertical = new YacCarousel.default({
+    container: el,
+    direction: 'vertical',
+  })
+  cVertical.render();
+
+
+  // c.on('index:change:before', function(e) {
+  //   e.preventDefault();
+  //   console.log(e);
+  // });
+
+  //var cb = new YacCarousel(document.querySelector('.carousel.block'));
+  //var cf = new YacCarousel(document.querySelector('.carousel.flex'));
+
+</script>
+
+</body>
+</html>
