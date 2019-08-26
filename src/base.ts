@@ -59,11 +59,11 @@ export default class Base {
   }
 
   next() {
-    this.select(this.index + 1);
+    return this.select(this.index + 1);
   }
 
   previous() {
-    this.select(this.index - 1);
+    return this.select(this.index - 1);
   }
 
   select(index: number) {

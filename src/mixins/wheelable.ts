@@ -42,8 +42,8 @@ export default function Wheelable<T extends new (o: any) => any>(Base: T) {
       const offset = this.getWheelEventDelta(e);
 
       let result
-      if (offset < 0) result = this.next()
-      else if (offset > 0) result = this.previous()
+      if (offset < 0) result = this.previous()
+      else if (offset > 0) result = this.next()
       else result = false
 
       // prevent scrolling of parent elements, if nudge was successful
