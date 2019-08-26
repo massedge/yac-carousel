@@ -9,7 +9,6 @@
     }
   ],
   "license": "UNLICENSED",
-  "private": true,
   "main": "./dist/index",
   "types": "./dist/index.d.ts",
   "scripts": {
