@@ -1,6 +1,6 @@
 {
   "name": "yac-carousel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "YAC (Yet Another Carousel) Carousel",
   "contributors": [
     {
@@ -10,18 +10,18 @@
   ],
   "license": "UNLICENSED",
   "main": "./dist/index",
+  "module": "./dist/main.min.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
     "develop": "webpack-dev-server --mode development --open",
-    "build": "npm run clean && npm run typescript-build && npm run babel-build",
-    "babel-build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
-    "typescript-build": "tsc --emitDeclarationOnly",
+    "build": "npm run clean && npm run typescript-build && npm run webpack-build",
+    "webpack-build": "webpack --mode production",
+    "typescript-build": "tsc",
     "typescript-check": "tsc --noEmit",
     "typescript-watch": "tsc --noEmit --watch"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
