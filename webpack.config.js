@@ -11,8 +11,7 @@ module.exports = (env, argv) => {
   if (!PRODUCTION) {
     plugins.push(new HtmlWebpackPlugin({
       title: 'Development',
-      template: 'src/index.html',
-      inject: 'head',
+      template: 'test/page/index.html',
     }))
   }
   
@@ -22,7 +21,7 @@ module.exports = (env, argv) => {
   }
   
   return {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: path.resolve(__dirname, 'test/page/index.ts'),
     devtool: "source-map",
     module: {
       rules: [{
@@ -32,6 +31,7 @@ module.exports = (env, argv) => {
         },
         include: [
           path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'test'),
         ]
       }]
     },

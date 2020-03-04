@@ -74,31 +74,5 @@
 
 <div style="height: 1000px"></div>
 
-<script>
-
-  var el = document.querySelector('.carousel.flex');
-  const c = new YacCarousel.default({
-    container: el
-  })
-  c.render();
-
-  var el = document.querySelector('.carousel.flex.vertical');
-  const cVertical = new YacCarousel.default({
-    container: el,
-    direction: 'vertical',
-  })
-  cVertical.render();
-
-
-  // c.on('index:change:before', function(e) {
-  //   e.preventDefault();
-  //   console.log(e);
-  // });
-
-  //var cb = new YacCarousel(document.querySelector('.carousel.block'));
-  //var cf = new YacCarousel(document.querySelector('.carousel.flex'));
-
-</script>
-
 </body>
 </html>
