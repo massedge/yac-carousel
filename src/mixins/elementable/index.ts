@@ -23,6 +23,11 @@ export interface ElementableInstance {
   refresh: () => void
 }
 
+interface UnsettledNudge {
+  offset: number
+  time: number
+}
+
 export default function Elementable<T extends new (o: any) => any>(Base: T) {
   const Base2 = ElementEventable(Base)
 
@@ -37,7 +42,8 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     private position = 0
     private length = 0
     private itemsLength = 0
-    private animationFrameRequested = false;
+
+    private _unsettledNudges: UnsettledNudge[] = []
 
     constructor({
       container,
@@ -94,8 +100,13 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     /**
      * @return returns true if nudge resulted in shifting of items, false otherwise.
      */
-    nudge(offset: number, ease: boolean = false): boolean {
+    nudge(offset: number): boolean {
       //this._warn(`nudge: ${offset}`);
+      
+      this._unsettledNudges.push({
+        offset,
+        time: Date.now(),
+      })
 
       if (offset === 0) {
         // nothing moved
@@ -112,30 +123,50 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
         offset = this.length - this.itemsLength - this.position
         if (offset === 0) return false;
       }
+
       this.position += offset;
+      this._animateToPosition(this.position)
 
-      if (!this.animationFrameRequested) {
-        window.requestAnimationFrame(() => {
-          this.items.forEach((item) => {
-            const translate = (this.options.direction === Direction.HORIZONTAL) ? 'translateX' : 'translateY'
-            item.element.style.transform = `${translate}(${this.position}px)`;
-            
-            if (!ease) {
-              item.element.style.removeProperty('transition')
-            } else {
-              item.element.style.transition = `${300 + 'ms'} transform`
-            }
-            this.animationFrameRequested = false;
-          });
-        });
-        this.animationFrameRequested = true;
-      }
+      return true
+    }
 
-      return true;
+    private _animateToPosition(position: number, ease: boolean = false) {
+      this.items.forEach((item) => {
+        const translate = (this.options.direction === Direction.HORIZONTAL) ? 'translateX' : 'translateY'
+        item.element.style.transform = `${translate}(${position}px)`;
+        
+        if (!ease) {
+          item.element.style.removeProperty('transition')
+        } else {
+          item.element.style.transition = `${300 + 'ms'} transform`
+        }
+      });
     }
 
     settle(ease: boolean = true) {
       this._warn('settle');
+
+      // console.log(this._unsettledNudges)
+      const nudges = this._unsettledNudges
+      if (nudges.length > 1) {
+        const nudge1 = nudges[nudges.length - 2]
+        const nudge2 = nudges[nudges.length - 1]
+        // console.log(nudge1, nudge2)
+        const interval = nudge2.time - nudge1.time
+        const distance = nudge2.offset + nudge2.offset
+        // console.log(distance)
+        const velocity = distance / interval
+
+        const momentumDistance = velocity * 40
+        let newPosition = this.position + momentumDistance
+        // console.log(this.position, newPosition, this.itemsLength - this.length)
+        if (newPosition > 0) newPosition = 0
+        else if (newPosition < this.length - this.itemsLength) newPosition = this.length - this.itemsLength
+        this.position = newPosition
+        this._animateToPosition(this.position, true)
+        // console.log(newPosition)
+      }
+      this._unsettledNudges = []
     }
 
     refresh() {

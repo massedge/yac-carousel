@@ -61,6 +61,8 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
       this.pointerLastCoordinate = this.getMouseEventCoordinate(e);
 
       this.attachPointerFns()
+
+      this.nudge(0)
     }
 
     private pointerMove(e: PointerEvent) {

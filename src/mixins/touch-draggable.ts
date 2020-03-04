@@ -58,6 +58,8 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
 
       this.attachTouchFns()
 
+      this.nudge(0)
+
       // SAFARI - prevent scrolling the screen while dragging is active
       e.preventDefault();
     }
