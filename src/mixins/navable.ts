@@ -39,14 +39,14 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     
       if (elPrevious instanceof HTMLElement) {
         this.elPrevious = elPrevious;
-      } else if (elPrevious === null) {
+      } else if (elPrevious !== null) {
         this.elPrevious = this.createButton('previous', previousText);
       }
     
       if (elNext instanceof HTMLElement) {
         this.elNext = elNext;
-      } else if (elNext === null) {
-        this.elNext = this.createButton('previous', nextText);
+      } else if (elNext !== null) {
+        this.elNext = this.createButton('next', nextText);
       }
     }
     
