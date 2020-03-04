@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
     devServer: {
       noInfo: true,
       hot: true,
-      host: '0.0.0.0',
+      // host: '0.0.0.0',
       stats: {
         colors: true
       }
