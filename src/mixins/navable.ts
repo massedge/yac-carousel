@@ -55,8 +55,8 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
 
       // insert nodes and attach events
       [
-        [this.elNext, this.options.nextFn, '_attachedElPrevious'],
-        [this.elPrevious, this.options.previousFn, '_attachedElNext']
+        [this.elNext, this.options.nextFn || (() => this.next()), '_attachedElPrevious'],
+        [this.elPrevious, this.options.previousFn || (() => this.previous()), '_attachedElNext']
       ].forEach((args) => {
         const elNav = args[0];
         const fn = args[1];
