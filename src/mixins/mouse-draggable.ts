@@ -65,6 +65,8 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
       this.mouseLastCoordinate = this.getMouseEventCoordinate(e);
 
       this.attachMouseFns()
+      
+      this.nudge(0)
     }
 
     private mouseMove(e: MouseEvent) {
