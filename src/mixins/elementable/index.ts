@@ -100,7 +100,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     /**
      * @return returns true if nudge resulted in shifting of items, false otherwise.
      */
-    nudge(offset: number): boolean {
+    nudge(offset: number, ease: boolean = false): boolean {
       //this._warn(`nudge: ${offset}`);
       
       this._unsettledNudges.push({
@@ -125,7 +125,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
       }
 
       this.position += offset;
-      this._animateToPosition(this.position)
+      this._animateToPosition(this.position, ease)
 
       return true
     }
