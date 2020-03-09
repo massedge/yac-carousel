@@ -4,7 +4,7 @@ import Direction from  '../../enums/direction'
 import Item from './item'
 import { getBounds } from "./helper";
 import ElementEventable from "../element-eventable";
-import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE } from "../../event-types";
+import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE } from "../../event-map";
 
 export interface ElementableOptions {
   container: HTMLElement

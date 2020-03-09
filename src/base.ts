@@ -1,7 +1,9 @@
 import {
   EVENT_TYPE_INDEX_CHANGE_BEFORE,
-  EVENT_TYPE_INDEX_CHANGE_AFTER
-} from "./event-types";
+  EVENT_TYPE_INDEX_CHANGE_AFTER,
+  EventMap,
+  EventDetailIndexChange,
+} from "./event-map";
 
 export interface Options {
   warn?: (...args: any[]) => void
@@ -31,9 +33,9 @@ export default class Base {
     }
   }
 
-  on(type: string, listener: EventListener) {}
+  on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) {}
 
-  off(type: string, listener: EventListener) {}
+  off<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) {}
 
   protected _emit(e: Event) {}
 
@@ -67,7 +69,7 @@ export default class Base {
   }
 
   select(index: number) {
-    const eBefore = new CustomEvent(EVENT_TYPE_INDEX_CHANGE_BEFORE, {
+    const eBefore = new CustomEvent<EventDetailIndexChange>(EVENT_TYPE_INDEX_CHANGE_BEFORE, {
       cancelable: true,
       detail: {
         from: this.index,
@@ -82,7 +84,7 @@ export default class Base {
 
     this._index = index;
 
-    const eAfter = new CustomEvent(EVENT_TYPE_INDEX_CHANGE_AFTER, {
+    const eAfter = new CustomEvent<EventDetailIndexChange>(EVENT_TYPE_INDEX_CHANGE_AFTER, {
       detail: {
         from: this.index,
         to: index
