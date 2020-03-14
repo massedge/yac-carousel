@@ -1,5 +1,5 @@
-import { getBounds } from "./helper";
-import Direction from "../../enums/direction";
+import { getBounds } from "../helpers/get-bounds";
+import Direction from "../enums/direction";
 
 export default class ElementableItem {
   private _element: HTMLElement

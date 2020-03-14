@@ -1,10 +1,10 @@
-import { ComposeConstructor } from "../.types"
-import Direction from  '../../enums/direction'
+import { ComposeConstructor } from "../helpers/.types"
+import Direction from  '../enums/direction'
 
-import Item from './item'
-import { getBounds } from "./helper";
-import ElementEventable from "../element-eventable";
-import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE } from "../../event-map";
+import Item from '../item/elementable'
+import { getBounds } from "../helpers/get-bounds";
+import ElementEventable from "./element-eventable";
+import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE } from "./event-map";
 
 export interface ElementableOptions {
   container: HTMLElement

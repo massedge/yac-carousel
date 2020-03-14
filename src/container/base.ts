@@ -17,7 +17,6 @@ export default class Base {
   // private
   private _index: number = 0;
   private _rendered: boolean = false;
-  private position: number = 0;
 
   /**
    * @param {Object} container
