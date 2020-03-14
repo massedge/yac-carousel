@@ -5,14 +5,13 @@ import {
   EventDetailIndexChange,
 } from "./event-map";
 
-export interface Options {
-  warn?: (...args: any[]) => void
-  [x: string]: any
+export interface BaseOptions {
+  warn?: (message: string) => void
 }
 
 export default class Base {
   // protected
-  private _options: Options
+  private __warn: BaseOptions['warn']
 
   // private
   private _index: number = 0;
@@ -23,13 +22,9 @@ export default class Base {
    * @param {Object} options
    */
   constructor({
-    warn = console.warn.bind(console),
-    ...otherOptions
-  }: Options) {
-    this._options = {
-      warn,
-      ...otherOptions,
-    }
+    warn = console.warn.bind(console)
+  }: BaseOptions) {
+    this.__warn = warn
   }
 
   on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) {}
@@ -45,10 +40,6 @@ export default class Base {
     }
 
     this._rendered = true;
-  }
-
-  get options() {
-    return this._options
   }
 
   get index() {
@@ -98,8 +89,8 @@ export default class Base {
 
   destroy() {}
   
-  _warn(...args: any[]) {
-    if (!this.options.warn) return;
-    this.options.warn(...args);
+  _warn(message: string) {
+    if (!this.__warn) return;
+    this.__warn(message);
   }
 }
