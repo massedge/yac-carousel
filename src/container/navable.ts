@@ -125,5 +125,5 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Navable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Navable, typeof Base2>
 }

@@ -1,16 +1,16 @@
 import YacCarousel, { Direction, ContainerNavable as Navable } from '../../src'
 
-var el = document.querySelector('.carousel.flex');
+const elHorizontal = document.querySelector('.carousel.flex');
 const c = new (Navable(YacCarousel))({
-  container: el as HTMLElement,
+  container: elHorizontal as HTMLElement,
   previousText: 'Previous',
   nextText: 'Next',
 })
 c.render();
 
-var el = document.querySelector('.carousel.flex.vertical');
+const elVertical = document.querySelector('.carousel.flex.vertical');
 const cVertical = new YacCarousel({
-  container: el as HTMLElement,
+  container: elVertical as HTMLElement,
   direction: Direction.VERTICAL,
 })
 cVertical.render();

@@ -62,5 +62,5 @@ export default function Wheelable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Wheelable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Wheelable, typeof Base2>
 }

@@ -13,6 +13,7 @@
     "no-submodule-imports": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
+    "callable-types": false,
     "variable-name": {
       "options": [
         "allow-leading-underscore",

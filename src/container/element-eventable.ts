@@ -33,5 +33,5 @@ export default function ElementEventable<T extends new (o: any) => any>(Base: T)
       }
   }
   
-  return <unknown>Mixin as ComposeConstructor<ElementEventable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<ElementEventable, typeof Base>
 }

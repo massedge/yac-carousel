@@ -54,6 +54,6 @@ export default function Visible<Item extends VisibleItem, T extends new (o: any)
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Visible, typeof Base>
+  return Mixin as unknown as ComposeConstructor<Visible, typeof Base>
 }
 

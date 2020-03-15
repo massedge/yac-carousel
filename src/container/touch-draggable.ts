@@ -81,7 +81,7 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
 
     private getTouchEventCoordinate(e: TouchEvent) {
       const touch = e.touches[0];
-      return (this.direction == Direction.HORIZONTAL) ? touch.clientX : touch.clientY;
+      return (this.direction === Direction.HORIZONTAL) ? touch.clientX : touch.clientY;
     }
 
     destroy() {
@@ -103,5 +103,5 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     }
   };
   
-  return <unknown>Mixin as ComposeConstructor<TouchDraggable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<TouchDraggable, typeof Base2>
 }

@@ -42,9 +42,9 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
       let prevented: boolean = false
 
       if (e.target) {
-        if ((<HTMLElement>e.target).draggable) {
+        if ((e.target as HTMLElement).draggable) {
           prevented = true
-        } else if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf((<HTMLElement>e.target).nodeName) > -1) {
+        } else if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf((e.target as HTMLElement).nodeName) > -1) {
           prevented = true
         }
       }
@@ -105,5 +105,5 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<MouseDraggable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<MouseDraggable, typeof Base2>
 }

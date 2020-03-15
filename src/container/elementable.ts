@@ -102,6 +102,6 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Elementable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Elementable, typeof Base2>
 }
 

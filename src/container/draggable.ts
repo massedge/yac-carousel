@@ -40,5 +40,5 @@ export default function Draggable<T extends new (o: any) => any>(Base: T) {
       }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Draggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<Draggable, typeof Base>
 }

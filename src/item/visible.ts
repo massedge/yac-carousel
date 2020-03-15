@@ -56,6 +56,6 @@ export default function Visible<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Visible, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Visible, typeof Base2>
 }
 

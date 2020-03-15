@@ -50,7 +50,5 @@ export default class ElementableItem {
     this._length = (this._direction === Direction.HORIZONTAL) ? bounds.widthMargin : bounds.heightMargin
   }
 
-  destroy() {
-
-  }
+  destroy() { /**/ }
 }

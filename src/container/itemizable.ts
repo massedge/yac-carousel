@@ -77,7 +77,7 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
       super.render();
 
       this.#items = Array.from(this.container.children)
-        .filter((elItem) => elItem.nodeType == 1)
+        .filter((elItem) => elItem.nodeType === 1)
         .map((child) => {
           return new this.#options.itemConstructor({
             element: child as HTMLElement,
@@ -199,6 +199,6 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Itemizable<Item>, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Itemizable<Item>, typeof Base2>
 }
 

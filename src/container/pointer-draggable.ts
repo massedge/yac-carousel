@@ -42,7 +42,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
       let prevented: boolean = false
 
       if (e.target) {
-        if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf((<HTMLElement>e.target).nodeName) > -1) prevented = true
+        if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf((e.target as HTMLElement).nodeName) > -1) prevented = true
       }
 
       prevented = this.preventDraggingOverride(e, prevented)
@@ -81,7 +81,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
 
     private getMouseEventCoordinate(e: PointerEvent) {
-      return (this.direction == Direction.HORIZONTAL) ? e.clientX : e.clientY;
+      return (this.direction === Direction.HORIZONTAL) ? e.clientX : e.clientY;
     }
 
     destroy() {
@@ -104,6 +104,6 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
   };
   
-  return <unknown>Mixin as ComposeConstructor<PointerDraggable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<PointerDraggable, typeof Base2>
 }
 

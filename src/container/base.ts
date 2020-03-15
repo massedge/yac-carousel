@@ -10,8 +10,7 @@ export interface BaseOptions {
 }
 
 export default class Base {
-  // protected
-  private __warn: BaseOptions['warn']
+  #warn: BaseOptions['warn']
 
   // private
   private _index: number = 0;
@@ -24,14 +23,14 @@ export default class Base {
   constructor({
     warn = console.warn.bind(console)
   }: BaseOptions) {
-    this.__warn = warn
+    this.#warn = warn
   }
 
-  on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) {}
+  on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
 
-  off<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) {}
+  off<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
 
-  protected _emit(e: Event) {}
+  protected _emit(e: Event) { /**/ }
 
   render() {
     if (this.rendered) {
@@ -85,12 +84,12 @@ export default class Base {
     return true;
   }
 
-  refresh() {}
+  refresh() { /**/ }
 
-  destroy() {}
+  destroy() { /**/ }
   
   _warn(message: string) {
-    if (!this.__warn) return;
-    this.__warn(message);
+    if (!this.#warn) return;
+    this.#warn(message);
   }
 }
