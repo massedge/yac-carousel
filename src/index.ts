@@ -1,52 +1,18 @@
-// base
-export {default as Base} from './container/base'
-
-// container
-export {default as Itemizable} from './container/itemizable'
-export {default as MouseDraggable} from './container/mouse-draggable'
-export {default as Navable} from './container/navable'
-export {default as PointerDraggable} from './container/pointer-draggable'
-export {default as TouchDraggable} from './container/touch-draggable'
-export {default as Visible} from './container/visible'
-export {default as Wheelable} from './container/wheelable'
-
 // enums
 export {default as Direction} from './enums/direction'
 
+// container
+export {default as ContainerBase} from './container/base'
+export {default as ContainerItemizable} from './container/itemizable'
+export {default as ContainerMouseDraggable} from './container/mouse-draggable'
+export {default as ContainerNavable} from './container/navable'
+export {default as ContainerPointerDraggable} from './container/pointer-draggable'
+export {default as ContainerTouchDraggable} from './container/touch-draggable'
+export {default as ContainerVisible} from './container/visible'
+export {default as ContainerWheelable} from './container/wheelable'
+
 // item
 export {default as ItemElementable} from './item/elementable'
+export {default as ItemVisible} from './item/visible'
 
-// default carousel build
-import Base from './container/base';
-import Itemizable from './container/itemizable';
-import MouseDraggable from './container/mouse-draggable';
-import PointerDraggable from './container/pointer-draggable';
-import TouchDraggable from './container/touch-draggable';
-import Visible from './container/visible';
-import Wheelable from './container/wheelable';
-import ItemElementable from './item/elementable'
-import ItemVisible from './item/visible'
-import { WithOptional } from './types'
-
-const Item = ItemVisible(ItemElementable)
-
-const CarouselElementable = Wheelable(
-  TouchDraggable(
-  PointerDraggable(
-  MouseDraggable(
-    Base
-  ))))
-const CarouselContainer = Visible(Itemizable<InstanceType<typeof Item>, typeof CarouselElementable>(CarouselElementable))
-
-type CarouselOptions = WithOptional<ConstructorParameters<typeof CarouselContainer>[0], 'itemConstructor'>
-
-class Carousel extends CarouselContainer {
-  constructor(options: CarouselOptions) {
-    super({
-      ...options,
-      itemConstructor: Item
-    })
-  }
-}
-
-export default Carousel
+export {default} from './carousel'
