@@ -34,7 +34,7 @@ export default function Wheelable<T extends new (o: any) => any>(Base: T) {
     render() {
       super.render();
 
-      this.container.addEventListener('wheel', this.wheelFn);
+      this.element.addEventListener('wheel', this.wheelFn);
     }
 
     private wheel(e: WheelEvent) {
@@ -57,7 +57,7 @@ export default function Wheelable<T extends new (o: any) => any>(Base: T) {
     }
 
     destroy() {
-      this.container.removeEventListener('wheel', this.wheelFn);
+      this.element.removeEventListener('wheel', this.wheelFn);
       super.destroy();
     }
   }

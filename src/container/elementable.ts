@@ -5,7 +5,7 @@ import { getBounds } from "../helpers/get-bounds";
 import ElementEventable from "./element-eventable";
 
 export interface ElementableOptions {
-  container: HTMLElement
+  element: HTMLElement
   direction?: Direction
 }
 
@@ -48,17 +48,17 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     #unsettledNudges: UnsettledNudge[] = []
 
     constructor({
-      container,
+      element,
       direction = Direction.HORIZONTAL,
       ...otherOptions
     }: ElementableOptions) {
-      super({container, direction, ...otherOptions})
+      super({element, direction, ...otherOptions})
 
-      this.#options = {container, direction}
+      this.#options = {element, direction}
     }
 
-    get container() {
-      return this.#options.container;
+    get element() {
+      return this.#options.element;
     }
 
     protected get direction() {

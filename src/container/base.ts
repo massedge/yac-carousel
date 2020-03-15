@@ -16,10 +16,6 @@ export default class Base {
   private _index: number = 0;
   private _rendered: boolean = false;
 
-  /**
-   * @param {Object} container
-   * @param {Object} options
-   */
   constructor({
     warn = console.warn.bind(console)
   }: BaseOptions) {

@@ -3,7 +3,6 @@ import { ComposeConstructor } from "../types"
 import ElementEventable from "../container/element-eventable";
 
 export interface VisibleOptions {
-  element: HTMLElement
 }
 
 export interface Visible {
@@ -24,17 +23,7 @@ export default function Visible<T extends new (o: any) => any>(Base: T) {
 
   class Mixin extends (Base2 as new (...a: any[]) => any) implements VisibleInstance {
     #visible: boolean = false
-
-    constructor({
-      element,
-      ...otherOptions
-    }: VisibleOptions) {
-      super({element, ...otherOptions})
-
-      // HACK: ElementEventable expects element to be set on container property
-      this.container = element
-    }
-
+    
     render() {
       super.render()
     }

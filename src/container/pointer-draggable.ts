@@ -35,7 +35,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     render() {
       super.render();
 
-      this.container.addEventListener('pointerdown', this.pointerDownFn);
+      this.element.addEventListener('pointerdown', this.pointerDownFn);
     }
 
     private preventDragging(e: PointerEvent) {
@@ -85,22 +85,22 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
 
     destroy() {
-      this.container.removeEventListener('pointerdown', this.pointerDownFn);
+      this.element.removeEventListener('pointerdown', this.pointerDownFn);
       this.detachPointerFns()
 
       super.destroy();
     }
 
     private attachPointerFns() {
-      this.container.ownerDocument.addEventListener('pointermove', this.pointerMoveFn);
-      this.container.ownerDocument.addEventListener('pointerup', this.pointerUpFn);
-      this.container.ownerDocument.addEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument.addEventListener('pointermove', this.pointerMoveFn);
+      this.element.ownerDocument.addEventListener('pointerup', this.pointerUpFn);
+      this.element.ownerDocument.addEventListener('pointercancel', this.pointerUpFn);
     }
 
     private detachPointerFns() {
-      this.container.ownerDocument.removeEventListener('pointermove', this.pointerMoveFn);
-      this.container.ownerDocument.removeEventListener('pointerup', this.pointerUpFn);
-      this.container.ownerDocument.removeEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument.removeEventListener('pointermove', this.pointerMoveFn);
+      this.element.ownerDocument.removeEventListener('pointerup', this.pointerUpFn);
+      this.element.ownerDocument.removeEventListener('pointercancel', this.pointerUpFn);
     }
   };
   

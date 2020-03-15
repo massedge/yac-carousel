@@ -6,7 +6,7 @@ import Elementable, { NudgeEventDetail, SettleEventDetail } from "./elementable"
 import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
 
 export interface ItemizableOptions<Item extends ElementableItem> {
-  container: HTMLElement
+  element: HTMLElement
   itemConstructor: new (options: {
     element: HTMLElement
     direction?: Direction
@@ -51,18 +51,18 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
     private itemsLength = 0
 
     constructor({
-      container,
+      element,
       itemConstructor,
       direction = Direction.HORIZONTAL,
       ...otherOptions
     }: ItemizableOptions<Item>) {
-      super({container, direction, ...otherOptions})
+      super({element, direction, ...otherOptions})
 
-      this.#options = {container, direction, itemConstructor}
+      this.#options = {element, direction, itemConstructor}
     }
 
-    get container() {
-      return this.#options.container;
+    get element() {
+      return this.#options.element;
     }
 
     protected get direction() {
@@ -76,7 +76,7 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
     render() {
       super.render();
 
-      this.#items = Array.from(this.container.children)
+      this.#items = Array.from(this.element.children)
         .filter((elItem) => elItem.nodeType === 1)
         .map((child) => {
           return new this.#options.itemConstructor({
@@ -193,7 +193,7 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
     }
 
     _calculate() {
-      const bounds = getBounds(this.#options.container)
+      const bounds = getBounds(this.#options.element)
       this.length = (this.#options.direction === Direction.HORIZONTAL) ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce((length, item) => length + item.length, 0)
     }

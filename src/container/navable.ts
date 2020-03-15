@@ -86,9 +86,9 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
 
         if (!elNav) return;
         if (fn) elNav.addEventListener('click', fn, false);
-        if (this.container.ownerDocument.documentElement.contains(elNav)) return;
+        if (this.element.ownerDocument.documentElement.contains(elNav)) return;
 
-        this.container.parentNode.insertBefore(elNav, this.container.nextSibling);
+        this.element.parentNode.insertBefore(elNav, this.element.nextSibling);
         this[attachedName] = true;
       });
     }

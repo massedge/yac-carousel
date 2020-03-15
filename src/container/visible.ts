@@ -1,7 +1,7 @@
 import { ComposeConstructor } from "../types"
 
 export interface VisibleOptions {
-  container: HTMLElement
+  element: HTMLElement
 }
 
 export interface Visible {
@@ -26,10 +26,10 @@ export default function Visible<Item extends VisibleItem, T extends new (o: any)
     #io: IntersectionObserver
 
     constructor({
-      container,
+      element,
       ...otherOptions
     }: VisibleOptions) {
-      super({container, ...otherOptions})
+      super({element, ...otherOptions})
 
       this.#io = new IntersectionObserver((entries) => {
         entries
@@ -39,7 +39,7 @@ export default function Visible<Item extends VisibleItem, T extends new (o: any)
               .forEach((item: Item) => item.visible = entry.isIntersecting)
           })
       }, {
-        root: container,
+        root: element,
       })
     }
 

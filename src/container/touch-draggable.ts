@@ -35,7 +35,7 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     render() {
       super.render();
 
-      this.container.addEventListener('touchstart', this.touchStartFn);
+      this.element.addEventListener('touchstart', this.touchStartFn);
     }
 
     private preventDragging(e: TouchEvent) {
@@ -85,21 +85,21 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     destroy() {
-      this.container.removeEventListener('touchstart', this.touchStartFn);
+      this.element.removeEventListener('touchstart', this.touchStartFn);
       this.detachTouchFns()
       super.destroy();
     }
 
     private attachTouchFns() {
-      this.container.ownerDocument.addEventListener('touchmove', this.touchMoveFn);
-      this.container.ownerDocument.addEventListener('touchend', this.touchEndFn);
-      this.container.ownerDocument.addEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument.addEventListener('touchmove', this.touchMoveFn);
+      this.element.ownerDocument.addEventListener('touchend', this.touchEndFn);
+      this.element.ownerDocument.addEventListener('touchcancel', this.touchEndFn);
     }
 
     private detachTouchFns() {
-      this.container.ownerDocument.removeEventListener('touchmove', this.touchMoveFn);
-      this.container.ownerDocument.removeEventListener('touchend', this.touchEndFn);
-      this.container.ownerDocument.removeEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument.removeEventListener('touchmove', this.touchMoveFn);
+      this.element.ownerDocument.removeEventListener('touchend', this.touchEndFn);
+      this.element.ownerDocument.removeEventListener('touchcancel', this.touchEndFn);
     }
   };
   

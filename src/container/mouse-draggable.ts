@@ -35,7 +35,7 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     render() {
       super.render();
 
-      this.container.addEventListener('mousedown', this.mouseDownFn);
+      this.element.addEventListener('mousedown', this.mouseDownFn);
     }
 
     private preventDragging(e: MouseEvent): boolean {
@@ -89,19 +89,19 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     destroy() {
-      this.container.removeEventListener('mousedown', this.mouseDownFn);
+      this.element.removeEventListener('mousedown', this.mouseDownFn);
       this.detachMouseFns()
       super.destroy();
     }
 
     private attachMouseFns() {
-      this.container.ownerDocument.addEventListener('mousemove', this.mouseMoveFn);
-      this.container.ownerDocument.addEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument.addEventListener('mousemove', this.mouseMoveFn);
+      this.element.ownerDocument.addEventListener('mouseup', this.mouseUpFn);
     }
 
     private detachMouseFns() {
-      this.container.ownerDocument.removeEventListener('mousemove', this.mouseMoveFn);
-      this.container.ownerDocument.removeEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument.removeEventListener('mousemove', this.mouseMoveFn);
+      this.element.ownerDocument.removeEventListener('mouseup', this.mouseUpFn);
     }
   }
   
