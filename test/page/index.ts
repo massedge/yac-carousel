@@ -2,7 +2,9 @@ import YacCarousel, { Direction, Navable } from '../../src'
 
   var el = document.querySelector('.carousel.flex');
   const c = new (Navable(YacCarousel))({
-    container: el as HTMLElement
+    container: el as HTMLElement,
+    previousText: 'Previous',
+    nextText: 'Next',
   })
   c.render();
 
