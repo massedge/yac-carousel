@@ -7,6 +7,7 @@ export {default as MouseDraggable} from './container/mouse-draggable'
 export {default as Navable} from './container/navable'
 export {default as PointerDraggable} from './container/pointer-draggable'
 export {default as TouchDraggable} from './container/touch-draggable'
+export {default as Visible} from './container/visible'
 export {default as Wheelable} from './container/wheelable'
 
 // enums
@@ -21,18 +22,21 @@ import Itemizable from './container/itemizable';
 import MouseDraggable from './container/mouse-draggable';
 import PointerDraggable from './container/pointer-draggable';
 import TouchDraggable from './container/touch-draggable';
+import Visible from './container/visible';
 import Wheelable from './container/wheelable';
 import ItemElementable from './item/elementable'
+import ItemVisible from './item/visible'
 import { WithOptional } from './types'
 
-const CarouselContainer =
-  Itemizable(
-  Wheelable(
+const Item = ItemVisible(ItemElementable)
+
+const CarouselElementable = Wheelable(
   TouchDraggable(
   PointerDraggable(
   MouseDraggable(
     Base
-  )))))
+  ))))
+const CarouselContainer = Visible(Itemizable<InstanceType<typeof Item>, typeof CarouselElementable>(CarouselElementable))
 
 type CarouselOptions = WithOptional<ConstructorParameters<typeof CarouselContainer>[0], 'itemConstructor'>
 
@@ -40,7 +44,7 @@ class Carousel extends CarouselContainer {
   constructor(options: CarouselOptions) {
     super({
       ...options,
-      itemConstructor: ItemElementable
+      itemConstructor: Item
     })
   }
 }
