@@ -23,19 +23,39 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
   const Base2 = Elementable(Base)
   
   class Mixin extends (Base2 as new (...a: any[]) => any) implements NavableInstance {
+    #options: NavableOptions
     private elPrevious: HTMLElement | null = null
     private elNext: HTMLElement | null = null
     private attachedElPrevious = false;
     private attachedElNext = false;
 
     constructor({
-      previousText = 'Previous',
-      nextText = 'Next',
+      previousText,
+      nextText,
       elPrevious,
       elNext,
+      previousFn,
+      nextFn,
       ...otherOptions
     }: NavableOptions) {
-      super({...otherOptions});
+      super({
+        previousText,
+        nextText,
+        elPrevious,
+        elNext,
+        previousFn,
+        nextFn,
+        ...otherOptions
+      });
+
+      this.#options = {
+        previousText,
+        nextText,
+        elPrevious,
+        elNext,
+        previousFn,
+        nextFn,
+      }
     
       if (elPrevious instanceof HTMLElement) {
         this.elPrevious = elPrevious;
@@ -53,11 +73,13 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     render() {
       super.render();
 
+      const nodes: [HTMLElement | null, () => void, string][] = [
+        [this.elNext, this.#options.nextFn || (() => this.next()), '_attachedElPrevious'],
+        [this.elPrevious, this.#options.previousFn || (() => this.previous()), '_attachedElNext']
+      ]
+
       // insert nodes and attach events
-      [
-        [this.elNext, this.options.nextFn || (() => this.next()), '_attachedElPrevious'],
-        [this.elPrevious, this.options.previousFn || (() => this.previous()), '_attachedElNext']
-      ].forEach((args) => {
+      nodes.forEach((args) => {
         const elNav = args[0];
         const fn = args[1];
         const attachedName = args[2];
@@ -74,16 +96,18 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     destroy() {
       super.destroy();
 
+      const nodes: [HTMLElement | null, () => void, boolean][] = [
+        [this.elNext, this.#options.nextFn || this.next.bind(this), this.attachedElNext],
+        [this.elPrevious, this.#options.previousFn || this.previous.bind(this), this.attachedElPrevious]
+      ]
+
       // remove nodes and detach events
-      [
-        [this.elNext, this.options.nextFn || this.next.bind(this), this.attachedElNext],
-        [this.elPrevious, this.options.previousFn || this.previous.bind(this), this.attachedElPrevious]
-      ].forEach((args) => {
+      nodes.forEach((args) => {
         const elNav = args[0];
         const fn = args[1];
         const attached = args[2];
 
-        if (attached) {
+        if (elNav && elNav.parentNode && attached) {
           elNav.parentNode.removeChild(elNav);
         }
         if (elNav && fn) {

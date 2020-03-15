@@ -45,9 +45,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
         if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf((<HTMLElement>e.target).nodeName) > -1) prevented = true
       }
 
-      if (this.options.preventDragging) {
-        prevented = this.options.preventDragging(e, prevented)
-      }
+      prevented = this.preventDraggingOverride(e, prevented)
 
       return prevented
     }
@@ -83,7 +81,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
 
     private getMouseEventCoordinate(e: PointerEvent) {
-      return (this.options.direction == Direction.HORIZONTAL) ? e.clientX : e.clientY;
+      return (this.direction == Direction.HORIZONTAL) ? e.clientX : e.clientY;
     }
 
     destroy() {

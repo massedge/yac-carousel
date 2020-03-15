@@ -41,9 +41,7 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     private preventDragging(e: TouchEvent) {
       let prevented: boolean = false
 
-      if (this.options.preventDragging) {
-        prevented = this.options.preventDragging(e, prevented)
-      }
+      prevented = this.preventDraggingOverride(e, prevented)
 
       return prevented
     }
@@ -83,7 +81,7 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
 
     private getTouchEventCoordinate(e: TouchEvent) {
       const touch = e.touches[0];
-      return (this.options.direction == Direction.HORIZONTAL) ? touch.clientX : touch.clientY;
+      return (this.direction == Direction.HORIZONTAL) ? touch.clientX : touch.clientY;
     }
 
     destroy() {

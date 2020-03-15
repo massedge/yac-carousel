@@ -37,6 +37,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base2 as new (...a: any[]) => any) implements ElementableInstance {
     static elementable = true
 
+    #options: Required<ElementableOptions>
     private _container: HTMLElement
     private _items: Item[] = []
     private position = 0
@@ -53,6 +54,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
       super({container, direction, ...otherOptions})
 
       this._container = container
+      this.#options = {container, direction}
     }
 
     get container() {
@@ -69,7 +71,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
       this._items = Array.from(this.container.children)
         .filter((elItem) => elItem.nodeType == 1)
         .map((child) => {
-          return new Item(child as HTMLElement, this.options.direction)
+          return new Item(child as HTMLElement, this.#options.direction)
         })
 
       this.items.forEach((item) => item.render())
@@ -132,7 +134,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
 
     private _animateToPosition(position: number, ease: boolean = false) {
       this.items.forEach((item) => {
-        const translate = (this.options.direction === Direction.HORIZONTAL) ? 'translateX' : 'translateY'
+        const translate = (this.#options.direction === Direction.HORIZONTAL) ? 'translateX' : 'translateY'
         item.element.style.transform = `${translate}(${position}px)`;
         
         if (!ease) {
@@ -144,7 +146,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     }
 
     settle(ease: boolean = true) {
-      this._warn('settle');
+      // this._warn('settle');
 
       // console.log(this._unsettledNudges)
       const nudges = this._unsettledNudges
@@ -177,8 +179,12 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
 
     _calculate() {
       const bounds = getBounds(this._container)
-      this.length = (this.options.direction === Direction.HORIZONTAL) ? bounds.width : bounds.height
+      this.length = (this.#options.direction === Direction.HORIZONTAL) ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce((length, item) => length + item.length, 0)
+    }
+
+    protected get direction() {
+      return this.#options.direction
     }
   }
   

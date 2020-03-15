@@ -49,9 +49,7 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
         }
       }
 
-      if (this.options.preventDragging) {
-        prevented = this.options.preventDragging(e, prevented)
-      }
+      prevented = this.preventDraggingOverride(e, prevented)
 
       return prevented
     }
@@ -87,7 +85,7 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     private getMouseEventCoordinate(e: MouseEvent) {
-      return (this.options.direction === Direction.HORIZONTAL) ? e.clientX : e.clientY;
+      return (this.direction === Direction.HORIZONTAL) ? e.clientX : e.clientY;
     }
 
     destroy() {

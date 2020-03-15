@@ -1,7 +1,7 @@
 import { ComposeConstructor } from "../helpers/.types"
 
 export interface DraggableOptions {
-  preventDragging?: (e: Event) => boolean
+  preventDragging?: (e: Event, prevented: boolean) => boolean
 }
 
 export interface Draggable {
@@ -20,6 +20,15 @@ export default function Draggable<T extends new (o: any) => any>(Base: T) {
       static draggable = true
 
       private _dragging: boolean = false
+      protected readonly preventDraggingOverride: Required<DraggableOptions['preventDragging']>
+
+      constructor({
+        preventDragging = () => false,
+        ...otherOptions
+      }: DraggableOptions) {
+        super({preventDragging, ...otherOptions})
+        this.preventDraggingOverride = preventDragging
+      }
 
       // protected
       protected set dragging(value) {
