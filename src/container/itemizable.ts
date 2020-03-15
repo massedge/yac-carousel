@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../helpers/.types"
+import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
 
 import { getBounds } from "../helpers/get-bounds";

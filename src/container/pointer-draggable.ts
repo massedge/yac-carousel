@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../helpers/.types"
+import { ComposeConstructor } from "../types"
 import Draggable from '../container/draggable'
 import Elementable from '../container/elementable'
 import Direction from  '../enums/direction'

@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../helpers/.types"
+import { ComposeConstructor } from "../types"
 
 export interface ElementEventabledOptions {
 }

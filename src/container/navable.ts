@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../helpers/.types"
+import { ComposeConstructor } from "../types"
 import Elementable from './elementable'
 
 export interface NavableOptions {

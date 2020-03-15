@@ -23,7 +23,7 @@ import PointerDraggable from './container/pointer-draggable';
 import TouchDraggable from './container/touch-draggable';
 import Wheelable from './container/wheelable';
 import ItemElementable from './item/elementable'
-import { WithOptional } from './helpers/.types'
+import { WithOptional } from './types'
 
 const CarouselContainer =
   Itemizable(
