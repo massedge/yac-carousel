@@ -1,57 +1,22 @@
-// interface StyleProps {
-//   paddingLeft: number
-//   paddingRight: number
-//   paddingTop: number
-//   paddingBottom: number
-  
-//   borderLeft: number
-//   borderRight: number
-//   borderTop: number
-//   borderBottom: number
-
-//   marginLeft: number
-//   marginRight: number
-//   marginTop: number
-//   marginBottom: number
-// }
-
-export interface StylePropKeys extends Pick<
-    CSSStyleDeclaration,
-    'paddingRight' | 'paddingLeft' | 'paddingTop' | 'paddingBottom' |
-    'borderRight' | 'borderLeft' | 'borderTop' | 'borderBottom' |
-    'marginRight' | 'marginLeft' | 'marginTop' | 'marginBottom'
-  > {}
-
-// type OptionRequirements = Record<keyof asdf, number>
-type StyleProps = {
-  [key in keyof StylePropKeys]: number
-}
-
 export const getBounds = (element: HTMLElement) => {
   const cs = window.getComputedStyle(element);
 
-  const propKeys: Array<keyof StylePropKeys> = [
-    'paddingLeft',
-    'paddingRight',
-    'paddingTop',
-    'paddingBottom',
+  const props = {
+    paddingLeft: cs.paddingLeft ? parseFloat(cs.paddingLeft) : 0,
+    paddingRight: cs.paddingRight ? parseFloat(cs.paddingRight) : 0,
+    paddingTop: cs.paddingTop ? parseFloat(cs.paddingTop) : 0,
+    paddingBottom: cs.paddingBottom ? parseFloat(cs.paddingBottom) : 0,
     
-    'borderLeft',
-    'borderRight',
-    'borderTop',
-    'borderBottom',
+    borderLeft: cs.borderLeft ? parseFloat(cs.borderLeft) : 0,
+    borderRight: cs.borderRight ? parseFloat(cs.borderRight) : 0,
+    borderTop: cs.borderTop ? parseFloat(cs.borderTop) : 0,
+    borderBottom: cs.borderBottom ? parseFloat(cs.borderBottom) : 0,
 
-    'marginLeft',
-    'marginRight',
-    'marginTop',
-    'marginBottom',
-  ]
-
-  const props: StyleProps = propKeys.reduce((props: StyleProps, propKey) => {
-    const prop = cs[propKey]
-    props[propKey] = (prop) ? parseFloat(prop) : 0
-    return props
-  }, {} as StyleProps)
+    marginLeft: cs.marginLeft ? parseFloat(cs.marginLeft) : 0,
+    marginRight: cs.marginRight ? parseFloat(cs.marginRight) : 0,
+    marginTop: cs.marginTop ? parseFloat(cs.marginTop) : 0,
+    marginBottom: cs.marginBottom ? parseFloat(cs.marginBottom) : 0,
+  }
 
   const rect = element.getBoundingClientRect()
   const widthBorder = rect.width
