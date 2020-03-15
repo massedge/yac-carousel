@@ -21,6 +21,7 @@ export interface ElementableInstance {
   nudge: (offset: number, ease: boolean) => boolean
   settle: () => void
   refresh: () => void
+  items: readonly Item[]
 }
 
 interface UnsettledNudge {
@@ -38,8 +39,8 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     static elementable = true
 
     #options: Required<ElementableOptions>
-    private _container: HTMLElement
-    private _items: Item[] = []
+    #container: HTMLElement
+    #items: Item[] = []
     private position = 0
     private length = 0
     private itemsLength = 0
@@ -53,22 +54,22 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     }: ElementableOptions) {
       super({container, direction, ...otherOptions})
 
-      this._container = container
+      this.#container = container
       this.#options = {container, direction}
     }
 
     get container() {
-      return this._container;
+      return this.#container;
     }
 
-    get items() {
-      return this._items.slice(0)
+    get items(): readonly Item[] {
+      return this.#items
     }
 
     render() {
       super.render();
 
-      this._items = Array.from(this.container.children)
+      this.#items = Array.from(this.container.children)
         .filter((elItem) => elItem.nodeType == 1)
         .map((child) => {
           return new Item(child as HTMLElement, this.#options.direction)
@@ -178,7 +179,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     }
 
     _calculate() {
-      const bounds = getBounds(this._container)
+      const bounds = getBounds(this.#container)
       this.length = (this.#options.direction === Direction.HORIZONTAL) ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce((length, item) => length + item.length, 0)
     }
