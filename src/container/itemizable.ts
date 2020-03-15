@@ -1,57 +1,64 @@
 import { ComposeConstructor } from "../helpers/.types"
 import Direction from  '../enums/direction'
 
-import Item from '../item/elementable'
 import { getBounds } from "../helpers/get-bounds";
 import Elementable, { NudgeEventDetail, SettleEventDetail } from "./elementable";
-import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE } from "./event-map";
+import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
 
-export interface ItemizableOptions {
+export interface ItemizableOptions<Item extends ElementableItem> {
   container: HTMLElement
+  itemConstructor: new (options: {
+    element: HTMLElement
+    direction?: Direction
+  }) => Item
   direction?: Direction
 }
 
-export interface Itemizable {
-  new(options: ItemizableOptions): ItemizableInstance
+export interface Itemizable<Item extends ElementableItem> {
+  new(options: ItemizableOptions<Item>): ItemizableInstance<Item>
   itemizable: boolean
 }
 
-export interface ItemizableInstance {
+export interface ItemizableInstance<Item extends ElementableItem> {
   render: () => void
   refresh: () => void
   items: readonly Item[]
 }
 
-interface UnsettledNudge {
-  offset: number
-  time: number
+export interface ElementableItem {
+  active: boolean
+  readonly length: number
+  readonly element: HTMLElement
+  render: () => void
+  destroy: () => void
+  refresh: () => void
 }
 
-export default function Itemizable<T extends new (o: any) => any>(Base: T) {
+
+export default function Itemizable<Item extends ElementableItem, T extends new (o: any) => any>(Base: T) {
   const Base2 = Elementable(Base)
 
   // singleton mixin
-  if ((Base as any).itemizable) return Base as ComposeConstructor<Itemizable, typeof Base2>
+  if ((Base as any).itemizable) return Base as ComposeConstructor<Itemizable<Item>, typeof Base2>
 
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements ItemizableInstance {
+  class Mixin extends (Base2 as new (...a: any[]) => any) implements ItemizableInstance<Item> {
     static itemizable = true
 
-    #options: Required<ItemizableOptions>
+    #options: Required<ItemizableOptions<Item>>
     #items: Item[] = []
     private position = 0
     private length = 0
     private itemsLength = 0
 
-    private _unsettledNudges: UnsettledNudge[] = []
-
     constructor({
       container,
+      itemConstructor,
       direction = Direction.HORIZONTAL,
       ...otherOptions
-    }: ItemizableOptions) {
+    }: ItemizableOptions<Item>) {
       super({container, direction, ...otherOptions})
 
-      this.#options = {container, direction}
+      this.#options = {container, direction, itemConstructor}
     }
 
     get container() {
@@ -72,19 +79,22 @@ export default function Itemizable<T extends new (o: any) => any>(Base: T) {
       this.#items = Array.from(this.container.children)
         .filter((elItem) => elItem.nodeType == 1)
         .map((child) => {
-          return new Item(child as HTMLElement, this.#options.direction)
+          return new this.#options.itemConstructor({
+            element: child as HTMLElement,
+            direction: this.#options.direction,
+          })
         })
 
       this.items.forEach((item) => item.render())
       this._calculate()
 
-      this.on(EVENT_TYPE_INDEX_CHANGE_BEFORE, (e: CustomEvent) => {
+      this.on(EVENT_TYPE_INDEX_CHANGE_BEFORE, (e: CustomEvent<EventDetailIndexChange>) => {
         if (e.detail.from === e.detail.to) return e.preventDefault()
         if (e.detail.to < 0) return e.preventDefault()
         if (e.detail.to >= this.items.length) return e.preventDefault()
       })
 
-      this.on(EVENT_TYPE_INDEX_CHANGE_AFTER, (e: CustomEvent) => {
+      this.on(EVENT_TYPE_INDEX_CHANGE_AFTER, (e: CustomEvent<EventDetailIndexChange>) => {
         const fromItem = this.items[e.detail.from]
         const targetItem = this.items[e.detail.to]
 
@@ -189,6 +199,6 @@ export default function Itemizable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return <unknown>Mixin as ComposeConstructor<Itemizable, typeof Base2>
+  return <unknown>Mixin as ComposeConstructor<Itemizable<Item>, typeof Base2>
 }
 

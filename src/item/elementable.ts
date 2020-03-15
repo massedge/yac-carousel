@@ -9,9 +9,12 @@ export default class ElementableItem {
   private _offset: number = 0
   private _active: boolean = false
 
-  constructor(element: HTMLElement, direction: Direction) {
-    this._element = element
-    this._direction = direction
+  constructor(options: {
+    element: HTMLElement,
+    direction?: Direction,
+  }) {
+    this._element = options.element
+    this._direction = options.direction || Direction.HORIZONTAL
   }
 
   get element() {
@@ -47,7 +50,7 @@ export default class ElementableItem {
     this._length = (this._direction === Direction.HORIZONTAL) ? bounds.widthMargin : bounds.heightMargin
   }
 
-  translate() {
+  destroy() {
 
   }
 }
