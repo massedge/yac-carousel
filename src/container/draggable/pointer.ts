@@ -1,7 +1,7 @@
-import { ComposeConstructor } from "../types"
-import Draggable from '../container/draggable'
-import Elementable from '../container/elementable'
-import Direction from  '../enums/direction'
+import { ComposeConstructor } from "../../types"
+import Draggable from './base'
+import Elementable from '../elementable'
+import Direction from  '../../enums/direction'
 
 export interface PointerDraggableOptions {
 }

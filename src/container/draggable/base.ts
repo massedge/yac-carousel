@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../types"
+import { ComposeConstructor } from "../../types"
 
 export interface DraggableOptions {
   preventDragging?: (e: Event, prevented: boolean) => boolean

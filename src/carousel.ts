@@ -3,9 +3,9 @@ import { WithOptional } from './types'
 // container
 import Base from './container/base';
 import Itemizable from './container/itemizable';
-import MouseDraggable from './container/mouse-draggable';
-import PointerDraggable from './container/pointer-draggable';
-import TouchDraggable from './container/touch-draggable';
+import MouseDraggable from './container/draggable/mouse';
+import PointerDraggable from './container/draggable/pointer';
+import TouchDraggable from './container/draggable/touch';
 import Visible from './container/visible';
 import Wheelable from './container/wheelable';
 
