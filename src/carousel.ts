@@ -13,25 +13,16 @@ import Wheelable from './container/wheelable';
 import ItemElementable from './item/elementable'
 import ItemVisible from './item/visible'
 
-const Item = ItemVisible(ItemElementable)
-
-const CarouselElementable = Wheelable(
-  TouchDraggable(
-  PointerDraggable(
-  MouseDraggable(
-    Base
-  ))))
-const CarouselContainer = Visible(Itemizable<InstanceType<typeof Item>, typeof CarouselElementable>(CarouselElementable))
-
-type CarouselOptions = WithOptional<ConstructorParameters<typeof CarouselContainer>[0], 'itemConstructor'>
-
-class Carousel extends CarouselContainer {
-  constructor(options: CarouselOptions) {
-    super({
-      ...options,
-      itemConstructor: Item
-    })
-  }
-}
+const Carousel =
+  Visible(
+  Itemizable(
+    Wheelable(
+    TouchDraggable(
+    PointerDraggable(
+    MouseDraggable(
+      Base
+    )))),
+    ItemVisible(ItemElementable)
+  ))
 
 export default Carousel

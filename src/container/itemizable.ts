@@ -7,7 +7,7 @@ import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDet
 
 export interface ItemizableOptions<Item extends ElementableItem> {
   element: HTMLElement
-  itemConstructor: new (options: {
+  itemConstructor?: new (options: {
     element: HTMLElement
     direction?: Direction
   }) => Item
@@ -35,7 +35,10 @@ export interface ElementableItem {
 }
 
 
-export default function Itemizable<Item extends ElementableItem, T extends new (o: any) => any>(Base: T) {
+export default function Itemizable<T extends new (o: any) => any, Item extends ElementableItem>(
+  Base: T,
+  defaultItemConstructor: NonNullable<ItemizableOptions<Item>['itemConstructor']>
+) {
   const Base2 = Elementable(Base)
 
   // singleton mixin
@@ -52,7 +55,7 @@ export default function Itemizable<Item extends ElementableItem, T extends new (
 
     constructor({
       element,
-      itemConstructor,
+      itemConstructor = defaultItemConstructor,
       direction = Direction.HORIZONTAL,
       ...otherOptions
     }: ItemizableOptions<Item>) {
