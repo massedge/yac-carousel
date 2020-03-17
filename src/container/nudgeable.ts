@@ -40,6 +40,8 @@ export interface NudgeableEventMap {
 }
 
 export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
+  if (!(Base as any).eventable) throw new Error('must be eventable')
+  
   class Mixin extends (Base as new (...a: any[]) => any) implements NudgeableInstance {
     static readonly nudgeable = true
 

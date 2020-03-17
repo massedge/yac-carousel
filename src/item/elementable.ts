@@ -2,6 +2,8 @@ import { getBounds } from "../helpers/get-bounds";
 import Direction from "../enums/direction";
 
 export default class ElementableItem {
+  static readonly elementable = true
+  
   private _element: HTMLElement
   private _direction: Direction
 

@@ -1,19 +1,21 @@
-import { ComposeConstructor } from "../types"
+import { ComposeConstructor } from "../../types"
 
 export interface ElementEventabledOptions {
 }
 
 export interface ElementEventable {
   new(options?: ElementEventabledOptions): ElementEventableInstance
-  elementEventable: boolean
+  eventable: boolean
 }
 
 export interface ElementEventableInstance {
 }
 
 export default function ElementEventable<T extends new (o: any) => any>(Base: T) {
+  if (!(Base as any).elementable) throw new Error('must be elementable')
+
   class Mixin extends (Base as new (...a: any[]) => {element: HTMLElement}) implements ElementEventableInstance {
-    static readonly elementEventable = true
+    static readonly eventable = true
 
     protected on(type: string, listener: EventListener) {
       this.element.addEventListener(type, listener)

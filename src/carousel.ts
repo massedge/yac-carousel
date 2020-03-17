@@ -1,7 +1,7 @@
 // container
 import Base from './container/base';
 import Draggable from './container/draggable';
-import ElementEventable from './container/element-eventable';
+import ElementEventable from './container/eventable/element';
 import Elementable from './container/elementable';
 import Itemizable from './container/itemizable';
 import Nudgeable from './container/nudgeable';
@@ -17,12 +17,12 @@ const Carousel =
   Itemizable(
     Wheelable(
     Draggable(
-    Elementable(
-    ElementEventable(
     Nudgeable(
+    ElementEventable(
+    Elementable(
       Base
     ))))),
-    ItemVisible(ItemElementable)
+    ItemVisible(ElementEventable(ItemElementable))
   ))
 
 export default Carousel

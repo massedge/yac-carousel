@@ -15,12 +15,7 @@ export interface ElementableInstance {
 }
 
 
-export default function Elementable<T extends new (o: {
-  asdf: () => void
-}) => any>(Base: T) {
-  if (!(Base as any).elementEventable) throw new Error('must be element eventable')
-  if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
-
+export default function Elementable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => any) implements ElementableInstance {
     static readonly elementable = true
 

@@ -1,7 +1,5 @@
 import { ComposeConstructor } from "../types"
 
-import ElementEventable from "../container/element-eventable";
-
 export interface VisibleOptions {
 }
 
@@ -19,9 +17,9 @@ export interface VisibleEventDetail {
 }
 
 export default function Visible<T extends new (o: any) => any>(Base: T) {
-  const Base2 = ElementEventable(Base)
+  if (!(Base as any).eventable) throw new Error('must be eventable')
 
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements VisibleInstance {
+  class Mixin extends (Base as new (...a: any[]) => any) implements VisibleInstance {
     #visible: boolean = false
     
     render() {
@@ -45,6 +43,6 @@ export default function Visible<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<Visible, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Visible, typeof Base>
 }
 
