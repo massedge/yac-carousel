@@ -9,7 +9,7 @@ import Visible from './container/visible';
 import Wheelable from './container/wheelable';
 
 // item
-import ItemElementable from './item/elementable'
+import ItemBase from './item/base'
 import ItemVisible from './item/visible'
 
 const Carousel =
@@ -22,7 +22,7 @@ const Carousel =
     Elementable(
       Base
     ))))),
-    ItemVisible(ElementEventable(ItemElementable))
+    ItemVisible(ElementEventable(ItemBase))
   ))
 
 export default Carousel

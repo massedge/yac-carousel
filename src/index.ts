@@ -15,7 +15,7 @@ export {default as ContainerVisible} from './container/visible'
 export {default as ContainerWheelable} from './container/wheelable'
 
 // item
-export {default as ItemElementable} from './item/elementable'
+export {default as ItemBase} from './item/base'
 export {default as ItemVisible} from './item/visible'
 
 export {default} from './carousel'
