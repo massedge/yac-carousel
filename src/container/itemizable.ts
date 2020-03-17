@@ -1,7 +1,7 @@
 import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
 
-import { getBounds } from "../helpers/get-bounds";
+import { getBounds } from "../utils/get-bounds";
 import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from "./nudgeable";
 import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
 

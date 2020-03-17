@@ -1,4 +1,4 @@
-import { getBounds } from "../helpers/get-bounds";
+import { getBounds } from "../utils/get-bounds";
 import Direction from "../enums/direction";
 
 export default class BaseItem {
