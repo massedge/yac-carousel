@@ -15,6 +15,7 @@ export interface PointerDraggableInstance {
 
 export default function PointerDraggable<T extends new (o: any) => any>(Base: T) {
   if (!(Base as any).elementable) throw new Error('must be elementable')
+  if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
   if (!(Base as any).draggable) throw new Error('must be draggable')
   
   class Mixin extends (Base as new (...a: any[]) => any) implements PointerDraggableInstance {
