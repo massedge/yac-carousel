@@ -11,6 +11,8 @@ export interface Nudgeable {
 export interface NudgeableInstance {
   nudge: (offset: number, ease: boolean) => boolean
   settle: () => void
+  on: <K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) => void
+  off: <K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) => void
 }
 
 interface UnsettledNudge {
