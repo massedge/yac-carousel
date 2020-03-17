@@ -2,6 +2,9 @@ import { WithOptional } from './types'
 
 // container
 import Base from './container/base';
+import Draggable from './container/draggable/base';
+import ElementEventable from './container/element-eventable';
+import Elementable from './container/elementable';
 import Itemizable from './container/itemizable';
 import MouseDraggable from './container/draggable/mouse';
 import Nudgeable from './container/nudgeable';
@@ -21,9 +24,12 @@ const Carousel =
     TouchDraggable(
     PointerDraggable(
     MouseDraggable(
+    Draggable(
+    Elementable(
+    ElementEventable(
     Nudgeable(
       Base
-    ))))),
+    )))))))),
     ItemVisible(ItemElementable)
   ))
 

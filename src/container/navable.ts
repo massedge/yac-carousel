@@ -1,5 +1,4 @@
 import { ComposeConstructor } from "../types"
-import Elementable from './elementable'
 
 export interface NavableOptions {
   previousText: string
@@ -20,9 +19,9 @@ export interface NavableInstance {
 }
 
 export default function Navable<T extends new (o: any) => any>(Base: T) {
-  const Base2 = Elementable(Base)
+  if (!(Base as any).elementable) throw new Error('must be elementable')
   
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements NavableInstance {
+  class Mixin extends (Base as new (...a: any[]) => any) implements NavableInstance {
     #options: NavableOptions
     private elPrevious: HTMLElement | null = null
     private elNext: HTMLElement | null = null
@@ -125,5 +124,5 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<Navable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Navable, typeof Base>
 }

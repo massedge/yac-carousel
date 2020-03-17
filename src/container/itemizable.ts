@@ -2,8 +2,7 @@ import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
 
 import { getBounds } from "../helpers/get-bounds";
-import Elementable from "./elementable";
-import { NudgeableEvent, NudgeableEventMap, NudgeEventDetail, SettleEventDetail } from "./nudgeable";
+import { NudgeableEvent, NudgeableEventMap } from "./nudgeable";
 import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
 
 export interface ItemizableOptions<Item extends ElementableItem> {
@@ -40,13 +39,10 @@ export default function Itemizable<T extends new (o: any) => any, Item extends E
   Base: T,
   defaultItemConstructor: NonNullable<ItemizableOptions<Item>['itemConstructor']>
 ) {
-  const Base2 = Elementable(Base)
+  if (!(Base as any).elementable) throw new Error('must be elementable')
 
-  // singleton mixin
-  if ((Base as any).itemizable) return Base as ComposeConstructor<Itemizable<Item>, typeof Base2>
-
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements ItemizableInstance<Item> {
-    static itemizable = true
+  class Mixin extends (Base as new (...a: any[]) => any) implements ItemizableInstance<Item> {
+    static readonly itemizable = true
 
     #options: Required<ItemizableOptions<Item>>
     #items: Item[] = []
@@ -203,6 +199,6 @@ export default function Itemizable<T extends new (o: any) => any, Item extends E
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<Itemizable<Item>, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Itemizable<Item>, typeof Base>
 }
 

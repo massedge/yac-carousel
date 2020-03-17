@@ -1,7 +1,6 @@
 import _debounce from 'lodash-es/debounce'
 
 import { ComposeConstructor } from "../types"
-import Elementable from './elementable'
 
 export interface WheelableOptions {
 }
@@ -16,9 +15,9 @@ export interface WheelableInstance {
 }
 
 export default function Wheelable<T extends new (o: any) => any>(Base: T) {
-  const Base2 = Elementable(Base)
+  if (!(Base as any).elementable) throw new Error('must be elementable')
   
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements WheelableInstance {
+  class Mixin extends (Base as new (...a: any[]) => any) implements WheelableInstance {
     private wheelFn: (e: WheelEvent) => void
 
     constructor(options?: WheelableOptions) {
@@ -62,5 +61,5 @@ export default function Wheelable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<Wheelable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Wheelable, typeof Base>
 }

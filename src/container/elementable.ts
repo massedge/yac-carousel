@@ -1,8 +1,6 @@
 import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
 
-import ElementEventable from "./element-eventable";
-
 export interface ElementableOptions {
   element: HTMLElement
   direction?: Direction
@@ -17,16 +15,14 @@ export interface ElementableInstance {
 }
 
 
-export default function Elementable<T extends new (o: any) => any>(Base: T) {
-  const Base2 = ElementEventable(Base)
-
+export default function Elementable<T extends new (o: {
+  asdf: () => void
+}) => any>(Base: T) {
+  if (!(Base as any).elementEventable) throw new Error('must be element eventable')
   if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
 
-  // ensure not mixed in more than once
-  if ((Base as any).elementable) return Base as ComposeConstructor<Elementable, typeof Base2>
-
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements ElementableInstance {
-    static elementable = true
+  class Mixin extends (Base as new (...a: any[]) => any) implements ElementableInstance {
+    static readonly elementable = true
 
     #options: Required<ElementableOptions>
 
@@ -49,6 +45,6 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<Elementable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<Elementable, typeof Base>
 }
 

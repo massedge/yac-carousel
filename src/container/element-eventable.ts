@@ -14,9 +14,6 @@ export interface ElementEventableInstance {
 }
 
 export default function ElementEventable<T extends new (o: any) => any>(Base: T) {
-  // ensure not mixed in more than once
-  if ((Base as any).elementEventable) return Base as ComposeConstructor<ElementEventable, typeof Base>
-
   class Mixin extends (Base as new (...a: any[]) => {element: HTMLElement}) implements ElementEventableInstance {
       static readonly elementEventable = true
 

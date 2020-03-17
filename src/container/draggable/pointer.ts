@@ -1,6 +1,4 @@
 import { ComposeConstructor } from "../../types"
-import Draggable from './base'
-import Elementable from '../elementable'
 import Direction from  '../../enums/direction'
 
 export interface PointerDraggableOptions {
@@ -16,9 +14,10 @@ export interface PointerDraggableInstance {
 }
 
 export default function PointerDraggable<T extends new (o: any) => any>(Base: T) {
-  const Base2 = Draggable(Elementable(Base))
+  if (!(Base as any).elementable) throw new Error('must be elementable')
+  if (!(Base as any).draggable) throw new Error('must be draggable')
   
-  class Mixin extends (Base2 as new (...a: any[]) => any) implements PointerDraggableInstance {
+  class Mixin extends (Base as new (...a: any[]) => any) implements PointerDraggableInstance {
     private pointerDownFn: (e: PointerEvent) => void
     private pointerMoveFn: (e: PointerEvent) => void
     private pointerUpFn: (e: PointerEvent) => void
@@ -104,6 +103,6 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
   };
   
-  return Mixin as unknown as ComposeConstructor<PointerDraggable, typeof Base2>
+  return Mixin as unknown as ComposeConstructor<PointerDraggable, typeof Base>
 }
 

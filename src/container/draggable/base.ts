@@ -13,11 +13,8 @@ export interface DraggableInstance {
 }
 
 export default function Draggable<T extends new (o: any) => any>(Base: T) {
-  // ensure draggable is not mixed in more than once
-  if ((Base as any).draggable) return Base as ComposeConstructor<Draggable, typeof Base>
-
   class Mixin extends (Base as new (...a: any[]) => {}) implements DraggableInstance {
-      static draggable = true
+      static readonly draggable = true
 
       private _dragging: boolean = false
       protected readonly preventDraggingOverride: Required<DraggableOptions['preventDragging']>

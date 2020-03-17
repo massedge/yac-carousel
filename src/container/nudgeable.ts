@@ -42,11 +42,8 @@ export interface NudgeableEventMap {
 }
 
 export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
-  // ensure not mixed in more than once
-  if ((Base as any).nudgeable) return Base as ComposeConstructor<Nudgeable, typeof Base>
-
   class Mixin extends (Base as new (...a: any[]) => any) implements NudgeableInstance {
-    static nudgeable = true
+    static readonly nudgeable = true
 
     #unsettledNudges: UnsettledNudge[] = []
 
