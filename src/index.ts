@@ -4,6 +4,8 @@ export {default as Direction} from './enums/direction'
 // container
 export {default as ContainerBase} from './container/base'
 export {default as ContainerItemizable} from './container/itemizable'
+export {default as ContainerBaseDraggable} from './container/draggable/base'
+export {default as ContainerDraggable} from './container/draggable'
 export {default as ContainerMouseDraggable} from './container/draggable/mouse'
 export {default as ContainerNavable} from './container/navable'
 export {default as ContainerNudgeable} from './container/nudgeable'

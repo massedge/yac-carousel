@@ -1,28 +1,28 @@
 import { ComposeConstructor } from "../../types"
 
-export interface DraggableOptions {
+export interface BaseDraggableOptions {
   preventDragging?: (e: Event, prevented: boolean) => boolean
 }
 
-export interface Draggable {
-  new(options?: DraggableOptions): DraggableInstance
+export interface BaseDraggable {
+  new(options?: BaseDraggableOptions): BaseDraggableInstance
   draggable: boolean
 }
 
-export interface DraggableInstance {
+export interface BaseDraggableInstance {
 }
 
-export default function Draggable<T extends new (o: any) => any>(Base: T) {
-  class Mixin extends (Base as new (...a: any[]) => {}) implements DraggableInstance {
+export default function BaseDraggable<T extends new (o: any) => any>(Base: T) {
+  class Mixin extends (Base as new (...a: any[]) => {}) implements BaseDraggableInstance {
       static readonly draggable = true
 
       private _dragging: boolean = false
-      protected readonly preventDraggingOverride: Required<DraggableOptions['preventDragging']>
+      protected readonly preventDraggingOverride: Required<BaseDraggableOptions['preventDragging']>
 
       constructor({
         preventDragging = () => false,
         ...otherOptions
-      }: DraggableOptions) {
+      }: BaseDraggableOptions) {
         super({preventDragging, ...otherOptions})
         this.preventDraggingOverride = preventDragging
       }
@@ -37,5 +37,5 @@ export default function Draggable<T extends new (o: any) => any>(Base: T) {
       }
   }
   
-  return Mixin as unknown as ComposeConstructor<Draggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<BaseDraggable, typeof Base>
 }
