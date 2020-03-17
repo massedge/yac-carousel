@@ -2,7 +2,8 @@ import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
 
 import { getBounds } from "../helpers/get-bounds";
-import Elementable, { NudgeEventDetail, SettleEventDetail } from "./elementable";
+import Elementable from "./elementable";
+import { NudgeableEvent, NudgeableEventMap, NudgeEventDetail, SettleEventDetail } from "./nudgeable";
 import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
 
 export interface ItemizableOptions<Item extends ElementableItem> {
@@ -112,7 +113,7 @@ export default function Itemizable<T extends new (o: any) => any, Item extends E
         this.nudge(targetPosition - this.position, true)
       })
 
-      this.on('yacc:elementable:nudge', (e: CustomEvent<NudgeEventDetail>) => {
+      this.on(NudgeableEvent.NUDGE, (e: NudgeableEventMap[NudgeableEvent.NUDGE]) => {
         // this._warn('nudge');
 
         if (e.defaultPrevented) return
@@ -149,7 +150,7 @@ export default function Itemizable<T extends new (o: any) => any, Item extends E
         e.detail.shifted = shifted
       })
 
-      this.on('yacc:elementable:settle', (e: CustomEvent<SettleEventDetail>) => {
+      this.on(NudgeableEvent.SETTLE, (e: NudgeableEventMap[NudgeableEvent.SETTLE]) => {
         // this._warn('settle');
 
         const nudges = e.detail.unsettledNudges
