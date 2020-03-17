@@ -31,14 +31,12 @@ export interface SettleEventDetail {
   readonly unsettledNudges: UnsettledNudge[]
 }
 
-export enum NudgeableEvent {
-  NUDGE = 'yacc:nudgeable:nudge',
-  SETTLE = 'yacc:nudgeable:settle',
-}
+export const NUDGE_EVENT = 'yacc:nudgeable:nudge'
+export const SETTLE_EVENT = 'yacc:nudgeable:settle'
 
 export interface NudgeableEventMap {
-  [NudgeableEvent.NUDGE]: CustomEvent<NudgeEventDetail>
-  [NudgeableEvent.SETTLE]: CustomEvent<SettleEventDetail>
+  [NUDGE_EVENT]: CustomEvent<NudgeEventDetail>
+  [SETTLE_EVENT]: CustomEvent<SettleEventDetail>
 }
 
 export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
@@ -65,7 +63,7 @@ export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
       })
 
       // trigger event
-      const event = new CustomEvent<NudgeEventDetail>(NudgeableEvent.NUDGE, {
+      const event = new CustomEvent<NudgeEventDetail>(NUDGE_EVENT, {
         cancelable: true,
         detail: {
           offset,
@@ -80,7 +78,7 @@ export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
     
     settle(ease: boolean = true): void {
       // trigger event
-      const event = new CustomEvent<SettleEventDetail>(NudgeableEvent.SETTLE, {
+      const event = new CustomEvent<SettleEventDetail>(SETTLE_EVENT, {
         detail: {
           ease,
           unsettledNudges: this.#unsettledNudges
