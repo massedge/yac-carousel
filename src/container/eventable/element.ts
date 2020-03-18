@@ -5,7 +5,7 @@ export interface ElementEventableOptions {
 
 export interface ElementEventable {
   new(options?: ElementEventableOptions): ElementEventableInstance
-  eventable: boolean
+  readonly eventable: true
 }
 
 export interface ElementEventableInstance {

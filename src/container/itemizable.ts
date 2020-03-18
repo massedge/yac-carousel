@@ -16,7 +16,7 @@ export interface ItemizableOptions<Item extends ElementableItem> {
 
 export interface Itemizable<Item extends ElementableItem> {
   new(options: ItemizableOptions<Item>): ItemizableInstance<Item>
-  itemizable: boolean
+  readonly itemizable: true
 }
 
 export interface ItemizableInstance<Item extends ElementableItem> {

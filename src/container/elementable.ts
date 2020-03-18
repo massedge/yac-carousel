@@ -8,7 +8,7 @@ export interface ElementableOptions {
 
 export interface Elementable {
   new(options: ElementableOptions): ElementableInstance
-  elementable: boolean
+  readonly elementable: true
 }
 
 export interface ElementableInstance {

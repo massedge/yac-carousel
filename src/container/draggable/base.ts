@@ -6,7 +6,7 @@ export interface BaseDraggableOptions {
 
 export interface BaseDraggable {
   new(options?: BaseDraggableOptions): BaseDraggableInstance
-  draggable: boolean
+  readonly draggable: true
 }
 
 export interface BaseDraggableInstance {

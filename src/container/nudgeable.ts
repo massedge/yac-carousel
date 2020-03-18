@@ -5,7 +5,7 @@ export interface NudgeableOptions {
 
 export interface Nudgeable {
   new(options: NudgeableOptions): NudgeableInstance
-  elementable: boolean
+  readonly nudgeable: true
 }
 
 export interface NudgeableInstance {
