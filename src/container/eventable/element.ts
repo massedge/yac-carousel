@@ -1,10 +1,10 @@
 import { ComposeConstructor } from "../../types"
 
-export interface ElementEventabledOptions {
+export interface ElementEventableOptions {
 }
 
 export interface ElementEventable {
-  new(options?: ElementEventabledOptions): ElementEventableInstance
+  new(options?: ElementEventableOptions): ElementEventableInstance
   eventable: boolean
 }
 
