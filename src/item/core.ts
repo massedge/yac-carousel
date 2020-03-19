@@ -1,7 +1,7 @@
 import { getBounds } from "../utils/get-bounds";
 import Direction from "../enums/direction";
 
-export default class BaseItem {
+export default class CoreItem {
   static readonly elementable = true
   
   private _element: HTMLElement

@@ -1,5 +1,5 @@
 // container
-import Base from './container/base';
+import Core from './container/core';
 import Draggable from './container/draggable';
 import ElementEventable from './container/eventable/element';
 import Elementable from './container/elementable';
@@ -9,7 +9,7 @@ import Visible from './container/visible';
 import Wheelable from './container/wheelable';
 
 // item
-import ItemBase from './item/base'
+import ItemCore from './item/core'
 import ItemVisible from './item/visible'
 
 const Carousel =
@@ -20,9 +20,9 @@ const Carousel =
     Nudgeable(
     ElementEventable(
     Elementable(
-      Base
+      Core
     ))))),
-    ItemVisible(ElementEventable(ItemBase))
+    ItemVisible(ElementEventable(ItemCore))
   ))
 
 export default Carousel

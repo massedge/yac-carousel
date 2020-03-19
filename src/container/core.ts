@@ -5,12 +5,12 @@ import {
   EventDetailIndexChange,
 } from "./event-map";
 
-export interface BaseOptions {
+export interface CoreOptions {
   warn?: (message: string) => void
 }
 
-export default class Base {
-  #warn: BaseOptions['warn']
+export default class Core {
+  #warn: CoreOptions['warn']
 
   // private
   private _index: number = 0;
@@ -18,7 +18,7 @@ export default class Base {
 
   constructor({
     warn = console.warn.bind(console)
-  }: BaseOptions) {
+  }: CoreOptions) {
     this.#warn = warn
   }
 

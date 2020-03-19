@@ -2,20 +2,20 @@
 export {default as Direction} from './enums/direction'
 
 // container
-export {default as ContainerBase} from './container/base'
+export {default as ContainerCore} from './container/core'
 export {default as ContainerItemizable} from './container/itemizable'
-export {default as ContainerBaseDraggable} from './container/draggable/base'
+export {default as ContainerDraggableCore} from './container/draggable/core'
 export {default as ContainerDraggable} from './container/draggable'
-export {default as ContainerMouseDraggable} from './container/draggable/mouse'
+export {default as ContainerDraggableMouse} from './container/draggable/mouse'
+export {default as ContainerDraggablePointer} from './container/draggable/pointer'
+export {default as ContainerDraggableTouch} from './container/draggable/touch'
 export {default as ContainerNavable} from './container/navable'
 export {default as ContainerNudgeable} from './container/nudgeable'
-export {default as ContainerPointerDraggable} from './container/draggable/pointer'
-export {default as ContainerTouchDraggable} from './container/draggable/touch'
 export {default as ContainerVisible} from './container/visible'
 export {default as ContainerWheelable} from './container/wheelable'
 
 // item
-export {default as ItemBase} from './item/base'
+export {default as ItemCore} from './item/core'
 export {default as ItemVisible} from './item/visible'
 
 export {default} from './carousel'
