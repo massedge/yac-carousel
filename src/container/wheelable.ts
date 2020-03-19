@@ -1,12 +1,14 @@
 import _debounce from 'lodash-es/debounce'
 
 import { ComposeConstructor } from "../types"
+import { Elementable, ElementableInstance, ElementableOptions } from './elementable';
+import Core from './core';
 
-export interface WheelableOptions {
+export interface WheelableOptions extends ElementableOptions {
 }
 
 export interface Wheelable {
-  new(options?: WheelableOptions): WheelableInstance
+  new(options: WheelableOptions): WheelableInstance
 }
 
 export interface WheelableInstance {
@@ -14,13 +16,13 @@ export interface WheelableInstance {
   destroy: () => void
 }
 
-export default function Wheelable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-  
-  class Mixin extends (Base as new (...a: any[]) => any) implements WheelableInstance {
+export default function Wheelable<T extends {
+  new (options: any): ElementableInstance & Core
+} & Pick<Elementable, keyof Elementable>>(Base: T) {
+  class Mixin extends (Base as unknown as new (options: WheelableOptions) => ElementableInstance & Core) implements WheelableInstance {
     private wheelFn: (e: WheelEvent) => void
 
-    constructor(options?: WheelableOptions) {
+    constructor(options: WheelableOptions) {
       super(options);
 
       // use debounce allow for more fine-grained navigation when using touchpad

@@ -1,7 +1,8 @@
 import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
+import Core, { CoreOptions } from "./core"
 
-export interface ElementableOptions {
+export interface ElementableOptions extends CoreOptions {
   element: HTMLElement
   direction?: Direction
 }
@@ -12,6 +13,7 @@ export interface Elementable {
 }
 
 export interface ElementableInstance {
+  readonly element: HTMLElement
 }
 
 
@@ -19,7 +21,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => any) implements ElementableInstance {
     static readonly elementable = true
 
-    #options: Required<ElementableOptions>
+    #options: Required<Pick<ElementableOptions, 'element' | 'direction'>>
 
     constructor({
       element,
