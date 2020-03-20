@@ -11,10 +11,12 @@ export interface ElementEventable {
 export interface ElementEventableInstance {
 }
 
-export default function ElementEventable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
+export interface ElementEventableBase {
+  readonly element: HTMLElement
+}
 
-  class Mixin extends (Base as new (...a: any[]) => {element: HTMLElement}) implements ElementEventableInstance {
+export default function ElementEventable<T extends new (o: any) => ElementEventableBase>(Base: T) {
+  class Mixin extends (Base as new (options: ElementEventableOptions) => ElementEventableBase) implements ElementEventableInstance {
     static readonly eventable = true
 
     protected on(type: string, listener: (evt: CustomEvent) => void) {
