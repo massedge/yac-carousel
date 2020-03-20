@@ -17,10 +17,15 @@ c.render();
 const elVertical = document.querySelector<HTMLElement>('.carousel.flex.vertical');
 if (!elVertical) throw Error('Vertical carousel element not found.');
 
+const elPrevious = document.querySelector<HTMLElement>('.vertical-previous')
+if (!elPrevious) throw Error('Previous button for vertical carousel not found.')
+const elNext = document.querySelector<HTMLElement>('.vertical-next')
+if (!elNext) throw Error('Next button for vertical carousel not found.')
+
 const cVertical = new (ContainerNavablePreviousNextHandler(YacCarousel))({
   element: elVertical,
   direction: Direction.VERTICAL,
-  elPrevious: document.querySelector<HTMLElement>('.vertical-previous'),
-  elNext: document.querySelector<HTMLElement>('.vertical-next'),
+  elPrevious,
+  elNext,
 })
 cVertical.render();
