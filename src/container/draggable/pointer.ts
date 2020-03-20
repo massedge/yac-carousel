@@ -26,23 +26,23 @@ export interface PointerDraggableBase extends
 
 export default function PointerDraggable<T extends new (o: any) => PointerDraggableBase>(Base: T) {
   class Mixin extends (Base as new (options: PointerDraggableOptions) => PointerDraggableBase) implements PointerDraggableInstance {
-    private pointerDownFn: (e: PointerEvent) => void
-    private pointerMoveFn: (e: PointerEvent) => void
-    private pointerUpFn: (e: PointerEvent) => void
-    private pointerLastCoordinate: number = 0
+    #pointerDownFn: (e: PointerEvent) => void
+    #pointerMoveFn: (e: PointerEvent) => void
+    #pointerUpFn: (e: PointerEvent) => void
+    #pointerLastCoordinate: number = 0
 
     constructor(options: PointerDraggableOptions) {
       super(options)
 
-      this.pointerDownFn = this.pointerDown.bind(this);
-      this.pointerMoveFn = this.pointerMove.bind(this);
-      this.pointerUpFn = this.pointerUp.bind(this);
+      this.#pointerDownFn = this.pointerDown.bind(this);
+      this.#pointerMoveFn = this.pointerMove.bind(this);
+      this.#pointerUpFn = this.pointerUp.bind(this);
     }
     
     render() {
       super.render();
 
-      this.element.addEventListener('pointerdown', this.pointerDownFn);
+      this.element.addEventListener('pointerdown', this.#pointerDownFn);
     }
 
     private preventDragging(e: PointerEvent) {
@@ -63,7 +63,7 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
 
       this._dragging = true;
       
-      this.pointerLastCoordinate = this.getMouseEventCoordinate(e);
+      this.#pointerLastCoordinate = this.getMouseEventCoordinate(e);
 
       this.attachPointerFns()
 
@@ -72,11 +72,11 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
 
     private pointerMove(e: PointerEvent) {
       const coordinate = this.getMouseEventCoordinate(e);
-      const difference = coordinate - this.pointerLastCoordinate;
+      const difference = coordinate - this.#pointerLastCoordinate;
       
       this.nudge(difference);
 
-      this.pointerLastCoordinate = coordinate;
+      this.#pointerLastCoordinate = coordinate;
     }
 
     private pointerUp(e: PointerEvent) {
@@ -92,22 +92,22 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
     }
 
     destroy() {
-      this.element.removeEventListener('pointerdown', this.pointerDownFn);
+      this.element.removeEventListener('pointerdown', this.#pointerDownFn);
       this.detachPointerFns()
 
       super.destroy();
     }
 
     private attachPointerFns() {
-      this.element.ownerDocument?.addEventListener('pointermove', this.pointerMoveFn);
-      this.element.ownerDocument?.addEventListener('pointerup', this.pointerUpFn);
-      this.element.ownerDocument?.addEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument?.addEventListener('pointermove', this.#pointerMoveFn);
+      this.element.ownerDocument?.addEventListener('pointerup', this.#pointerUpFn);
+      this.element.ownerDocument?.addEventListener('pointercancel', this.#pointerUpFn);
     }
 
     private detachPointerFns() {
-      this.element.ownerDocument?.removeEventListener('pointermove', this.pointerMoveFn);
-      this.element.ownerDocument?.removeEventListener('pointerup', this.pointerUpFn);
-      this.element.ownerDocument?.removeEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument?.removeEventListener('pointermove', this.#pointerMoveFn);
+      this.element.ownerDocument?.removeEventListener('pointerup', this.#pointerUpFn);
+      this.element.ownerDocument?.removeEventListener('pointercancel', this.#pointerUpFn);
     }
   };
   

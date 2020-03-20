@@ -27,13 +27,13 @@ export default function Wheelable<T extends {
   new (options: any): WheelableBase
 }>(Base: T) {
   class Mixin extends (Base as unknown as new (options: WheelableOptions) => WheelableBase) implements WheelableInstance {
-    private wheelFn: (e: WheelEvent) => void
+    #wheelFn: (e: WheelEvent) => void
 
     constructor(options: WheelableOptions) {
       super(options);
 
       // use debounce allow for more fine-grained navigation when using touchpad
-      this.wheelFn = _debounce(this.wheel.bind(this), 15, {
+      this.#wheelFn = _debounce(this.wheel.bind(this), 15, {
         leading: true,
         trailing: true,
       })
@@ -42,7 +42,7 @@ export default function Wheelable<T extends {
     render() {
       super.render();
 
-      this.element.addEventListener('wheel', this.wheelFn);
+      this.element.addEventListener('wheel', this.#wheelFn);
     }
 
     private wheel(e: WheelEvent) {
@@ -65,7 +65,7 @@ export default function Wheelable<T extends {
     }
 
     destroy() {
-      this.element.removeEventListener('wheel', this.wheelFn);
+      this.element.removeEventListener('wheel', this.#wheelFn);
       super.destroy();
     }
   }

@@ -26,23 +26,23 @@ export interface TouchDraggableBase extends
 
 export default function TouchDraggable<T extends new (o: any) => TouchDraggableBase>(Base: T) {
   class Mixin extends (Base as new (options: TouchDraggableOptions) => TouchDraggableBase) implements TouchDraggableInstance {
-    private touchStartFn: (e: TouchEvent) => void
-    private touchMoveFn: (e: TouchEvent) => void
-    private touchEndFn: (e: TouchEvent) => void
-    private touchLastCoordinate: number = 0
+    #touchStartFn: (e: TouchEvent) => void
+    #touchMoveFn: (e: TouchEvent) => void
+    #touchEndFn: (e: TouchEvent) => void
+    #touchLastCoordinate: number = 0
 
     constructor(options: TouchDraggableOptions) {
       super(options)
 
-      this.touchStartFn = this.touchStart.bind(this);
-      this.touchMoveFn = this.touchMove.bind(this);
-      this.touchEndFn = this.touchEnd.bind(this);
+      this.#touchStartFn = this.touchStart.bind(this);
+      this.#touchMoveFn = this.touchMove.bind(this);
+      this.#touchEndFn = this.touchEnd.bind(this);
     }
     
     render() {
       super.render();
 
-      this.element.addEventListener('touchstart', this.touchStartFn);
+      this.element.addEventListener('touchstart', this.#touchStartFn);
     }
 
     private preventDragging(e: TouchEvent) {
@@ -59,7 +59,7 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
 
       this._dragging = true;
 
-      this.touchLastCoordinate = this.getTouchEventCoordinate(e);
+      this.#touchLastCoordinate = this.getTouchEventCoordinate(e);
 
       this.attachTouchFns()
 
@@ -71,11 +71,11 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
 
     private touchMove(e: TouchEvent) {
       const coordinate = this.getTouchEventCoordinate(e);
-      const difference = coordinate - this.touchLastCoordinate;
+      const difference = coordinate - this.#touchLastCoordinate;
       
       this.nudge(difference);
 
-      this.touchLastCoordinate = coordinate;
+      this.#touchLastCoordinate = coordinate;
     }
 
     private touchEnd(e: TouchEvent) {
@@ -92,21 +92,21 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
     }
 
     destroy() {
-      this.element.removeEventListener('touchstart', this.touchStartFn);
+      this.element.removeEventListener('touchstart', this.#touchStartFn);
       this.detachTouchFns()
       super.destroy();
     }
 
     private attachTouchFns() {
-      this.element.ownerDocument?.addEventListener('touchmove', this.touchMoveFn);
-      this.element.ownerDocument?.addEventListener('touchend', this.touchEndFn);
-      this.element.ownerDocument?.addEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument?.addEventListener('touchmove', this.#touchMoveFn);
+      this.element.ownerDocument?.addEventListener('touchend', this.#touchEndFn);
+      this.element.ownerDocument?.addEventListener('touchcancel', this.#touchEndFn);
     }
 
     private detachTouchFns() {
-      this.element.ownerDocument?.removeEventListener('touchmove', this.touchMoveFn);
-      this.element.ownerDocument?.removeEventListener('touchend', this.touchEndFn);
-      this.element.ownerDocument?.removeEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument?.removeEventListener('touchmove', this.#touchMoveFn);
+      this.element.ownerDocument?.removeEventListener('touchend', this.#touchEndFn);
+      this.element.ownerDocument?.removeEventListener('touchcancel', this.#touchEndFn);
     }
   };
   

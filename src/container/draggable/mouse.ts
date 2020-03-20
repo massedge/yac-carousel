@@ -26,23 +26,23 @@ export interface MouseDraggableBase extends
 
 export default function MouseDraggable<T extends new (o: any) => MouseDraggableBase>(Base: T) {
   class Mixin extends (Base as new (options: MouseDraggableOptions) => MouseDraggableBase) implements MouseDraggableInstance {
-    private mouseDownFn: (e: MouseEvent) => void
-    private mouseMoveFn: (e: MouseEvent) => void
-    private mouseUpFn: (e: MouseEvent) => void
-    private mouseLastCoordinate: number = 0
+    #mouseDownFn: (e: MouseEvent) => void
+    #mouseMoveFn: (e: MouseEvent) => void
+    #mouseUpFn: (e: MouseEvent) => void
+    #mouseLastCoordinate: number = 0
 
     constructor(options: MouseDraggableOptions) {
       super(options)
 
-      this.mouseDownFn = this.mouseDown.bind(this);
-      this.mouseMoveFn = this.mouseMove.bind(this);
-      this.mouseUpFn = this.mouseUp.bind(this);
+      this.#mouseDownFn = this.mouseDown.bind(this);
+      this.#mouseMoveFn = this.mouseMove.bind(this);
+      this.#mouseUpFn = this.mouseUp.bind(this);
     }
     
     render() {
       super.render();
 
-      this.element.addEventListener('mousedown', this.mouseDownFn);
+      this.element.addEventListener('mousedown', this.#mouseDownFn);
     }
 
     private preventDragging(e: MouseEvent): boolean {
@@ -67,7 +67,7 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
 
       this._dragging = true;
       
-      this.mouseLastCoordinate = this.getMouseEventCoordinate(e);
+      this.#mouseLastCoordinate = this.getMouseEventCoordinate(e);
 
       this.attachMouseFns()
       
@@ -76,11 +76,11 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
 
     private mouseMove(e: MouseEvent) {
       const coordinate = this.getMouseEventCoordinate(e);
-      const difference = coordinate - this.mouseLastCoordinate;
+      const difference = coordinate - this.#mouseLastCoordinate;
       
       this.nudge(difference);
 
-      this.mouseLastCoordinate = coordinate;
+      this.#mouseLastCoordinate = coordinate;
     }
 
     private mouseUp(e: MouseEvent) {
@@ -96,19 +96,19 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
     }
 
     destroy() {
-      this.element.removeEventListener('mousedown', this.mouseDownFn);
+      this.element.removeEventListener('mousedown', this.#mouseDownFn);
       this.detachMouseFns()
       super.destroy();
     }
 
     private attachMouseFns() {
-      this.element.ownerDocument?.addEventListener('mousemove', this.mouseMoveFn);
-      this.element.ownerDocument?.addEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument?.addEventListener('mousemove', this.#mouseMoveFn);
+      this.element.ownerDocument?.addEventListener('mouseup', this.#mouseUpFn);
     }
 
     private detachMouseFns() {
-      this.element.ownerDocument?.removeEventListener('mousemove', this.mouseMoveFn);
-      this.element.ownerDocument?.removeEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument?.removeEventListener('mousemove', this.#mouseMoveFn);
+      this.element.ownerDocument?.removeEventListener('mouseup', this.#mouseUpFn);
     }
   }
   
