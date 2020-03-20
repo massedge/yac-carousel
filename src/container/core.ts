@@ -11,10 +11,8 @@ export interface CoreOptions {
 
 export default class Core {
   #warn: CoreOptions['warn']
-
-  // private
-  private _index: number = 0;
-  private _rendered: boolean = false;
+  #index: number = 0;
+  #rendered: boolean = false;
 
   constructor({
     warn = console.warn.bind(console)
@@ -29,20 +27,12 @@ export default class Core {
   _emit(e: Event) { /**/ }
 
   render() {
-    if (this.rendered) {
-      this._warn('Carousel has already been rendered.');
-      return;
-    }
-
-    this._rendered = true;
+    if (this.#rendered) throw new Error('Carousel has already been rendered.')
+    this.#rendered = true;
   }
 
   get index() {
-    return this._index;
-  }
-  
-  get rendered() {
-    return this._rendered;
+    return this.#index;
   }
 
   next() {
@@ -67,7 +57,7 @@ export default class Core {
       return false;
     }
 
-    this._index = index;
+    this.#index = index;
 
     const eAfter = new CustomEvent<EventDetailIndexChange>(EVENT_TYPE_INDEX_CHANGE_AFTER, {
       detail: {
