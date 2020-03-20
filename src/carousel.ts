@@ -1,10 +1,6 @@
 // container
 import Core from './container/core';
 import Draggable from './container/draggable';
-import DraggableCore from './container/draggable/core';
-import DraggableMouse from './container/draggable/mouse';
-import DraggablePointer from './container/draggable/pointer';
-import DraggableTouch from './container/draggable/touch';
 import ElementEventable from './container/eventable/element';
 import Elementable from './container/elementable';
 import Itemizable from './container/itemizable';
@@ -21,16 +17,11 @@ const Carousel =
   Itemizable(
     Wheelable(
     Draggable(
-    // DraggableTouch(DraggablePointer(DraggableMouse(DraggableCore(
-      Nudgeable(
-      ElementEventable(
-      Elementable(
-        Core
-      )))
-    // ))))
-    )
-    )
-    ,
+    Nudgeable(
+    ElementEventable(
+    Elementable(
+      Core
+    ))))),
     ItemVisible(ElementEventable(ItemCore))
   ))
 
