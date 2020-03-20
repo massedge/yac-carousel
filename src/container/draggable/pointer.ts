@@ -1,11 +1,14 @@
 import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
+import { NudgeableInstance } from "../nudgeable"
+import { ElementableInstance } from "../elementable"
+import { CoreDraggableInstance } from "./core"
 
 export interface PointerDraggableOptions {
 }
 
 export interface PointerDraggable {
-  new(options?: PointerDraggableOptions): PointerDraggableInstance
+  new(options: PointerDraggableOptions): PointerDraggableInstance
 }
 
 export interface PointerDraggableInstance {
@@ -13,18 +16,22 @@ export interface PointerDraggableInstance {
   destroy: () => void
 }
 
-export default function PointerDraggable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-  if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
-  if (!(Base as any).draggable) throw new Error('must be draggable')
-  
-  class Mixin extends (Base as new (...a: any[]) => any) implements PointerDraggableInstance {
+export interface PointerDraggableBase extends
+  Pick<ElementableInstance, 'element' | 'direction'>,
+  Pick<NudgeableInstance, 'nudge' | 'settle'>,
+  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  render(): void
+  destroy(): void
+}
+
+export default function PointerDraggable<T extends new (o: any) => PointerDraggableBase>(Base: T) {
+  class Mixin extends (Base as new (options: PointerDraggableOptions) => PointerDraggableBase) implements PointerDraggableInstance {
     private pointerDownFn: (e: PointerEvent) => void
     private pointerMoveFn: (e: PointerEvent) => void
     private pointerUpFn: (e: PointerEvent) => void
     private pointerLastCoordinate: number = 0
 
-    constructor(options?: PointerDraggableOptions) {
+    constructor(options: PointerDraggableOptions) {
       super(options)
 
       this.pointerDownFn = this.pointerDown.bind(this);
@@ -51,7 +58,7 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
 
     private pointerDown(e: PointerEvent) {
-      if (this.dragging) {return}
+      if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
       (this as any).dragging = true;
@@ -92,15 +99,15 @@ export default function PointerDraggable<T extends new (o: any) => any>(Base: T)
     }
 
     private attachPointerFns() {
-      this.element.ownerDocument.addEventListener('pointermove', this.pointerMoveFn);
-      this.element.ownerDocument.addEventListener('pointerup', this.pointerUpFn);
-      this.element.ownerDocument.addEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument?.addEventListener('pointermove', this.pointerMoveFn);
+      this.element.ownerDocument?.addEventListener('pointerup', this.pointerUpFn);
+      this.element.ownerDocument?.addEventListener('pointercancel', this.pointerUpFn);
     }
 
     private detachPointerFns() {
-      this.element.ownerDocument.removeEventListener('pointermove', this.pointerMoveFn);
-      this.element.ownerDocument.removeEventListener('pointerup', this.pointerUpFn);
-      this.element.ownerDocument.removeEventListener('pointercancel', this.pointerUpFn);
+      this.element.ownerDocument?.removeEventListener('pointermove', this.pointerMoveFn);
+      this.element.ownerDocument?.removeEventListener('pointerup', this.pointerUpFn);
+      this.element.ownerDocument?.removeEventListener('pointercancel', this.pointerUpFn);
     }
   };
   

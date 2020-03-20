@@ -1,11 +1,14 @@
 import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
+import { NudgeableInstance } from "../nudgeable"
+import { ElementableInstance } from "../elementable"
+import { CoreDraggableInstance } from "./core"
 
 export interface MouseDraggableOptions {
 }
 
 export interface MouseDraggable {
-  new(options?: MouseDraggableOptions): MouseDraggableInstance
+  new(options: MouseDraggableOptions): MouseDraggableInstance
 }
 
 export interface MouseDraggableInstance {
@@ -13,18 +16,22 @@ export interface MouseDraggableInstance {
   destroy: () => void
 }
 
-export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-  if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
-  if (!(Base as any).draggable) throw new Error('must be draggable')
+export interface MouseDraggableBase extends
+  Pick<ElementableInstance, 'element' | 'direction'>,
+  Pick<NudgeableInstance, 'nudge' | 'settle'>,
+  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  render(): void
+  destroy(): void
+}
 
-  class Mixin extends (Base as new (...a: any[]) => any) implements MouseDraggableInstance {
+export default function MouseDraggable<T extends new (o: any) => MouseDraggableBase>(Base: T) {
+  class Mixin extends (Base as new (options: MouseDraggableOptions) => MouseDraggableBase) implements MouseDraggableInstance {
     private mouseDownFn: (e: MouseEvent) => void
     private mouseMoveFn: (e: MouseEvent) => void
     private mouseUpFn: (e: MouseEvent) => void
     private mouseLastCoordinate: number = 0
 
-    constructor(options?: MouseDraggableOptions) {
+    constructor(options: MouseDraggableOptions) {
       super(options)
 
       this.mouseDownFn = this.mouseDown.bind(this);
@@ -55,7 +62,7 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     private mouseDown(e: MouseEvent) {
-      if (this.dragging) {return}
+      if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
       (this as any).dragging = true;
@@ -95,13 +102,13 @@ export default function MouseDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     private attachMouseFns() {
-      this.element.ownerDocument.addEventListener('mousemove', this.mouseMoveFn);
-      this.element.ownerDocument.addEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument?.addEventListener('mousemove', this.mouseMoveFn);
+      this.element.ownerDocument?.addEventListener('mouseup', this.mouseUpFn);
     }
 
     private detachMouseFns() {
-      this.element.ownerDocument.removeEventListener('mousemove', this.mouseMoveFn);
-      this.element.ownerDocument.removeEventListener('mouseup', this.mouseUpFn);
+      this.element.ownerDocument?.removeEventListener('mousemove', this.mouseMoveFn);
+      this.element.ownerDocument?.removeEventListener('mouseup', this.mouseUpFn);
     }
   }
   

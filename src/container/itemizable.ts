@@ -25,6 +25,15 @@ export interface ItemizableInstance<Item extends ElementableItem> {
   items: readonly Item[]
 }
 
+export interface ItemizableBase {
+  readonly element: HTMLElement
+  render(): void
+  refresh(): void
+  nudge: (offset: number, ease: boolean) => boolean
+  on: (type: string, listener: (ev: CustomEvent) => void) => void
+  off: (type: string, listener: (ev: CustomEvent) => void) => void
+}
+
 export interface ElementableItem {
   active: boolean
   readonly length: number
@@ -35,13 +44,11 @@ export interface ElementableItem {
 }
 
 
-export default function Itemizable<T extends new (o: any) => any, Item extends ElementableItem>(
+export default function Itemizable<T extends new (o: any) => ItemizableBase, Item extends ElementableItem>(
   Base: T,
   defaultItemConstructor: NonNullable<ItemizableOptions<Item>['itemConstructor']>
 ) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-
-  class Mixin extends (Base as new (...a: any[]) => any) implements ItemizableInstance<Item> {
+  class Mixin extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase) implements ItemizableInstance<Item> {
     static readonly itemizable = true
 
     #options: Required<ItemizableOptions<Item>>

@@ -10,14 +10,16 @@ export interface CoreDraggable {
 }
 
 export interface CoreDraggableInstance {
+  _dragging: boolean
+  preventDraggingOverride: NonNullable<CoreDraggableOptions['preventDragging']>
 }
 
 export default function CoreDraggable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => {}) implements CoreDraggableInstance {
       static readonly draggable = true
 
-      private _dragging: boolean = false
-      protected readonly preventDraggingOverride: Required<CoreDraggableOptions['preventDragging']>
+      #dragging: boolean = false
+      preventDraggingOverride: NonNullable<CoreDraggableOptions['preventDragging']>
 
       constructor({
         preventDragging = () => false,
@@ -28,12 +30,12 @@ export default function CoreDraggable<T extends new (o: any) => any>(Base: T) {
       }
 
       // protected
-      protected set dragging(value) {
-        this._dragging = value;
+      set _dragging(value) {
+        this.#dragging = value;
       }
 
-      protected get dragging() {
-        return this._dragging;
+      get _dragging() {
+        return this.#dragging;
       }
   }
   

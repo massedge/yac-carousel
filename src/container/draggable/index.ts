@@ -1,8 +1,12 @@
-import Core from './core'
-import Mouse from './mouse'
-import Pointer from './pointer'
-import Touch from './touch'
+import { ComposeConstructor } from '../../types'
+import Core, { CoreDraggableInstance } from './core'
+import Mouse, { MouseDraggableBase } from './mouse'
+import Pointer, {PointerDraggableBase} from './pointer'
+import Touch, {TouchDraggableBase} from './touch'
 
-export default function Draggable<T extends new (o: any) => any>(Base: T) {
-  return Touch(Pointer(Mouse(Core(Base))))
+type DraggableConstructor = new (o: any) => Omit<MouseDraggableBase & PointerDraggableBase & TouchDraggableBase, keyof CoreDraggableInstance>
+
+export default function Draggable<T extends DraggableConstructor>(Base: T) {
+  const Mixin = Touch(Pointer(Mouse(Core<DraggableConstructor>(Base))))
+  return Mixin as ComposeConstructor<typeof Mixin, typeof Base>
 }

@@ -13,6 +13,7 @@ export interface Elementable {
 
 export interface ElementableInstance {
   readonly element: HTMLElement
+  readonly direction: Direction
 }
 
 
@@ -36,7 +37,7 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
       return this.#options.element;
     }
 
-    protected get direction() {
+    get direction() {
       return this.#options.direction
     }
   }

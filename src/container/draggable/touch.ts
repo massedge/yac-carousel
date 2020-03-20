@@ -1,11 +1,14 @@
 import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
+import { NudgeableInstance } from "../nudgeable"
+import { ElementableInstance } from "../elementable"
+import { CoreDraggableInstance } from "./core"
 
 export interface TouchDraggableOptions {
 }
 
 export interface TouchDraggable {
-  new(options?: TouchDraggableOptions): TouchDraggableInstance
+  new(options: TouchDraggableOptions): TouchDraggableInstance
 }
 
 export interface TouchDraggableInstance {
@@ -13,18 +16,22 @@ export interface TouchDraggableInstance {
   destroy: () => void
 }
 
-export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-  if (!(Base as any).nudgeable) throw new Error('must be nudgeable')
-  if (!(Base as any).draggable) throw new Error('must be draggable')
-  
-  class Mixin extends (Base as new (...a: any[]) => any) implements TouchDraggableInstance {
+export interface TouchDraggableBase extends
+  Pick<ElementableInstance, 'element' | 'direction'>,
+  Pick<NudgeableInstance, 'nudge' | 'settle'>,
+  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  render(): void
+  destroy(): void
+}
+
+export default function TouchDraggable<T extends new (o: any) => TouchDraggableBase>(Base: T) {
+  class Mixin extends (Base as new (options: TouchDraggableOptions) => TouchDraggableBase) implements TouchDraggableInstance {
     private touchStartFn: (e: TouchEvent) => void
     private touchMoveFn: (e: TouchEvent) => void
     private touchEndFn: (e: TouchEvent) => void
     private touchLastCoordinate: number = 0
 
-    constructor(options?: TouchDraggableOptions) {
+    constructor(options: TouchDraggableOptions) {
       super(options)
 
       this.touchStartFn = this.touchStart.bind(this);
@@ -47,7 +54,7 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     private touchStart(e: TouchEvent) {
-      if (this.dragging) {return}
+      if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
       (this as any).dragging = true;
@@ -91,15 +98,15 @@ export default function TouchDraggable<T extends new (o: any) => any>(Base: T) {
     }
 
     private attachTouchFns() {
-      this.element.ownerDocument.addEventListener('touchmove', this.touchMoveFn);
-      this.element.ownerDocument.addEventListener('touchend', this.touchEndFn);
-      this.element.ownerDocument.addEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument?.addEventListener('touchmove', this.touchMoveFn);
+      this.element.ownerDocument?.addEventListener('touchend', this.touchEndFn);
+      this.element.ownerDocument?.addEventListener('touchcancel', this.touchEndFn);
     }
 
     private detachTouchFns() {
-      this.element.ownerDocument.removeEventListener('touchmove', this.touchMoveFn);
-      this.element.ownerDocument.removeEventListener('touchend', this.touchEndFn);
-      this.element.ownerDocument.removeEventListener('touchcancel', this.touchEndFn);
+      this.element.ownerDocument?.removeEventListener('touchmove', this.touchMoveFn);
+      this.element.ownerDocument?.removeEventListener('touchend', this.touchEndFn);
+      this.element.ownerDocument?.removeEventListener('touchcancel', this.touchEndFn);
     }
   };
   
