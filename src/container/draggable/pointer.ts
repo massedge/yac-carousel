@@ -61,7 +61,7 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
       if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
-      (this as any).dragging = true;
+      this._dragging = true;
       
       this.pointerLastCoordinate = this.getMouseEventCoordinate(e);
 
@@ -84,7 +84,7 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
 
       this.settle();
 
-      (this as any).dragging = false;
+      this._dragging = false;
     }
 
     private getMouseEventCoordinate(e: PointerEvent) {

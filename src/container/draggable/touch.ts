@@ -57,7 +57,7 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
       if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
-      (this as any).dragging = true;
+      this._dragging = true;
 
       this.touchLastCoordinate = this.getTouchEventCoordinate(e);
 
@@ -83,7 +83,7 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
 
       this.settle();
 
-      (this as any).dragging = false;
+      this._dragging = false;
     }
 
     private getTouchEventCoordinate(e: TouchEvent) {

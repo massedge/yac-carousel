@@ -65,7 +65,7 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
       if (this._dragging) {return}
       if (this.preventDragging(e)) {return}
 
-      (this as any).dragging = true;
+      this._dragging = true;
       
       this.mouseLastCoordinate = this.getMouseEventCoordinate(e);
 
@@ -88,7 +88,7 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
 
       this.settle();
 
-      (this as any).dragging = false;
+      this._dragging = false;
     }
 
     private getMouseEventCoordinate(e: MouseEvent) {
