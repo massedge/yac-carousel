@@ -1,4 +1,5 @@
 import YacCarousel, { Direction, ContainerNavable as Navable } from '../../src'
+import { VisibleEventDetail } from '../../src/item/visible';
 
 const elHorizontal = document.querySelector<HTMLElement>('.carousel.flex');
 if (!elHorizontal) throw Error('Horizontal carousel element not found.');

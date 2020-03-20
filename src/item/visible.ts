@@ -9,22 +9,19 @@ export interface Visible {
 
 export interface VisibleInstance {
   visible: boolean
-  render: () => void
+}
+
+export interface VisibleBase {
+  _emit(evt: CustomEvent): void
 }
 
 export interface VisibleEventDetail {
   visible: boolean
 }
 
-export default function Visible<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).eventable) throw new Error('must be eventable')
-
-  class Mixin extends (Base as new (...a: any[]) => any) implements VisibleInstance {
+export default function Visible<T extends new (o: any) => VisibleBase>(Base: T) {
+  class Mixin extends (Base as new (options: VisibleOptions) => VisibleBase) implements VisibleInstance {
     #visible: boolean = false
-    
-    render() {
-      super.render()
-    }
 
     get visible() {
       return this.#visible

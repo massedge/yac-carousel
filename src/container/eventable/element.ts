@@ -8,6 +8,9 @@ export interface ElementEventable {
 }
 
 export interface ElementEventableInstance {
+  on(type: string, listener: (evt: CustomEvent) => void): void
+  off(type: string, listener: (evt: CustomEvent) => void): void
+  _emit(e: CustomEvent): void
 }
 
 export interface ElementEventableBase {
@@ -16,7 +19,7 @@ export interface ElementEventableBase {
 
 export default function ElementEventable<T extends new (o: any) => ElementEventableBase>(Base: T) {
   class Mixin extends (Base as new (options: ElementEventableOptions) => ElementEventableBase) implements ElementEventableInstance {
-    protected on(type: string, listener: (evt: CustomEvent) => void) {
+    on(type: string, listener: (evt: CustomEvent) => void) {
       this.element.addEventListener(
         type,
         // @see https://github.com/Microsoft/TypeScript/issues/28357
@@ -24,7 +27,7 @@ export default function ElementEventable<T extends new (o: any) => ElementEventa
       )
     }
   
-    protected off(type: string, listener: (evt: CustomEvent) => void) {
+    off(type: string, listener: (evt: CustomEvent) => void) {
       this.element.removeEventListener(
         type,
         // @see https://github.com/Microsoft/TypeScript/issues/28357
@@ -32,7 +35,7 @@ export default function ElementEventable<T extends new (o: any) => ElementEventa
       )
     }
 
-    protected _emit(e: CustomEvent) {
+    _emit(e: CustomEvent) {
       this.element.dispatchEvent(e)
     }
   }
