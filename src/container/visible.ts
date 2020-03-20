@@ -27,7 +27,6 @@ export interface VisibleBase<Item> {
 
 export default function Visible<Item extends VisibleItem, T extends new (o: any) => VisibleBase<Item>>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => VisibleBase<Item>) implements VisibleInstance {
-    static readonly itemizable = true
 
     #io: IntersectionObserver
 

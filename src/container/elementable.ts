@@ -8,7 +8,6 @@ export interface ElementableOptions {
 
 export interface Elementable {
   new(options: ElementableOptions): ElementableInstance
-  readonly elementable: true
 }
 
 export interface ElementableInstance {
@@ -19,7 +18,6 @@ export interface ElementableInstance {
 
 export default function Elementable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => any) implements ElementableInstance {
-    static readonly elementable = true
 
     #options: Required<Pick<ElementableOptions, 'element' | 'direction'>>
 

@@ -5,7 +5,6 @@ export interface ElementEventableOptions {
 
 export interface ElementEventable {
   new(options?: ElementEventableOptions): ElementEventableInstance
-  readonly eventable: true
 }
 
 export interface ElementEventableInstance {
@@ -17,8 +16,6 @@ export interface ElementEventableBase {
 
 export default function ElementEventable<T extends new (o: any) => ElementEventableBase>(Base: T) {
   class Mixin extends (Base as new (options: ElementEventableOptions) => ElementEventableBase) implements ElementEventableInstance {
-    static readonly eventable = true
-
     protected on(type: string, listener: (evt: CustomEvent) => void) {
       this.element.addEventListener(
         type,

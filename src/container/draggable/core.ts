@@ -6,7 +6,6 @@ export interface CoreDraggableOptions {
 
 export interface CoreDraggable {
   new(options?: CoreDraggableOptions): CoreDraggableInstance
-  readonly draggable: true
 }
 
 export interface CoreDraggableInstance {
@@ -16,8 +15,6 @@ export interface CoreDraggableInstance {
 
 export default function CoreDraggable<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => {}) implements CoreDraggableInstance {
-      static readonly draggable = true
-
       #dragging: boolean = false
       preventDraggingOverride: NonNullable<CoreDraggableOptions['preventDragging']>
 

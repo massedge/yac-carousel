@@ -5,7 +5,6 @@ export interface NudgeableOptions {
 
 export interface Nudgeable {
   new(options: NudgeableOptions): NudgeableInstance
-  readonly nudgeable: true
 }
 
 export interface NudgeableInstance {
@@ -47,8 +46,6 @@ export interface NudgeableBase {
 
 export default function Nudgeable<T extends new (o: any) => NudgeableBase>(Base: T) {
   class Mixin extends (Base as new (options: NudgeableOptions) => NudgeableBase) implements NudgeableInstance {
-    static readonly nudgeable = true
-
     #unsettledNudges: UnsettledNudge[] = []
 
     on<K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) {

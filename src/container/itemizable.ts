@@ -16,7 +16,6 @@ export interface ItemizableOptions<Item extends ElementableItem> {
 
 export interface Itemizable<Item extends ElementableItem> {
   new(options: ItemizableOptions<Item>): ItemizableInstance<Item>
-  readonly itemizable: true
 }
 
 export interface ItemizableInstance<Item extends ElementableItem> {
@@ -49,7 +48,6 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
   defaultItemConstructor: NonNullable<ItemizableOptions<Item>['itemConstructor']>
 ) {
   class Mixin extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase) implements ItemizableInstance<Item> {
-    static readonly itemizable = true
 
     #options: Required<ItemizableOptions<Item>>
     #items: Item[] = []
