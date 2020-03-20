@@ -3,7 +3,9 @@
     "tslint:latest",
     "tslint-config-prettier"
   ],
+  "rulesDirectory": "./node_modules/dtslint/bin/rules/",
   "rules": {
+    "expect": true,
     "curly": [true, "ignore-same-line"],
     "interface-name": [true, "never-prefix"],
     "member-access": [true, "no-public"],
