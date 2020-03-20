@@ -12,6 +12,8 @@ import Wheelable from './container/wheelable';
 import ItemCore from './item/core'
 import ItemVisible from './item/visible'
 
+export const CarouselItem = ItemVisible(ElementEventable(ItemCore))
+
 const Carousel =
   Visible(
   Itemizable(
@@ -22,7 +24,7 @@ const Carousel =
     Elementable(
       Core
     ))))),
-    ItemVisible(ElementEventable(ItemCore))
+    CarouselItem
   ))
 
 export default Carousel
