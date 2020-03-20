@@ -1,6 +1,7 @@
 import { ComposeConstructor } from "../types"
+import { ElementableOptions } from "./elementable"
 
-export interface NavableOptions {
+export interface NavableOptions extends ElementableOptions {
   previousText: string
   nextText: string
   elPrevious?: HTMLElement | null
@@ -18,15 +19,21 @@ export interface NavableInstance {
   destroy: () => void
 }
 
-export default function Navable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).elementable) throw new Error('must be elementable')
-  
-  class Mixin extends (Base as new (...a: any[]) => any) implements NavableInstance {
-    #options: NavableOptions
+export interface NavableBase {
+  readonly element: HTMLElement
+  render(): void
+  destroy(): void
+  next(): void
+  previous(): void
+}
+
+export default function Navable<T extends new (o: any) => NavableBase>(Base: T) {
+  class Mixin extends (Base as new (options: NavableOptions) => NavableBase) implements NavableInstance {
+    #options: Pick<NavableOptions, 'previousText' | 'nextText' | 'elPrevious' | 'elNext' | 'previousFn' | 'nextFn'>
     private elPrevious: HTMLElement | null = null
     private elNext: HTMLElement | null = null
-    private attachedElPrevious = false;
-    private attachedElNext = false;
+    private _attachedElPrevious: boolean = false
+    private _attachedElNext: boolean = false
 
     constructor({
       previousText,
@@ -72,7 +79,7 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
     render() {
       super.render();
 
-      const nodes: [HTMLElement | null, () => void, string][] = [
+      const nodes: [HTMLElement | null, () => void, '_attachedElPrevious' | '_attachedElNext'][] = [
         [this.elNext, this.#options.nextFn || (() => this.next()), '_attachedElPrevious'],
         [this.elPrevious, this.#options.previousFn || (() => this.previous()), '_attachedElNext']
       ]
@@ -85,9 +92,9 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
 
         if (!elNav) return;
         if (fn) elNav.addEventListener('click', fn, false);
-        if (this.element.ownerDocument.documentElement.contains(elNav)) return;
+        if (this.element.ownerDocument?.documentElement.contains(elNav)) return;
 
-        this.element.parentNode.insertBefore(elNav, this.element.nextSibling);
+        this.element.parentNode?.insertBefore(elNav, this.element.nextSibling);
         this[attachedName] = true;
       });
     }
@@ -96,8 +103,8 @@ export default function Navable<T extends new (o: any) => any>(Base: T) {
       super.destroy();
 
       const nodes: [HTMLElement | null, () => void, boolean][] = [
-        [this.elNext, this.#options.nextFn || this.next.bind(this), this.attachedElNext],
-        [this.elPrevious, this.#options.previousFn || this.previous.bind(this), this.attachedElPrevious]
+        [this.elNext, this.#options.nextFn || this.next.bind(this), this._attachedElNext],
+        [this.elPrevious, this.#options.previousFn || this.previous.bind(this), this._attachedElPrevious]
       ]
 
       // remove nodes and detach events

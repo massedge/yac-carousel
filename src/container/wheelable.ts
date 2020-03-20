@@ -1,10 +1,8 @@
 import _debounce from 'lodash-es/debounce'
 
 import { ComposeConstructor } from "../types"
-import { Elementable, ElementableInstance, ElementableOptions } from './elementable';
-import Core from './core';
 
-export interface WheelableOptions extends ElementableOptions {
+export interface WheelableOptions {
 }
 
 export interface Wheelable {
@@ -16,10 +14,19 @@ export interface WheelableInstance {
   destroy: () => void
 }
 
+// ElementableInstance & Core
+export interface WheelableBase {
+  element: HTMLElement
+  render(): void
+  previous(): void
+  next(): void
+  destroy(): void
+}
+
 export default function Wheelable<T extends {
-  new (options: any): ElementableInstance & Core
-} & Pick<Elementable, keyof Elementable>>(Base: T) {
-  class Mixin extends (Base as unknown as new (options: WheelableOptions) => ElementableInstance & Core) implements WheelableInstance {
+  new (options: any): WheelableBase
+}>(Base: T) {
+  class Mixin extends (Base as unknown as new (options: WheelableOptions) => WheelableBase) implements WheelableInstance {
     private wheelFn: (e: WheelEvent) => void
 
     constructor(options: WheelableOptions) {

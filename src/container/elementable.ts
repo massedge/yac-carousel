@@ -1,8 +1,7 @@
 import { ComposeConstructor } from "../types"
 import Direction from  '../enums/direction'
-import Core, { CoreOptions } from "./core"
 
-export interface ElementableOptions extends CoreOptions {
+export interface ElementableOptions {
   element: HTMLElement
   direction?: Direction
 }

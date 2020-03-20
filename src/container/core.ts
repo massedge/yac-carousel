@@ -26,7 +26,7 @@ export default class Core {
 
   off<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
 
-  protected _emit(e: Event) { /**/ }
+  _emit(e: Event) { /**/ }
 
   render() {
     if (this.rendered) {

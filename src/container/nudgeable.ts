@@ -39,20 +39,24 @@ export interface NudgeableEventMap {
   [SETTLE_EVENT]: CustomEvent<SettleEventDetail>
 }
 
-export default function Nudgeable<T extends new (o: any) => any>(Base: T) {
-  if (!(Base as any).eventable) throw new Error('must be eventable')
-  
-  class Mixin extends (Base as new (...a: any[]) => any) implements NudgeableInstance {
+export interface NudgeableBase {
+  on(type: string, listener: (evt: CustomEvent) => void): void
+  off(type: string, listener: (evt: CustomEvent) => void): void
+  _emit(evt: CustomEvent): void
+}
+
+export default function Nudgeable<T extends new (o: any) => NudgeableBase>(Base: T) {
+  class Mixin extends (Base as new (options: NudgeableOptions) => NudgeableBase) implements NudgeableInstance {
     static readonly nudgeable = true
 
     #unsettledNudges: UnsettledNudge[] = []
 
     on<K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) {
-      return super.on.apply(this, arguments)
+      return super.on.call(this, type, listener)
     }
   
     off<K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) {
-      return super.off.apply(this, arguments)
+      return super.off.call(this, type, listener)
     }
 
     /**
