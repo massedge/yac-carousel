@@ -2,36 +2,36 @@ import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
 import { NudgeableInstance } from "../nudgeable"
 import { ElementableInstance } from "../elementable"
-import { CoreDraggableInstance } from "./core"
+import { DraggableCoreInstance } from "./core"
 
-export interface MouseDraggableOptions {
+export interface DraggableMouseOptions {
 }
 
-export interface MouseDraggable {
-  new(options: MouseDraggableOptions): MouseDraggableInstance
+export interface DraggableMouse {
+  new(options: DraggableMouseOptions): DraggableMouseInstance
 }
 
-export interface MouseDraggableInstance {
+export interface DraggableMouseInstance {
   render: () => void
   destroy: () => void
 }
 
-export interface MouseDraggableBase extends
+export interface DraggableMouseBase extends
   Pick<ElementableInstance, 'element' | 'direction'>,
   Pick<NudgeableInstance, 'nudge' | 'settle'>,
-  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'>{
   render(): void
   destroy(): void
 }
 
-export default function MouseDraggable<T extends new (o: any) => MouseDraggableBase>(Base: T) {
-  class Mixin extends (Base as new (options: MouseDraggableOptions) => MouseDraggableBase) implements MouseDraggableInstance {
+export default function DraggableMouse<T extends new (o: any) => DraggableMouseBase>(Base: T) {
+  class Mixin extends (Base as new (options: DraggableMouseOptions) => DraggableMouseBase) implements DraggableMouseInstance {
     #mouseDownFn: (e: MouseEvent) => void
     #mouseMoveFn: (e: MouseEvent) => void
     #mouseUpFn: (e: MouseEvent) => void
     #mouseLastCoordinate: number = 0
 
-    constructor(options: MouseDraggableOptions) {
+    constructor(options: DraggableMouseOptions) {
       super(options)
 
       this.#mouseDownFn = this.mouseDown.bind(this);
@@ -112,5 +112,5 @@ export default function MouseDraggable<T extends new (o: any) => MouseDraggableB
     }
   }
   
-  return Mixin as unknown as ComposeConstructor<MouseDraggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<DraggableMouse, typeof Base>
 }

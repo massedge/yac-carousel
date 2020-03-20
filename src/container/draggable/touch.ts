@@ -2,36 +2,36 @@ import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
 import { NudgeableInstance } from "../nudgeable"
 import { ElementableInstance } from "../elementable"
-import { CoreDraggableInstance } from "./core"
+import { DraggableCoreInstance } from "./core"
 
-export interface TouchDraggableOptions {
+export interface DraggableTouchOptions {
 }
 
-export interface TouchDraggable {
-  new(options: TouchDraggableOptions): TouchDraggableInstance
+export interface DraggableTouch {
+  new(options: DraggableTouchOptions): DraggableTouchInstance
 }
 
-export interface TouchDraggableInstance {
+export interface DraggableTouchInstance {
   render: () => void
   destroy: () => void
 }
 
-export interface TouchDraggableBase extends
+export interface DraggableTouchBase extends
   Pick<ElementableInstance, 'element' | 'direction'>,
   Pick<NudgeableInstance, 'nudge' | 'settle'>,
-  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'>{
   render(): void
   destroy(): void
 }
 
-export default function TouchDraggable<T extends new (o: any) => TouchDraggableBase>(Base: T) {
-  class Mixin extends (Base as new (options: TouchDraggableOptions) => TouchDraggableBase) implements TouchDraggableInstance {
+export default function DraggableTouch<T extends new (o: any) => DraggableTouchBase>(Base: T) {
+  class Mixin extends (Base as new (options: DraggableTouchOptions) => DraggableTouchBase) implements DraggableTouchInstance {
     #touchStartFn: (e: TouchEvent) => void
     #touchMoveFn: (e: TouchEvent) => void
     #touchEndFn: (e: TouchEvent) => void
     #touchLastCoordinate: number = 0
 
-    constructor(options: TouchDraggableOptions) {
+    constructor(options: DraggableTouchOptions) {
       super(options)
 
       this.#touchStartFn = this.touchStart.bind(this);
@@ -110,5 +110,5 @@ export default function TouchDraggable<T extends new (o: any) => TouchDraggableB
     }
   };
   
-  return Mixin as unknown as ComposeConstructor<TouchDraggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<DraggableTouch, typeof Base>
 }

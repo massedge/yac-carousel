@@ -2,36 +2,36 @@ import { ComposeConstructor } from "../../types"
 import Direction from  '../../enums/direction'
 import { NudgeableInstance } from "../nudgeable"
 import { ElementableInstance } from "../elementable"
-import { CoreDraggableInstance } from "./core"
+import { DraggableCoreInstance } from "./core"
 
-export interface PointerDraggableOptions {
+export interface DraggablePointerOptions {
 }
 
-export interface PointerDraggable {
-  new(options: PointerDraggableOptions): PointerDraggableInstance
+export interface DraggablePointer {
+  new(options: DraggablePointerOptions): DraggablePointerInstance
 }
 
-export interface PointerDraggableInstance {
+export interface DraggablePointerInstance {
   render: () => void
   destroy: () => void
 }
 
-export interface PointerDraggableBase extends
+export interface DraggablePointerBase extends
   Pick<ElementableInstance, 'element' | 'direction'>,
   Pick<NudgeableInstance, 'nudge' | 'settle'>,
-  Pick<CoreDraggableInstance, '_dragging' | 'preventDraggingOverride'>{
+  Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'>{
   render(): void
   destroy(): void
 }
 
-export default function PointerDraggable<T extends new (o: any) => PointerDraggableBase>(Base: T) {
-  class Mixin extends (Base as new (options: PointerDraggableOptions) => PointerDraggableBase) implements PointerDraggableInstance {
+export default function DraggablePointer<T extends new (o: any) => DraggablePointerBase>(Base: T) {
+  class Mixin extends (Base as new (options: DraggablePointerOptions) => DraggablePointerBase) implements DraggablePointerInstance {
     #pointerDownFn: (e: PointerEvent) => void
     #pointerMoveFn: (e: PointerEvent) => void
     #pointerUpFn: (e: PointerEvent) => void
     #pointerLastCoordinate: number = 0
 
-    constructor(options: PointerDraggableOptions) {
+    constructor(options: DraggablePointerOptions) {
       super(options)
 
       this.#pointerDownFn = this.pointerDown.bind(this);
@@ -111,6 +111,6 @@ export default function PointerDraggable<T extends new (o: any) => PointerDragga
     }
   };
   
-  return Mixin as unknown as ComposeConstructor<PointerDraggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<DraggablePointer, typeof Base>
 }
 

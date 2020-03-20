@@ -1,27 +1,27 @@
 import { ComposeConstructor } from "../../types"
 
-export interface CoreDraggableOptions {
+export interface DraggableCoreOptions {
   preventDragging?: (e: Event, prevented: boolean) => boolean
 }
 
-export interface CoreDraggable {
-  new(options?: CoreDraggableOptions): CoreDraggableInstance
+export interface DraggableCore {
+  new(options?: DraggableCoreOptions): DraggableCoreInstance
 }
 
-export interface CoreDraggableInstance {
+export interface DraggableCoreInstance {
   _dragging: boolean
-  preventDraggingOverride: NonNullable<CoreDraggableOptions['preventDragging']>
+  preventDraggingOverride: NonNullable<DraggableCoreOptions['preventDragging']>
 }
 
-export default function CoreDraggable<T extends new (o: any) => any>(Base: T) {
-  class Mixin extends (Base as new (...a: any[]) => {}) implements CoreDraggableInstance {
+export default function DraggableCore<T extends new (o: any) => any>(Base: T) {
+  class Mixin extends (Base as new (...a: any[]) => {}) implements DraggableCoreInstance {
       #dragging: boolean = false
-      preventDraggingOverride: NonNullable<CoreDraggableOptions['preventDragging']>
+      preventDraggingOverride: NonNullable<DraggableCoreOptions['preventDragging']>
 
       constructor({
         preventDragging = () => false,
         ...otherOptions
-      }: CoreDraggableOptions) {
+      }: DraggableCoreOptions) {
         super({preventDragging, ...otherOptions})
         this.preventDraggingOverride = preventDragging
       }
@@ -36,5 +36,5 @@ export default function CoreDraggable<T extends new (o: any) => any>(Base: T) {
       }
   }
   
-  return Mixin as unknown as ComposeConstructor<CoreDraggable, typeof Base>
+  return Mixin as unknown as ComposeConstructor<DraggableCore, typeof Base>
 }
