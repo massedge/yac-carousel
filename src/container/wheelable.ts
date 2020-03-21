@@ -1,12 +1,11 @@
 import _debounce from 'lodash-es/debounce'
 
-import { ComposeConstructor } from "../types"
+import { ComposeConstructor } from '../types'
 
-export interface WheelableOptions {
-}
+export interface WheelableOptions {}
 
 export interface Wheelable {
-  new(options: WheelableOptions): WheelableInstance
+  new (options: WheelableOptions): WheelableInstance
 }
 
 export interface WheelableInstance {
@@ -23,14 +22,20 @@ export interface WheelableBase {
   destroy(): void
 }
 
-export default function Wheelable<T extends {
-  new (options: any): WheelableBase
-}>(Base: T) {
-  class Mixin extends (Base as unknown as new (options: WheelableOptions) => WheelableBase) implements WheelableInstance {
+export default function Wheelable<
+  T extends {
+    new (options: any): WheelableBase
+  }
+>(Base: T) {
+  class Mixin
+    extends ((Base as unknown) as new (
+      options: WheelableOptions
+    ) => WheelableBase)
+    implements WheelableInstance {
     #wheelFn: (e: WheelEvent) => void
 
     constructor(options: WheelableOptions) {
-      super(options);
+      super(options)
 
       // use debounce allow for more fine-grained navigation when using touchpad
       const debounce = _debounce(this.wheel.bind(this), 15, {
@@ -46,16 +51,16 @@ export default function Wheelable<T extends {
         debounce(e)
       }
     }
-    
-    render() {
-      super.render();
 
-      this.element.addEventListener('wheel', this.#wheelFn);
+    render() {
+      super.render()
+
+      this.element.addEventListener('wheel', this.#wheelFn)
     }
 
     private wheel(e: WheelEvent) {
       // TODO: check if nested element is scrollable
-      const offset = this.getWheelEventDelta(e);
+      const offset = this.getWheelEventDelta(e)
 
       let result
       if (offset < 0) result = this.previous()
@@ -64,7 +69,7 @@ export default function Wheelable<T extends {
 
       // prevent scrolling of parent elements, if nudge was successful
       if (result) {
-        e.preventDefault();
+        e.preventDefault()
       }
     }
 
@@ -73,10 +78,10 @@ export default function Wheelable<T extends {
     }
 
     destroy() {
-      this.element.removeEventListener('wheel', this.#wheelFn);
-      super.destroy();
+      this.element.removeEventListener('wheel', this.#wheelFn)
+      super.destroy()
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<Wheelable, typeof Base>
+
+  return (Mixin as unknown) as ComposeConstructor<Wheelable, typeof Base>
 }

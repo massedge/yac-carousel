@@ -3,7 +3,7 @@ export interface IndexablePreviousNextOptions {
 }
 
 export interface IndexablePreviousNextMixin {
-  new(options: IndexablePreviousNextOptions): IndexablePreviousNextInstance
+  new (options: IndexablePreviousNextOptions): IndexablePreviousNextInstance
 }
 
 export interface IndexablePreviousNextInstance {

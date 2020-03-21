@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../../../types"
+import { ComposeConstructor } from '../../../types'
 
 export interface NavablePreviousNextHandlerOptions {
   elPrevious: HTMLElement
@@ -6,7 +6,9 @@ export interface NavablePreviousNextHandlerOptions {
 }
 
 export interface NavablePreviousNextHandler {
-  new(options: NavablePreviousNextHandlerOptions): NavablePreviousNextHandlerInstance
+  new (
+    options: NavablePreviousNextHandlerOptions
+  ): NavablePreviousNextHandlerInstance
 }
 
 export interface NavablePreviousNextHandlerInstance {
@@ -21,8 +23,14 @@ export interface NavablePreviousNextHandlerBase {
   previous(): void
 }
 
-export default function NavablePreviousNextHandler<T extends new (o: any) => NavablePreviousNextHandlerBase>(Base: T) {
-  class Mixin extends (Base as new (options: NavablePreviousNextHandlerOptions) => NavablePreviousNextHandlerBase) implements NavablePreviousNextHandlerInstance {
+export default function NavablePreviousNextHandler<
+  T extends new (o: any) => NavablePreviousNextHandlerBase
+>(Base: T) {
+  class Mixin
+    extends (Base as new (
+      options: NavablePreviousNextHandlerOptions
+    ) => NavablePreviousNextHandlerBase)
+    implements NavablePreviousNextHandlerInstance {
     #options: NavablePreviousNextHandlerOptions
     #nextFn: () => void
     #previousFn: () => void
@@ -35,8 +43,8 @@ export default function NavablePreviousNextHandler<T extends new (o: any) => Nav
       super({
         elPrevious,
         elNext,
-        ...otherOptions
-      });
+        ...otherOptions,
+      })
 
       this.#options = {
         elPrevious,
@@ -46,20 +54,31 @@ export default function NavablePreviousNextHandler<T extends new (o: any) => Nav
       this.#previousFn = () => this.previous()
       this.#nextFn = () => this.next()
     }
-    
-    render() {
-      super.render();
 
-      this.#options.elPrevious.addEventListener('click', this.#previousFn, false)
+    render() {
+      super.render()
+
+      this.#options.elPrevious.addEventListener(
+        'click',
+        this.#previousFn,
+        false
+      )
       this.#options.elNext.addEventListener('click', this.#nextFn, false)
     }
 
     destroy() {
-      super.destroy();
-      this.#options.elPrevious.removeEventListener('click', this.#previousFn, false)
+      super.destroy()
+      this.#options.elPrevious.removeEventListener(
+        'click',
+        this.#previousFn,
+        false
+      )
       this.#options.elNext.removeEventListener('click', this.#nextFn, false)
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<NavablePreviousNextHandler, typeof Base>
+
+  return (Mixin as unknown) as ComposeConstructor<
+    NavablePreviousNextHandler,
+    typeof Base
+  >
 }

@@ -1,12 +1,9 @@
-import { ComposeConstructor } from "../types"
-import Direction from  '../enums/direction'
+import { ComposeConstructor } from '../types'
+import Direction from '../enums/direction'
 
-import { getBounds } from "../utils/get-bounds";
-import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from "./nudgeable";
-import {
-  SELECT_BEFORE_EVENT,
-  SELECT_AFTER_EVENT,
-} from "./indexable/select";
+import { getBounds } from '../utils/get-bounds'
+import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from './nudgeable'
+import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from './indexable/select'
 import { IndexableSelectEventDetail } from './indexable/select/types'
 
 export interface ItemizableOptions<Item extends ElementableItem> {
@@ -19,7 +16,7 @@ export interface ItemizableOptions<Item extends ElementableItem> {
 }
 
 export interface Itemizable<Item extends ElementableItem> {
-  new(options: ItemizableOptions<Item>): ItemizableInstance<Item>
+  new (options: ItemizableOptions<Item>): ItemizableInstance<Item>
 }
 
 export interface ItemizableInstance<Item extends ElementableItem> {
@@ -46,13 +43,18 @@ export interface ElementableItem {
   refresh: () => void
 }
 
-
-export default function Itemizable<T extends new (o: any) => ItemizableBase, Item extends ElementableItem>(
+export default function Itemizable<
+  T extends new (o: any) => ItemizableBase,
+  Item extends ElementableItem
+>(
   Base: T,
-  defaultItemConstructor: NonNullable<ItemizableOptions<Item>['itemConstructor']>
+  defaultItemConstructor: NonNullable<
+    ItemizableOptions<Item>['itemConstructor']
+  >
 ) {
-  class Mixin extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase) implements ItemizableInstance<Item> {
-
+  class Mixin
+    extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase)
+    implements ItemizableInstance<Item> {
     #options: Required<ItemizableOptions<Item>>
     #items: Item[] = []
     private position = 0
@@ -65,13 +67,13 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
       direction = Direction.HORIZONTAL,
       ...otherOptions
     }: ItemizableOptions<Item>) {
-      super({element, direction, ...otherOptions})
+      super({ element, direction, ...otherOptions })
 
-      this.#options = {element, direction, itemConstructor}
+      this.#options = { element, direction, itemConstructor }
     }
 
     get element() {
-      return this.#options.element;
+      return this.#options.element
     }
 
     protected get direction() {
@@ -83,7 +85,7 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
     }
 
     render() {
-      super.render();
+      super.render()
 
       this.#items = Array.from(this.element.children)
         .filter((elItem) => elItem.nodeType === 1)
@@ -97,26 +99,33 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
       this.items.forEach((item) => item.render())
       this._calculate()
 
-      this.on(SELECT_BEFORE_EVENT, (e: CustomEvent<IndexableSelectEventDetail>) => {
-        if (e.detail.from === e.detail.to) return e.preventDefault()
-        if (e.detail.to < 0) return e.preventDefault()
-        if (e.detail.to >= this.items.length) return e.preventDefault()
-      })
+      this.on(
+        SELECT_BEFORE_EVENT,
+        (e: CustomEvent<IndexableSelectEventDetail>) => {
+          if (e.detail.from === e.detail.to) return e.preventDefault()
+          if (e.detail.to < 0) return e.preventDefault()
+          if (e.detail.to >= this.items.length) return e.preventDefault()
+        }
+      )
 
-      this.on(SELECT_AFTER_EVENT, (e: CustomEvent<IndexableSelectEventDetail>) => {
-        const fromItem = this.items[e.detail.from]
-        const targetItem = this.items[e.detail.to]
+      this.on(
+        SELECT_AFTER_EVENT,
+        (e: CustomEvent<IndexableSelectEventDetail>) => {
+          const fromItem = this.items[e.detail.from]
+          const targetItem = this.items[e.detail.to]
 
-        // update active
-        fromItem.active = false
-        targetItem.active = true
+          // update active
+          fromItem.active = false
+          targetItem.active = true
 
-        // new position
-        const targetPosition = this.items.slice(0, e.detail.to)
-          .reduce((position, item) => position -= item.length, 0)
+          // new position
+          const targetPosition = this.items
+            .slice(0, e.detail.to)
+            .reduce((position, item) => (position -= item.length), 0)
 
-        this.nudge(targetPosition - this.position, true)
-      })
+          this.nudge(targetPosition - this.position, true)
+        }
+      )
 
       this.on(NUDGE_EVENT, (e: NudgeableEventMap[typeof NUDGE_EVENT]) => {
         // console.log('nudge');
@@ -138,15 +147,15 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
             break
           } else if (this.position + offset > 0) {
             // ensure don't go beyond first item
-            offset = 0 - this.position;
-            if (offset === 0) break;
+            offset = 0 - this.position
+            if (offset === 0) break
           } else if (this.position + offset < this.length - this.itemsLength) {
             // ensure don't go beyond last item
             offset = this.length - this.itemsLength - this.position
-            if (offset === 0) break;
+            if (offset === 0) break
           }
-    
-          this.position += offset;
+
+          this.position += offset
           this._animateToPosition(this.position, ease)
 
           shifted = true
@@ -175,7 +184,8 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
         let newPosition = this.position + momentumDistance
         // console.log(this.position, newPosition, this.itemsLength - this.length)
         if (newPosition > 0) newPosition = 0
-        else if (newPosition < this.length - this.itemsLength) newPosition = this.length - this.itemsLength
+        else if (newPosition < this.length - this.itemsLength)
+          newPosition = this.length - this.itemsLength
         this.position = newPosition
         this._animateToPosition(this.position, true)
         // console.log(newPosition)
@@ -184,15 +194,18 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
 
     private _animateToPosition(position: number, ease: boolean = false) {
       this.items.forEach((item) => {
-        const translate = (this.#options.direction === Direction.HORIZONTAL) ? 'translateX' : 'translateY'
-        item.element.style.transform = `${translate}(${position}px)`;
-        
+        const translate =
+          this.#options.direction === Direction.HORIZONTAL
+            ? 'translateX'
+            : 'translateY'
+        item.element.style.transform = `${translate}(${position}px)`
+
         if (!ease) {
           item.element.style.removeProperty('transition')
         } else {
           item.element.style.transition = `${300 + 'ms'} transform`
         }
-      });
+      })
     }
 
     refresh() {
@@ -203,11 +216,16 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
 
     _calculate() {
       const bounds = getBounds(this.#options.element)
-      this.length = (this.#options.direction === Direction.HORIZONTAL) ? bounds.width : bounds.height
-      this.itemsLength = this.items.reduce((length, item) => length + item.length, 0)
+      this.length =
+        this.#options.direction === Direction.HORIZONTAL
+          ? bounds.width
+          : bounds.height
+      this.itemsLength = this.items.reduce(
+        (length, item) => length + item.length,
+        0
+      )
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<Itemizable<Item>, typeof Base>
-}
 
+  return (Mixin as unknown) as ComposeConstructor<Itemizable<Item>, typeof Base>
+}

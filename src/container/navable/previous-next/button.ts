@@ -1,4 +1,4 @@
-import { ComposeConstructor } from "../../../types"
+import { ComposeConstructor } from '../../../types'
 
 export interface NavablePreviousNextButtonOptions {
   previousText: string
@@ -6,7 +6,9 @@ export interface NavablePreviousNextButtonOptions {
 }
 
 export interface NavablePreviousNextButton {
-  new(options: NavablePreviousNextButtonOptions): NavablePreviousNextButtonInstance
+  new (
+    options: NavablePreviousNextButtonOptions
+  ): NavablePreviousNextButtonInstance
 }
 
 export interface NavablePreviousNextButtonInstance {
@@ -22,9 +24,14 @@ export interface NavablePreviousNextButtonBase {
   previous(): void
 }
 
-export default function NavablePreviousNextButton<T extends new (o: any) => NavablePreviousNextButtonBase>(Base: T) {
-  
-  class Mixin extends (Base as new (options: NavablePreviousNextButtonOptions) => NavablePreviousNextButtonBase) implements NavablePreviousNextButtonInstance {
+export default function NavablePreviousNextButton<
+  T extends new (o: any) => NavablePreviousNextButtonBase
+>(Base: T) {
+  class Mixin
+    extends (Base as new (
+      options: NavablePreviousNextButtonOptions
+    ) => NavablePreviousNextButtonBase)
+    implements NavablePreviousNextButtonInstance {
     #options: {
       elPrevious: HTMLElement
       elNext: HTMLElement
@@ -40,8 +47,8 @@ export default function NavablePreviousNextButton<T extends new (o: any) => Nava
       super({
         previousText,
         nextText,
-        ...otherOptions
-      });
+        ...otherOptions,
+      })
 
       this.#options = {
         elPrevious: Mixin.createButton('previous', previousText),
@@ -51,31 +58,48 @@ export default function NavablePreviousNextButton<T extends new (o: any) => Nava
       this.#previousFn = () => this.previous()
       this.#nextFn = () => this.next()
     }
-    
+
     render() {
-      super.render();
+      super.render()
 
-      this.element.parentNode?.insertBefore(this.#options.elNext, this.element.nextSibling);
-      this.element.parentNode?.insertBefore(this.#options.elPrevious, this.element.nextSibling);
+      this.element.parentNode?.insertBefore(
+        this.#options.elNext,
+        this.element.nextSibling
+      )
+      this.element.parentNode?.insertBefore(
+        this.#options.elPrevious,
+        this.element.nextSibling
+      )
 
-      this.#options.elPrevious.addEventListener('click', this.#previousFn, false)
+      this.#options.elPrevious.addEventListener(
+        'click',
+        this.#previousFn,
+        false
+      )
       this.#options.elNext.addEventListener('click', this.#nextFn, false)
     }
 
     destroy() {
-      super.destroy();
-      this.#options.elPrevious.removeEventListener('click', this.#previousFn, false)
+      super.destroy()
+      this.#options.elPrevious.removeEventListener(
+        'click',
+        this.#previousFn,
+        false
+      )
       this.#options.elNext.removeEventListener('click', this.#nextFn, false)
     }
 
     private static createButton(cssClass: string, text: string) {
-      const el = document.createElement('button');
+      const el = document.createElement('button')
       el.setAttribute('class', 'yac-carousel-navable ' + cssClass)
-      el.setAttribute('type', 'button');
-      el.appendChild(document.createTextNode(text));
-      return el;
+      el.setAttribute('type', 'button')
+      el.appendChild(document.createTextNode(text))
+      return el
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<NavablePreviousNextButton, typeof Base>
+
+  return (Mixin as unknown) as ComposeConstructor<
+    NavablePreviousNextButton,
+    typeof Base
+  >
 }

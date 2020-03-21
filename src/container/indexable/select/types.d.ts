@@ -3,14 +3,20 @@ export interface IndexableSelectOptions {
 }
 
 export interface IndexableSelectMixin {
-  new(options: IndexableSelectOptions): IndexableSelectInstance
+  new (options: IndexableSelectOptions): IndexableSelectInstance
 }
 
 export interface IndexableSelectInstance {
   readonly index: number
   select(index: number): boolean
-  on: <K extends keyof IndexableSelectEventMap>(type: K, listener: (ev: IndexableSelectEventMap[K]) => void) => void
-  off: <K extends keyof IndexableSelectEventMap>(type: K, listener: (ev: IndexableSelectEventMap[K]) => void) => void
+  on: <K extends keyof IndexableSelectEventMap>(
+    type: K,
+    listener: (ev: IndexableSelectEventMap[K]) => void
+  ) => void
+  off: <K extends keyof IndexableSelectEventMap>(
+    type: K,
+    listener: (ev: IndexableSelectEventMap[K]) => void
+  ) => void
 }
 
 export interface IndexableSelectEventMap {

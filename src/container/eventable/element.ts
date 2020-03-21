@@ -1,10 +1,9 @@
-import { ComposeConstructor } from "../../types"
+import { ComposeConstructor } from '../../types'
 
-export interface ElementEventableOptions {
-}
+export interface ElementEventableOptions {}
 
 export interface ElementEventable {
-  new(options?: ElementEventableOptions): ElementEventableInstance
+  new (options?: ElementEventableOptions): ElementEventableInstance
 }
 
 export interface ElementEventableInstance {
@@ -17,8 +16,14 @@ export interface ElementEventableBase {
   readonly element: HTMLElement
 }
 
-export default function ElementEventable<T extends new (o: any) => ElementEventableBase>(Base: T) {
-  class Mixin extends (Base as new (options: ElementEventableOptions) => ElementEventableBase) implements ElementEventableInstance {
+export default function ElementEventable<
+  T extends new (o: any) => ElementEventableBase
+>(Base: T) {
+  class Mixin
+    extends (Base as new (
+      options: ElementEventableOptions
+    ) => ElementEventableBase)
+    implements ElementEventableInstance {
     on(type: string, listener: (evt: CustomEvent) => void) {
       this.element.addEventListener(
         type,
@@ -26,7 +31,7 @@ export default function ElementEventable<T extends new (o: any) => ElementEventa
         listener as EventListener
       )
     }
-  
+
     off(type: string, listener: (evt: CustomEvent) => void) {
       this.element.removeEventListener(
         type,
@@ -39,6 +44,6 @@ export default function ElementEventable<T extends new (o: any) => ElementEventa
       this.element.dispatchEvent(e)
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<ElementEventable, typeof Base>
+
+  return (Mixin as unknown) as ComposeConstructor<ElementEventable, typeof Base>
 }

@@ -1,12 +1,12 @@
 export const getBounds = (element: HTMLElement) => {
-  const cs = window.getComputedStyle(element);
+  const cs = window.getComputedStyle(element)
 
   const props = {
     paddingLeft: cs.paddingLeft ? parseFloat(cs.paddingLeft) : 0,
     paddingRight: cs.paddingRight ? parseFloat(cs.paddingRight) : 0,
     paddingTop: cs.paddingTop ? parseFloat(cs.paddingTop) : 0,
     paddingBottom: cs.paddingBottom ? parseFloat(cs.paddingBottom) : 0,
-    
+
     borderLeft: cs.borderLeft ? parseFloat(cs.borderLeft) : 0,
     borderRight: cs.borderRight ? parseFloat(cs.borderRight) : 0,
     borderTop: cs.borderTop ? parseFloat(cs.borderTop) : 0,
@@ -22,8 +22,8 @@ export const getBounds = (element: HTMLElement) => {
   const widthBorder = rect.width
   const heightBorder = rect.height
 
-  const widthPadding = widthBorder - props.paddingLeft - props.paddingRight;
-  const heightPadding = heightBorder - props.paddingTop - props.paddingBottom;
+  const widthPadding = widthBorder - props.paddingLeft - props.paddingRight
+  const heightPadding = heightBorder - props.paddingTop - props.paddingBottom
 
   return {
     ...props,

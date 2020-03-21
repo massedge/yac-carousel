@@ -1,17 +1,22 @@
-import { ComposeConstructor } from "../types"
+import { ComposeConstructor } from '../types'
 
-export interface NudgeableOptions {
-}
+export interface NudgeableOptions {}
 
 export interface Nudgeable {
-  new(options: NudgeableOptions): NudgeableInstance
+  new (options: NudgeableOptions): NudgeableInstance
 }
 
 export interface NudgeableInstance {
   nudge: (offset: number, ease?: boolean) => boolean
   settle: () => void
-  on: <K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) => void
-  off: <K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) => void
+  on: <K extends keyof NudgeableEventMap>(
+    type: K,
+    listener: (ev: NudgeableEventMap[K]) => void
+  ) => void
+  off: <K extends keyof NudgeableEventMap>(
+    type: K,
+    listener: (ev: NudgeableEventMap[K]) => void
+  ) => void
 }
 
 interface UnsettledNudge {
@@ -44,15 +49,24 @@ export interface NudgeableBase {
   _emit(evt: CustomEvent): void
 }
 
-export default function Nudgeable<T extends new (o: any) => NudgeableBase>(Base: T) {
-  class Mixin extends (Base as new (options: NudgeableOptions) => NudgeableBase) implements NudgeableInstance {
+export default function Nudgeable<T extends new (o: any) => NudgeableBase>(
+  Base: T
+) {
+  class Mixin extends (Base as new (options: NudgeableOptions) => NudgeableBase)
+    implements NudgeableInstance {
     #unsettledNudges: UnsettledNudge[] = []
 
-    on<K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) {
+    on<K extends keyof NudgeableEventMap>(
+      type: K,
+      listener: (ev: NudgeableEventMap[K]) => void
+    ) {
       return super.on.call(this, type, listener)
     }
-  
-    off<K extends keyof NudgeableEventMap>(type: K, listener: (ev: NudgeableEventMap[K]) => void) {
+
+    off<K extends keyof NudgeableEventMap>(
+      type: K,
+      listener: (ev: NudgeableEventMap[K]) => void
+    ) {
       return super.off.call(this, type, listener)
     }
 
@@ -71,28 +85,27 @@ export default function Nudgeable<T extends new (o: any) => NudgeableBase>(Base:
         detail: {
           offset,
           ease,
-          shifted: false
-        }
-      });
-      this._emit(event);
+          shifted: false,
+        },
+      })
+      this._emit(event)
 
       return event.detail.shifted
     }
-    
+
     settle(ease: boolean = true): void {
       // trigger event
       const event = new CustomEvent<SettleEventDetail>(SETTLE_EVENT, {
         detail: {
           ease,
-          unsettledNudges: this.#unsettledNudges
-        }
-      });
-      this._emit(event);
+          unsettledNudges: this.#unsettledNudges,
+        },
+      })
+      this._emit(event)
 
       this.#unsettledNudges = []
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<Nudgeable, typeof Base>
-}
 
+  return (Mixin as unknown) as ComposeConstructor<Nudgeable, typeof Base>
+}

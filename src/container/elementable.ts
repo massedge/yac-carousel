@@ -1,5 +1,5 @@
-import { ComposeConstructor } from "../types"
-import Direction from  '../enums/direction'
+import { ComposeConstructor } from '../types'
+import Direction from '../enums/direction'
 
 export interface ElementableOptions {
   element: HTMLElement
@@ -7,7 +7,7 @@ export interface ElementableOptions {
 }
 
 export interface Elementable {
-  new(options: ElementableOptions): ElementableInstance
+  new (options: ElementableOptions): ElementableInstance
 }
 
 export interface ElementableInstance {
@@ -15,10 +15,9 @@ export interface ElementableInstance {
   readonly direction: Direction
 }
 
-
 export default function Elementable<T extends new (o: any) => any>(Base: T) {
-  class Mixin extends (Base as new (...a: any[]) => any) implements ElementableInstance {
-
+  class Mixin extends (Base as new (...a: any[]) => any)
+    implements ElementableInstance {
     #options: Required<Pick<ElementableOptions, 'element' | 'direction'>>
 
     constructor({
@@ -26,20 +25,19 @@ export default function Elementable<T extends new (o: any) => any>(Base: T) {
       direction = Direction.HORIZONTAL,
       ...otherOptions
     }: ElementableOptions) {
-      super({element, direction, ...otherOptions})
+      super({ element, direction, ...otherOptions })
 
-      this.#options = {element, direction}
+      this.#options = { element, direction }
     }
 
     get element() {
-      return this.#options.element;
+      return this.#options.element
     }
 
     get direction() {
       return this.#options.direction
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<Elementable, typeof Base>
-}
 
+  return (Mixin as unknown) as ComposeConstructor<Elementable, typeof Base>
+}

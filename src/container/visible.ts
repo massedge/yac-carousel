@@ -1,11 +1,11 @@
-import { ComposeConstructor } from "../types"
+import { ComposeConstructor } from '../types'
 
 export interface VisibleOptions {
   element: HTMLElement
 }
 
 export interface Visible {
-  new(options: VisibleOptions): VisibleInstance
+  new (options: VisibleOptions): VisibleInstance
 }
 
 export interface VisibleInstance {
@@ -24,41 +24,41 @@ export interface VisibleBase<Item> {
   destroy(): void
 }
 
-
-export default function Visible<Item extends VisibleItem, T extends new (o: any) => VisibleBase<Item>>(Base: T) {
-  class Mixin extends (Base as new (...a: any[]) => VisibleBase<Item>) implements VisibleInstance {
-
+export default function Visible<
+  Item extends VisibleItem,
+  T extends new (o: any) => VisibleBase<Item>
+>(Base: T) {
+  class Mixin extends (Base as new (...a: any[]) => VisibleBase<Item>)
+    implements VisibleInstance {
     #io: IntersectionObserver
 
-    constructor({
-      element,
-      ...otherOptions
-    }: VisibleOptions) {
-      super({element, ...otherOptions})
+    constructor({ element, ...otherOptions }: VisibleOptions) {
+      super({ element, ...otherOptions })
 
-      this.#io = new IntersectionObserver((entries) => {
-        entries
-          .map(entry => {
+      this.#io = new IntersectionObserver(
+        (entries) => {
+          entries.map((entry) => {
             this.items
               .filter((item: Item) => item.element === entry.target)
-              .forEach((item: Item) => item.visible = entry.isIntersecting)
+              .forEach((item: Item) => (item.visible = entry.isIntersecting))
           })
-      }, {
-        root: element,
-      })
+        },
+        {
+          root: element,
+        }
+      )
     }
 
     render() {
-      super.render();
+      super.render()
       this.items.map((item: Item) => this.#io.observe(item.element))
     }
 
     destroy() {
-      super.destroy();
+      super.destroy()
       this.items.map((item: Item) => this.#io.unobserve(item.element))
     }
   }
-  
-  return Mixin as unknown as ComposeConstructor<Visible, typeof Base>
-}
 
+  return (Mixin as unknown) as ComposeConstructor<Visible, typeof Base>
+}

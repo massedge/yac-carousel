@@ -1,5 +1,5 @@
-import { getBounds } from "../utils/get-bounds";
-import Direction from "../enums/direction";
+import { getBounds } from '../utils/get-bounds'
+import Direction from '../enums/direction'
 
 export default class CoreItem {
   private _element: HTMLElement
@@ -9,10 +9,7 @@ export default class CoreItem {
   private _offset: number = 0
   private _active: boolean = false
 
-  constructor(options: {
-    element: HTMLElement,
-    direction?: Direction,
-  }) {
+  constructor(options: { element: HTMLElement; direction?: Direction }) {
     this._element = options.element
     this._direction = options.direction || Direction.HORIZONTAL
   }
@@ -28,7 +25,7 @@ export default class CoreItem {
   get offset() {
     return this._offset
   }
-  
+
   set offset(value: number) {
     this._offset = value
   }
@@ -47,8 +44,13 @@ export default class CoreItem {
 
   refresh() {
     const bounds = getBounds(this.element)
-    this._length = (this._direction === Direction.HORIZONTAL) ? bounds.widthMargin : bounds.heightMargin
+    this._length =
+      this._direction === Direction.HORIZONTAL
+        ? bounds.widthMargin
+        : bounds.heightMargin
   }
 
-  destroy() { /**/ }
+  destroy() {
+    /**/
+  }
 }
