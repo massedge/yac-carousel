@@ -33,10 +33,18 @@ export default function Wheelable<T extends {
       super(options);
 
       // use debounce allow for more fine-grained navigation when using touchpad
-      this.#wheelFn = _debounce(this.wheel.bind(this), 15, {
+      const debounce = _debounce(this.wheel.bind(this), 15, {
         leading: true,
         trailing: true,
       })
+
+      this.#wheelFn = (e) => {
+        // TODO: should only prevent if not at the end of previous/next
+        // look into using debounce.pending()
+        // @see https://github.com/lodash/lodash/issues/4322
+        e.preventDefault()
+        debounce(e)
+      }
     }
     
     render() {
