@@ -13,6 +13,7 @@ export default class Core {
   #warn: CoreOptions['warn']
   #index: number = 0;
   #rendered: boolean = false;
+  #destroyed: boolean = false;
 
   constructor({
     warn = console.warn.bind(console)
@@ -27,8 +28,9 @@ export default class Core {
   _emit(e: Event) { /**/ }
 
   render() {
-    if (this.#rendered) throw new Error('Carousel has already been rendered.')
+    if (this.#rendered) return false
     this.#rendered = true;
+    return true
   }
 
   get index() {
@@ -72,7 +74,12 @@ export default class Core {
 
   refresh() { /**/ }
 
-  destroy() { /**/ }
+  destroy() {
+    if (!this.#rendered) return false
+    if (this.#destroyed) return false
+    this.#destroyed = true
+    return true
+  }
   
   _warn(message: string) {
     if (!this.#warn) return;
