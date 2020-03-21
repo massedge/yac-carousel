@@ -115,7 +115,7 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
       })
 
       this.on(NUDGE_EVENT, (e: NudgeableEventMap[typeof NUDGE_EVENT]) => {
-        // this._warn('nudge');
+        // console.log('nudge');
 
         if (e.defaultPrevented) return
 
@@ -152,7 +152,7 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
       })
 
       this.on(SETTLE_EVENT, (e: NudgeableEventMap[typeof SETTLE_EVENT]) => {
-        // this._warn('settle');
+        // console.log('settle');
 
         const nudges = e.detail.unsettledNudges
         // console.log(nudges)

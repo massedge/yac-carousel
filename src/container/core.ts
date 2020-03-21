@@ -6,20 +6,12 @@ import {
 } from "./event-map";
 
 export interface CoreOptions {
-  warn?: (message: string) => void
 }
 
 export default class Core {
-  #warn: CoreOptions['warn']
   #index: number = 0;
   #rendered: boolean = false;
   #destroyed: boolean = false;
-
-  constructor({
-    warn = console.warn.bind(console)
-  }: CoreOptions) {
-    this.#warn = warn
-  }
 
   on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
 
@@ -79,10 +71,5 @@ export default class Core {
     if (this.#destroyed) return false
     this.#destroyed = true
     return true
-  }
-  
-  _warn(message: string) {
-    if (!this.#warn) return;
-    this.#warn(message);
   }
 }
