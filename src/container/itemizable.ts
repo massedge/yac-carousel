@@ -3,7 +3,11 @@ import Direction from  '../enums/direction'
 
 import { getBounds } from "../utils/get-bounds";
 import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from "./nudgeable";
-import { EVENT_TYPE_INDEX_CHANGE_AFTER, EVENT_TYPE_INDEX_CHANGE_BEFORE, EventDetailIndexChange } from "./event-map";
+import {
+  SELECT_BEFORE_EVENT,
+  SELECT_AFTER_EVENT,
+} from "./indexable/select";
+import { IndexableSelectEventDetail } from './indexable/select/types'
 
 export interface ItemizableOptions<Item extends ElementableItem> {
   element: HTMLElement
@@ -93,13 +97,13 @@ export default function Itemizable<T extends new (o: any) => ItemizableBase, Ite
       this.items.forEach((item) => item.render())
       this._calculate()
 
-      this.on(EVENT_TYPE_INDEX_CHANGE_BEFORE, (e: CustomEvent<EventDetailIndexChange>) => {
+      this.on(SELECT_BEFORE_EVENT, (e: CustomEvent<IndexableSelectEventDetail>) => {
         if (e.detail.from === e.detail.to) return e.preventDefault()
         if (e.detail.to < 0) return e.preventDefault()
         if (e.detail.to >= this.items.length) return e.preventDefault()
       })
 
-      this.on(EVENT_TYPE_INDEX_CHANGE_AFTER, (e: CustomEvent<EventDetailIndexChange>) => {
+      this.on(SELECT_AFTER_EVENT, (e: CustomEvent<IndexableSelectEventDetail>) => {
         const fromItem = this.items[e.detail.from]
         const targetItem = this.items[e.detail.to]
 

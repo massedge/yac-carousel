@@ -6,6 +6,8 @@ import DraggableMouse from './container/draggable/mouse'
 import DraggablePointer from './container/draggable/pointer'
 import DraggableTouch from './container/draggable/touch'
 import Elementable from './container/elementable';
+import IndexablePreviousNext from './container/indexable/previous-next';
+import IndexableSelect from './container/indexable/select';
 import Itemizable from './container/itemizable';
 import Nudgeable from './container/nudgeable';
 import Visible from './container/visible';
@@ -19,17 +21,16 @@ export const CarouselItem = ItemVisible(ElementEventable(ItemCore))
 
 const Carousel =
   Visible(
-  Itemizable(
     Wheelable(
       DraggableTouch(DraggablePointer(DraggableMouse(DraggableCore(
-        Nudgeable(
-        ElementEventable(
-        Elementable(
-          Core
-        )))
-      )))
-    )),
-    CarouselItem
-  ))
+        IndexablePreviousNext(IndexableSelect(
+          Itemizable(
+            Nudgeable(ElementEventable(Elementable(Core))),
+            CarouselItem
+          )
+        ))
+      ))))
+    )
+  )
 
 export default Carousel

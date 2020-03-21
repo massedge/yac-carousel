@@ -1,75 +1,17 @@
-import {
-  EVENT_TYPE_INDEX_CHANGE_BEFORE,
-  EVENT_TYPE_INDEX_CHANGE_AFTER,
-  EventMap,
-  EventDetailIndexChange,
-} from "./event-map";
-
-export interface CoreOptions {
-}
-
 export default class Core {
-  #index: number = 0;
   #rendered: boolean = false;
   #destroyed: boolean = false;
 
-  on<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
-
-  off<K extends keyof EventMap>(type: K, listener: (ev: EventMap[K]) => void) { /**/ }
-
-  _emit(e: Event) { /**/ }
-
-  render() {
+  render(): boolean {
     if (this.#rendered) return false
-    this.#rendered = true;
-    return true
-  }
-
-  get index() {
-    return this.#index;
-  }
-
-  next() {
-    return this.select(this.index + 1);
-  }
-
-  previous() {
-    return this.select(this.index - 1);
-  }
-
-  select(index: number) {
-    const eBefore = new CustomEvent<EventDetailIndexChange>(EVENT_TYPE_INDEX_CHANGE_BEFORE, {
-      cancelable: true,
-      detail: {
-        from: this.index,
-        to: index
-      }
-    });
-    this._emit(eBefore);
-
-    if (eBefore.defaultPrevented) {
-      return false;
-    }
-
-    this.#index = index;
-
-    const eAfter = new CustomEvent<EventDetailIndexChange>(EVENT_TYPE_INDEX_CHANGE_AFTER, {
-      detail: {
-        from: this.index,
-        to: index
-      }
-    });
-    this._emit(eAfter);
-
-    return true;
+    return this.#rendered = true;
   }
 
   refresh() { /**/ }
 
-  destroy() {
+  destroy(): boolean {
     if (!this.#rendered) return false
     if (this.#destroyed) return false
-    this.#destroyed = true
-    return true
+    return this.#destroyed = true
   }
 }
