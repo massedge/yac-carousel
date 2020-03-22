@@ -3,6 +3,7 @@ import Direction from '../../enums/direction'
 import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../elementable'
 import { DraggableCoreInstance } from './core'
+import { DirectionableInstance } from '../directionable'
 
 export interface DraggableTouchOptions {}
 
@@ -16,7 +17,8 @@ export interface DraggableTouchInstance {
 }
 
 export interface DraggableTouchBase
-  extends Pick<ElementableInstance, 'element' | 'direction'>,
+  extends Pick<ElementableInstance, 'element'>,
+    Pick<DirectionableInstance, 'direction'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
     Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'> {
   render(): void

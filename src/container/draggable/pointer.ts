@@ -3,6 +3,7 @@ import Direction from '../../enums/direction'
 import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../elementable'
 import { DraggableCoreInstance } from './core'
+import { DirectionableInstance } from '../directionable'
 
 export interface DraggablePointerOptions {}
 
@@ -16,7 +17,8 @@ export interface DraggablePointerInstance {
 }
 
 export interface DraggablePointerBase
-  extends Pick<ElementableInstance, 'element' | 'direction'>,
+  extends Pick<ElementableInstance, 'element'>,
+    Pick<DirectionableInstance, 'direction'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
     Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'> {
   render(): void
@@ -58,8 +60,9 @@ export default function DraggablePointer<
           ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(
             (e.target as HTMLElement).nodeName
           ) > -1
-        )
+        ) {
           prevented = true
+        }
       }
 
       prevented = this.preventDraggingOverride(e, prevented)

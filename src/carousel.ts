@@ -1,6 +1,7 @@
 // container
 import Core from './container/core'
 import ElementEventable from './container/eventable/element'
+import Directionable from './container/directionable'
 import DraggableCore from './container/draggable/core'
 import DraggableMouse from './container/draggable/mouse'
 import DraggablePointer from './container/draggable/pointer'
@@ -28,7 +29,7 @@ const Carousel = Visible(
             IndexablePreviousNext(
               IndexableSelect(
                 Itemizable(
-                  Nudgeable(ElementEventable(Elementable(Core))),
+                  Nudgeable(ElementEventable(Directionable(Elementable(Core)))),
                   CarouselItem
                 )
               )
