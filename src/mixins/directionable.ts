@@ -1,5 +1,5 @@
-import { ComposeConstructor } from '../../types'
-import Direction from '../../enums/direction'
+import { ComposeConstructor } from '../types'
+import Direction from '../enums/direction'
 
 export interface DirectionableOptions {
   direction?: Direction

@@ -3,7 +3,7 @@ import Direction from '../../../enums/direction'
 import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../elementable'
 import { DraggableCoreInstance } from './core'
-import { DirectionableInstance } from '../directionable'
+import { DirectionableInstance } from '../../directionable'
 
 export interface DraggablePointerOptions {}
 

@@ -1,7 +1,10 @@
 // enums
 export { default as Direction } from './enums/direction'
 
-// container
+// mixins
+export { default as Directionable } from './mixins/directionable'
+
+// container mixins
 export { default as ContainerCore } from './mixins/container/core'
 export { default as ContainerItemizable } from './mixins/container/itemizable'
 export { default as ContainerDraggable } from './mixins/container/draggable'
@@ -17,7 +20,7 @@ export { default as ContainerNudgeable } from './mixins/container/nudgeable'
 export { default as ContainerVisible } from './mixins/container/visible'
 export { default as ContainerWheelable } from './mixins/container/wheelable'
 
-// item
+// item mixin
 export { default as ItemCore } from './mixins/item/core'
 export { default as ItemVisible } from './mixins/item/visible'
 
