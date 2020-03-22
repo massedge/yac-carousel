@@ -3,6 +3,7 @@ export { default as Direction } from './enums/direction'
 
 // mixins
 export { default as Directionable } from './mixins/directionable'
+export { default as Elementable } from './mixins/elementable'
 
 // container mixins
 export { default as ContainerCore } from './mixins/container/core'
@@ -12,7 +13,6 @@ export { default as ContainerDraggableCore } from './mixins/container/draggable/
 export { default as ContainerDraggableMouse } from './mixins/container/draggable/mouse'
 export { default as ContainerDraggablePointer } from './mixins/container/draggable/pointer'
 export { default as ContainerDraggableTouch } from './mixins/container/draggable/touch'
-export { default as ContainerElementable } from './mixins/container/elementable'
 export { default as ContainerEventableElement } from './mixins/container/eventable/element'
 export { default as ContainerNavablePreviousNextButton } from './mixins/container/navable/previous-next/button'
 export { default as ContainerNavablePreviousNextHandler } from './mixins/container/navable/previous-next/handler'
