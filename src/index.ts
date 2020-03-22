@@ -24,7 +24,8 @@ export { default as ContainerVisible } from './mixins/container/visible'
 export { default as ContainerWheelable } from './mixins/container/wheelable'
 
 // item mixin
-export { default as ItemCore } from './mixins/item/core'
+export { default as ItemActivatable } from './mixins/item/activatable'
+export { default as ItemBoxModelable } from './mixins/item/box-modelable'
 export { default as ItemVisible } from './mixins/item/visible'
 
 export { default } from './carousel'

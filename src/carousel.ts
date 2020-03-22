@@ -1,14 +1,16 @@
 // base class
 import Core from './classes/core'
 
+// mixins
+import Directionable from './mixins/directionable'
+import Elementable from './mixins/elementable'
+
 // container
 import ElementEventable from './mixins/container/eventable/element'
-import Directionable from './mixins/directionable'
 import DraggableCore from './mixins/container/draggable/core'
 import DraggableMouse from './mixins/container/draggable/mouse'
 import DraggablePointer from './mixins/container/draggable/pointer'
 import DraggableTouch from './mixins/container/draggable/touch'
-import Elementable from './mixins/elementable'
 import IndexablePreviousNext from './mixins/container/indexable/previous-next'
 import IndexableSelect from './mixins/container/indexable/select'
 import Itemizable from './mixins/container/itemizable'
@@ -17,10 +19,15 @@ import Visible from './mixins/container/visible'
 import Wheelable from './mixins/container/wheelable'
 
 // item
-import ItemCore from './mixins/item/core'
 import ItemVisible from './mixins/item/visible'
+import ItemActivatable from './mixins/item/activatable'
+import ItemBoxModelable from './mixins/item/box-modelable'
 
-export const CarouselItem = ItemVisible(ElementEventable(ItemCore))
+export const CarouselItem = ItemBoxModelable(
+  ItemActivatable(
+    ItemVisible(ElementEventable(Directionable(Elementable(Core))))
+  )
+)
 
 const Carousel = Visible(
   Wheelable(
