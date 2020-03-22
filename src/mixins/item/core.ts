@@ -1,5 +1,5 @@
-import { getBounds } from '../utils/get-bounds'
-import Direction from '../enums/direction'
+import { getBounds } from '../../utils/get-bounds'
+import Direction from '../../enums/direction'
 
 export default class CoreItem {
   private _element: HTMLElement

@@ -1,5 +1,5 @@
-import { ComposeConstructor } from '../../types'
-import Direction from '../../enums/direction'
+import { ComposeConstructor } from '../../../types'
+import Direction from '../../../enums/direction'
 import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../elementable'
 import { DraggableCoreInstance } from './core'

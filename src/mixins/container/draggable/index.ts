@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../types'
+import { ComposeConstructor } from '../../../types'
 import Core, { DraggableCoreInstance } from './core'
 import Mouse, { DraggableMouseBase } from './mouse'
 import Pointer, { DraggablePointerBase } from './pointer'

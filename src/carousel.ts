@@ -1,22 +1,22 @@
 // container
-import Core from './container/core'
-import ElementEventable from './container/eventable/element'
-import Directionable from './container/directionable'
-import DraggableCore from './container/draggable/core'
-import DraggableMouse from './container/draggable/mouse'
-import DraggablePointer from './container/draggable/pointer'
-import DraggableTouch from './container/draggable/touch'
-import Elementable from './container/elementable'
-import IndexablePreviousNext from './container/indexable/previous-next'
-import IndexableSelect from './container/indexable/select'
-import Itemizable from './container/itemizable'
-import Nudgeable from './container/nudgeable'
-import Visible from './container/visible'
-import Wheelable from './container/wheelable'
+import Core from './mixins/container/core'
+import ElementEventable from './mixins/container/eventable/element'
+import Directionable from './mixins/container/directionable'
+import DraggableCore from './mixins/container/draggable/core'
+import DraggableMouse from './mixins/container/draggable/mouse'
+import DraggablePointer from './mixins/container/draggable/pointer'
+import DraggableTouch from './mixins/container/draggable/touch'
+import Elementable from './mixins/container/elementable'
+import IndexablePreviousNext from './mixins/container/indexable/previous-next'
+import IndexableSelect from './mixins/container/indexable/select'
+import Itemizable from './mixins/container/itemizable'
+import Nudgeable from './mixins/container/nudgeable'
+import Visible from './mixins/container/visible'
+import Wheelable from './mixins/container/wheelable'
 
 // item
-import ItemCore from './item/core'
-import ItemVisible from './item/visible'
+import ItemCore from './mixins/item/core'
+import ItemVisible from './mixins/item/visible'
 
 export const CarouselItem = ItemVisible(ElementEventable(ItemCore))
 

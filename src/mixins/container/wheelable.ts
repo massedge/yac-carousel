@@ -1,6 +1,6 @@
 import _debounce from 'lodash-es/debounce'
 
-import { ComposeConstructor } from '../types'
+import { ComposeConstructor } from '../../types'
 
 export interface WheelableOptions {}
 

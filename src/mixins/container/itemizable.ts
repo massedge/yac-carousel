@@ -1,7 +1,7 @@
-import { ComposeConstructor } from '../types'
-import Direction from '../enums/direction'
+import { ComposeConstructor } from '../../types'
+import Direction from '../../enums/direction'
 
-import { getBounds } from '../utils/get-bounds'
+import { getBounds } from '../../utils/get-bounds'
 import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from './nudgeable'
 import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from './indexable/select'
 import { IndexableSelectEventDetail } from './indexable/select/types'
@@ -184,8 +184,9 @@ export default function Itemizable<
         let newPosition = this.position + momentumDistance
         // console.log(this.position, newPosition, this.itemsLength - this.length)
         if (newPosition > 0) newPosition = 0
-        else if (newPosition < this.length - this.itemsLength)
+        else if (newPosition < this.length - this.itemsLength) {
           newPosition = this.length - this.itemsLength
+        }
         this.position = newPosition
         this._animateToPosition(this.position, true)
         // console.log(newPosition)
