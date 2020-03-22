@@ -1,5 +1,7 @@
+// base class
+import Core from './classes/core'
+
 // container
-import Core from './mixins/container/core'
 import ElementEventable from './mixins/container/eventable/element'
 import Directionable from './mixins/directionable'
 import DraggableCore from './mixins/container/draggable/core'
