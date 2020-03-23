@@ -129,13 +129,9 @@ export default function ItemizableTranslate<
       this.items.forEach((item) => {
         const translate =
           this.direction === Direction.HORIZONTAL ? 'translateX' : 'translateY'
-        item.element.style.transform = `${translate}(${position}px)`
+        item[translate] = position
 
-        if (!ease) {
-          item.element.style.removeProperty('transition')
-        } else {
-          item.element.style.transition = `${300 + 'ms'} transform`
-        }
+        item.transition = ease ? `${300 + 'ms'} transform` : ''
       })
     }
 

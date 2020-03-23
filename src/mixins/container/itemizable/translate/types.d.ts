@@ -28,7 +28,9 @@ export interface ItemizableBase<Item extends ItemizableItemBase> {
 export interface ItemizableItemBase {
   active: boolean
   readonly length: number
-  readonly element: HTMLElement
+  translateX: number
+  translateY: number
+  transition: string
   render: () => void
   destroy: () => void
   refresh: () => void

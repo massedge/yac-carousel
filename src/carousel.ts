@@ -20,13 +20,19 @@ import Visible from './mixins/container/visible'
 import Wheelable from './mixins/container/wheelable'
 
 // item
-import ItemVisible from './mixins/item/visible'
 import ItemActivatable from './mixins/item/activatable'
 import ItemBoxModelable from './mixins/item/box-modelable'
+import ItemCssTransformTranslate from './mixins/item/css-transform/translate'
+import ItemCssTransition from './mixins/item/css-transition'
+import ItemVisible from './mixins/item/visible'
 
 export const CarouselItem = ItemBoxModelable(
   ItemActivatable(
-    ItemVisible(ElementEventable(Directionable(Elementable(Core))))
+    ItemVisible(
+      ItemCssTransformTranslate(
+        ItemCssTransition(ElementEventable(Directionable(Elementable(Core))))
+      )
+    )
   )
 )
 
