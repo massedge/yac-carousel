@@ -53,7 +53,14 @@ export default function ItemizableTranslate<
           // new position
           const targetPosition = this.items
             .slice(0, e.detail.to)
-            .reduce((position, item) => (position -= item.length), 0)
+            .reduce(
+              (position, item) =>
+                (position -=
+                  this.direction === Direction.HORIZONTAL
+                    ? item.width
+                    : item.height),
+              0
+            )
 
           this.nudge(targetPosition - this.position, true)
         }
@@ -145,7 +152,9 @@ export default function ItemizableTranslate<
       this.length =
         this.direction === Direction.HORIZONTAL ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce(
-        (length, item) => length + item.length,
+        (length, item) =>
+          length +
+          (this.direction === Direction.HORIZONTAL ? item.width : item.height),
         0
       )
     }

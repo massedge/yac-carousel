@@ -27,7 +27,8 @@ export interface ItemizableBase<Item extends ItemizableItemBase> {
 
 export interface ItemizableItemBase {
   active: boolean
-  readonly length: number
+  readonly width: number
+  readonly height: number
   translateX: number
   translateY: number
   transition: string

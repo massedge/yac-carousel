@@ -38,6 +38,7 @@ export default function CssTransformableTranslate<
     }
     set translateX(value) {
       this.#translateX = value
+      this.updateStyle()
     }
 
     get translateY() {
@@ -45,10 +46,15 @@ export default function CssTransformableTranslate<
     }
     set translateY(value) {
       this.#translateY = value
+      this.updateStyle()
     }
 
     render() {
       super.render()
+      this.updateStyle()
+    }
+
+    private updateStyle() {
       this.element.style.transform = `translate(${this.translateX + 'px'},${
         this.translateY + 'px'
       })`

@@ -30,7 +30,7 @@ export const CarouselItem = ItemBoxModelable(
   ItemActivatable(
     ItemVisible(
       ItemCssTransformTranslate(
-        ItemCssTransition(ElementEventable(Directionable(Elementable(Core))))
+        ItemCssTransition(ElementEventable(Elementable(Core)))
       )
     )
   )

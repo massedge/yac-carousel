@@ -45,7 +45,6 @@ const cVertical = new (ContainerNavablePreviousNextHandler(YacCarousel))({
     .map((element) => {
       const item = new YacCarouselItem({
         element: element as HTMLElement,
-        direction: Direction.VERTICAL,
       })
       item.render()
       return item

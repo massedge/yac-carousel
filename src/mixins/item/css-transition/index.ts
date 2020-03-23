@@ -39,6 +39,10 @@ export default function CssTransition<
 
     render() {
       super.render()
+      this.updateStyle()
+    }
+
+    private updateStyle() {
       this.element.style.transition =
         this.transition || TRANSITION_DEFAULT_VALUE
     }
