@@ -7,9 +7,11 @@ export type ComposeConstructor<T, U> = [T, U] extends [
 ]
   ? {
       new (options: O1 & O2): R1 & R2
-    } & Pick<T, keyof T> &
-      Pick<U, keyof U>
-  : never
+    }
+  : // NOTE: Currently not using static methods in mixins, so no need
+    // to complicate composition with merging of static methods.
+    // & Pick<T, keyof T> & Pick<U, keyof U>
+    never
 
 /**
  * @see https://github.com/Microsoft/TypeScript/issues/25760#issuecomment-405931434
