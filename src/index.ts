@@ -5,6 +5,7 @@ export { default as Core } from './classes/core'
 export { default as Direction } from './enums/direction'
 
 // mixins
+export { default as BoxModelable } from './mixins/box-modelable'
 export { default as Directionable } from './mixins/directionable'
 export { default as Elementable } from './mixins/elementable'
 
@@ -25,7 +26,6 @@ export { default as ContainerWheelable } from './mixins/container/wheelable'
 
 // item mixin
 export { default as ItemActivatable } from './mixins/item/activatable'
-export { default as ItemBoxModelable } from './mixins/item/box-modelable'
 export { default as ItemVisible } from './mixins/item/visible'
 
 export {

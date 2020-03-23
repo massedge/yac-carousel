@@ -1,5 +1,5 @@
-import { ComposeConstructor } from '../../types'
-import { getBounds } from '../../utils/get-bounds'
+import { ComposeConstructor } from '../types'
+import { getBounds } from '../utils/get-bounds'
 
 export interface BoxModelableOptions {}
 
