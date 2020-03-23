@@ -24,9 +24,7 @@ export default function ItemizableCore<
       items = [],
       // itemConstructor,
       ...otherOptions
-    }: ItemizableCoreOptions<Item> & {
-      items?: Item[]
-    }) {
+    }: ItemizableCoreOptions<Item>) {
       super({
         items,
         // itemConstructor,
