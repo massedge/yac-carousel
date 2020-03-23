@@ -36,8 +36,8 @@ export const CarouselItem = BoxModelable(
   )
 )
 
-const CarouselItemizableBase = Nudgeable(
-  ElementEventable(Directionable(Elementable(Core)))
+const CarouselItemizableBase = BoxModelable(
+  Nudgeable(ElementEventable(Directionable(Elementable(Core))))
 )
 
 const Carousel = Visible(

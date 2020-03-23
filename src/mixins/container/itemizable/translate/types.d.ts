@@ -17,6 +17,8 @@ export interface ItemizableInstance<Item extends ItemizableItemBase> {
 export interface ItemizableBase<Item extends ItemizableItemBase> {
   readonly element: HTMLElement
   readonly direction: Direction
+  readonly width: number
+  readonly height: number
   items: readonly Item[]
   render(): void
   refresh(): void

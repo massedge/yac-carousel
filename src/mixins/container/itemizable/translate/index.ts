@@ -1,7 +1,6 @@
 import { ComposeConstructor } from '../../../../types'
 import Direction from '../../../../enums/direction'
 
-import { getBounds } from '../../../../utils/get-bounds'
 import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from '../../nudgeable'
 import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from '../../indexable/select'
 import { IndexableSelectEventDetail } from '../../indexable/select/types'
@@ -24,8 +23,11 @@ export default function ItemizableTranslate<
     >)
     implements ItemizableInstance<Item> {
     private position = 0
-    private length = 0
     private itemsLength = 0
+
+    private get length() {
+      return this.direction === Direction.HORIZONTAL ? this.width : this.height
+    }
 
     render() {
       super.render()
@@ -148,9 +150,6 @@ export default function ItemizableTranslate<
     }
 
     private _calculate() {
-      const bounds = getBounds(this.element)
-      this.length =
-        this.direction === Direction.HORIZONTAL ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce(
         (length, item) =>
           length +
