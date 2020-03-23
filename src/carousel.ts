@@ -13,7 +13,8 @@ import DraggablePointer from './mixins/container/draggable/pointer'
 import DraggableTouch from './mixins/container/draggable/touch'
 import IndexablePreviousNext from './mixins/container/indexable/previous-next'
 import IndexableSelect from './mixins/container/indexable/select'
-import Itemizable from './mixins/container/itemizable'
+import ItemizableCore from './mixins/container/itemizable/core'
+import ItemizableTranslate from './mixins/container/itemizable/translate'
 import Nudgeable from './mixins/container/nudgeable'
 import Visible from './mixins/container/visible'
 import Wheelable from './mixins/container/wheelable'
@@ -29,6 +30,10 @@ export const CarouselItem = ItemBoxModelable(
   )
 )
 
+const CarouselItemizableBase = Nudgeable(
+  ElementEventable(Directionable(Elementable(Core)))
+)
+
 const Carousel = Visible(
   Wheelable(
     DraggableTouch(
@@ -37,9 +42,11 @@ const Carousel = Visible(
           DraggableCore(
             IndexablePreviousNext(
               IndexableSelect(
-                Itemizable(
-                  Nudgeable(ElementEventable(Directionable(Elementable(Core)))),
-                  CarouselItem
+                ItemizableTranslate(
+                  ItemizableCore<
+                    InstanceType<typeof CarouselItem>,
+                    typeof CarouselItemizableBase
+                  >(CarouselItemizableBase)
                 )
               )
             )

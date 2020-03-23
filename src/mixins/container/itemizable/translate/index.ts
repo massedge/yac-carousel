@@ -1,102 +1,34 @@
-import { ComposeConstructor } from '../../types'
-import Direction from '../../enums/direction'
+import { ComposeConstructor } from '../../../../types'
+import Direction from '../../../../enums/direction'
 
-import { getBounds } from '../../utils/get-bounds'
-import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from './nudgeable'
-import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from './indexable/select'
-import { IndexableSelectEventDetail } from './indexable/select/types'
+import { getBounds } from '../../../../utils/get-bounds'
+import { NudgeableEventMap, NUDGE_EVENT, SETTLE_EVENT } from '../../nudgeable'
+import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from '../../indexable/select'
+import { IndexableSelectEventDetail } from '../../indexable/select/types'
 
-export interface ItemizableOptions<Item extends ElementableItem> {
-  element: HTMLElement
-  itemConstructor?: new (options: {
-    element: HTMLElement
-    direction?: Direction
-  }) => Item
-  direction?: Direction
-}
+import {
+  Itemizable,
+  ItemizableBase,
+  ItemizableInstance,
+  ItemizableOptions,
+  ItemizableItemBase,
+} from './types'
 
-export interface Itemizable<Item extends ElementableItem> {
-  new (options: ItemizableOptions<Item>): ItemizableInstance<Item>
-}
-
-export interface ItemizableInstance<Item extends ElementableItem> {
-  render: () => void
-  refresh: () => void
-  items: readonly Item[]
-}
-
-export interface ItemizableBase {
-  readonly element: HTMLElement
-  render(): void
-  refresh(): void
-  nudge: (offset: number, ease: boolean) => boolean
-  on: (type: string, listener: (ev: CustomEvent) => void) => void
-  off: (type: string, listener: (ev: CustomEvent) => void) => void
-}
-
-export interface ElementableItem {
-  active: boolean
-  readonly length: number
-  readonly element: HTMLElement
-  render: () => void
-  destroy: () => void
-  refresh: () => void
-}
-
-export default function Itemizable<
-  T extends new (o: any) => ItemizableBase,
-  Item extends ElementableItem
->(
-  Base: T,
-  defaultItemConstructor: NonNullable<
-    ItemizableOptions<Item>['itemConstructor']
-  >
-) {
+export default function ItemizableTranslate<
+  T extends new (o: any) => ItemizableBase<Item>,
+  Item extends ItemizableItemBase
+>(Base: T) {
   class Mixin
-    extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase)
+    extends (Base as new (options: ItemizableOptions<Item>) => ItemizableBase<
+      Item
+    >)
     implements ItemizableInstance<Item> {
-    #options: Required<ItemizableOptions<Item>>
-    #items: Item[] = []
     private position = 0
     private length = 0
     private itemsLength = 0
 
-    constructor({
-      element,
-      itemConstructor = defaultItemConstructor,
-      direction = Direction.HORIZONTAL,
-      ...otherOptions
-    }: ItemizableOptions<Item>) {
-      super({ element, direction, ...otherOptions })
-
-      this.#options = { element, direction, itemConstructor }
-    }
-
-    get element() {
-      return this.#options.element
-    }
-
-    protected get direction() {
-      return this.#options.direction
-    }
-
-    get items(): readonly Item[] {
-      return this.#items
-    }
-
     render() {
       super.render()
-
-      this.#items = Array.from(this.element.children)
-        .filter((elItem) => elItem.nodeType === 1)
-        .map((child) => {
-          return new this.#options.itemConstructor({
-            element: child as HTMLElement,
-            direction: this.#options.direction,
-          })
-        })
-
-      this.items.forEach((item) => item.render())
       this._calculate()
 
       this.on(
@@ -196,9 +128,7 @@ export default function Itemizable<
     private _animateToPosition(position: number, ease: boolean = false) {
       this.items.forEach((item) => {
         const translate =
-          this.#options.direction === Direction.HORIZONTAL
-            ? 'translateX'
-            : 'translateY'
+          this.direction === Direction.HORIZONTAL ? 'translateX' : 'translateY'
         item.element.style.transform = `${translate}(${position}px)`
 
         if (!ease) {
@@ -211,16 +141,13 @@ export default function Itemizable<
 
     refresh() {
       super.refresh()
-      this.items.forEach((item) => item.refresh())
       this._calculate()
     }
 
-    _calculate() {
-      const bounds = getBounds(this.#options.element)
+    private _calculate() {
+      const bounds = getBounds(this.element)
       this.length =
-        this.#options.direction === Direction.HORIZONTAL
-          ? bounds.width
-          : bounds.height
+        this.direction === Direction.HORIZONTAL ? bounds.width : bounds.height
       this.itemsLength = this.items.reduce(
         (length, item) => length + item.length,
         0

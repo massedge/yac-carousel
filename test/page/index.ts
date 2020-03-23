@@ -1,4 +1,6 @@
-import YacCarousel, {
+import {
+  YacCarousel,
+  YacCarouselItem,
   Direction,
   ContainerNavablePreviousNextButton,
   ContainerNavablePreviousNextHandler,
@@ -11,6 +13,15 @@ const c = new (ContainerNavablePreviousNextButton(YacCarousel))({
   element: elHorizontal,
   previousText: 'Previous',
   nextText: 'Next',
+  items: Array.from(elHorizontal.children)
+    .filter((child) => child.nodeType === 1)
+    .map((element) => {
+      const item = new YacCarouselItem({
+        element: element as HTMLElement,
+      })
+      item.render()
+      return item
+    }),
 })
 c.render()
 
@@ -29,5 +40,15 @@ const cVertical = new (ContainerNavablePreviousNextHandler(YacCarousel))({
   direction: Direction.VERTICAL,
   elPrevious,
   elNext,
+  items: Array.from(elVertical.children)
+    .filter((child) => child.nodeType === 1)
+    .map((element) => {
+      const item = new YacCarouselItem({
+        element: element as HTMLElement,
+        direction: Direction.VERTICAL,
+      })
+      item.render()
+      return item
+    }),
 })
 cVertical.render()
