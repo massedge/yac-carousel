@@ -35,14 +35,15 @@ export default function CssTransition<
     }
     set transition(value: string) {
       this.#transition = value
+      this._cssTransitionUpdateStyle()
     }
 
     render() {
       super.render()
-      this.updateStyle()
+      this._cssTransitionUpdateStyle()
     }
 
-    private updateStyle() {
+    private _cssTransitionUpdateStyle() {
       this.element.style.transition =
         this.transition || TRANSITION_DEFAULT_VALUE
     }
