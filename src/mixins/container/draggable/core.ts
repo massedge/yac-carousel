@@ -1,8 +1,6 @@
 import { ComposeConstructor } from '../../../types'
 
-export interface DraggableCoreOptions {
-  preventDragging?: (e: Event, prevented: boolean) => boolean
-}
+export interface DraggableCoreOptions {}
 
 export interface DraggableCore {
   new (options?: DraggableCoreOptions): DraggableCoreInstance
@@ -10,24 +8,12 @@ export interface DraggableCore {
 
 export interface DraggableCoreInstance {
   _dragging: boolean
-  preventDraggingOverride: NonNullable<DraggableCoreOptions['preventDragging']>
 }
 
 export default function DraggableCore<T extends new (o: any) => any>(Base: T) {
   class Mixin extends (Base as new (...a: any[]) => {})
     implements DraggableCoreInstance {
     #dragging: boolean = false
-    preventDraggingOverride: NonNullable<
-      DraggableCoreOptions['preventDragging']
-    >
-
-    constructor({
-      preventDragging = () => false,
-      ...otherOptions
-    }: DraggableCoreOptions) {
-      super({ preventDragging, ...otherOptions })
-      this.preventDraggingOverride = preventDragging
-    }
 
     // protected
     set _dragging(value) {

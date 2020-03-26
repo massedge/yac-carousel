@@ -4,6 +4,12 @@ import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
 import { DirectionableInstance } from '../../directionable'
+import { ElementEventableInstance } from '../eventable/element'
+import {
+  DraggableEventMap,
+  DraggingStartEventDetail,
+  DRAGGING_START_EVENT,
+} from './types'
 
 export interface DraggableTouchOptions {}
 
@@ -14,13 +20,22 @@ export interface DraggableTouch {
 export interface DraggableTouchInstance {
   render: () => void
   destroy: () => void
+  on: <K extends keyof DraggableEventMap>(
+    type: K,
+    listener: (ev: DraggableEventMap[K]) => void
+  ) => void
+  off: <K extends keyof DraggableEventMap>(
+    type: K,
+    listener: (ev: DraggableEventMap[K]) => void
+  ) => void
 }
 
 export interface DraggableTouchBase
   extends Pick<ElementableInstance, 'element'>,
     Pick<DirectionableInstance, 'direction'>,
+    Pick<ElementEventableInstance, 'on' | 'off' | '_emit'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
-    Pick<DraggableCoreInstance, '_dragging' | 'preventDraggingOverride'> {
+    Pick<DraggableCoreInstance, '_dragging'> {
   render(): void
   destroy(): void
 }
@@ -51,11 +66,18 @@ export default function DraggableTouch<
     }
 
     private preventDragging(e: TouchEvent) {
-      let prevented: boolean = false
+      const ev = new CustomEvent<DraggingStartEventDetail>(
+        DRAGGING_START_EVENT,
+        {
+          cancelable: true,
+          detail: {
+            event: e,
+          },
+        }
+      )
+      this._emit(ev)
 
-      prevented = this.preventDraggingOverride(e, prevented)
-
-      return prevented
+      return ev.defaultPrevented
     }
 
     private touchStart(e: TouchEvent) {
