@@ -10,8 +10,6 @@ export { default as Directionable } from './mixins/directionable'
 export { default as Elementable } from './mixins/elementable'
 
 // container mixins
-
-export { default as ContainerDraggable } from './mixins/container/draggable'
 export { default as ContainerDraggableCore } from './mixins/container/draggable/core'
 export { default as ContainerDraggableMouse } from './mixins/container/draggable/mouse'
 export { default as ContainerDraggablePointer } from './mixins/container/draggable/pointer'

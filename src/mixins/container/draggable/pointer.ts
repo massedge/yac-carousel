@@ -4,12 +4,6 @@ import { NudgeableInstance } from '../nudgeable'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
 import { DirectionableInstance } from '../../directionable'
-import { ElementEventableInstance } from '../eventable/element'
-import {
-  DraggableEventMap,
-  DraggingStartEventDetail,
-  DRAGGING_START_EVENT,
-} from './types'
 
 export interface DraggablePointerOptions {}
 
@@ -20,22 +14,13 @@ export interface DraggablePointer {
 export interface DraggablePointerInstance {
   render: () => void
   destroy: () => void
-  on: <K extends keyof DraggableEventMap>(
-    type: K,
-    listener: (ev: DraggableEventMap[K]) => void
-  ) => void
-  off: <K extends keyof DraggableEventMap>(
-    type: K,
-    listener: (ev: DraggableEventMap[K]) => void
-  ) => void
 }
 
 export interface DraggablePointerBase
   extends Pick<ElementableInstance, 'element'>,
     Pick<DirectionableInstance, 'direction'>,
-    Pick<ElementEventableInstance, 'on' | 'off' | '_emit'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
-    Pick<DraggableCoreInstance, '_dragging'> {
+    Pick<DraggableCoreInstance, '_dragging' | '_preventDragging'> {
   render(): void
   destroy(): void
 }
@@ -67,26 +52,11 @@ export default function DraggablePointer<
       this.element.addEventListener('pointerdown', this.#pointerDownFn)
     }
 
-    private preventDragging(e: PointerEvent) {
-      const ev = new CustomEvent<DraggingStartEventDetail>(
-        DRAGGING_START_EVENT,
-        {
-          cancelable: true,
-          detail: {
-            event: e,
-          },
-        }
-      )
-      this._emit(ev)
-
-      return ev.defaultPrevented
-    }
-
     private pointerDown(e: PointerEvent) {
       if (this._dragging) {
         return
       }
-      if (this.preventDragging(e)) {
+      if (this._preventDragging(e)) {
         return
       }
 
