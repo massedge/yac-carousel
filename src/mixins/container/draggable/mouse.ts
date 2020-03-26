@@ -76,7 +76,7 @@ export default function DraggableMouse<
       this.#mouseLastCoordinate = coordinate
     }
 
-    private mouseUp(e: MouseEvent) {
+    private mouseUp(e: MouseEvent | DragEvent) {
       this.detachMouseFns()
 
       this.settle()
@@ -100,6 +100,7 @@ export default function DraggableMouse<
         this.#mouseMoveFn
       )
       this.element.ownerDocument?.addEventListener('mouseup', this.#mouseUpFn)
+      this.element.ownerDocument?.addEventListener('dragstart', this.#mouseUpFn)
     }
 
     private detachMouseFns() {
@@ -109,6 +110,10 @@ export default function DraggableMouse<
       )
       this.element.ownerDocument?.removeEventListener(
         'mouseup',
+        this.#mouseUpFn
+      )
+      this.element.ownerDocument?.removeEventListener(
+        'dragstart',
         this.#mouseUpFn
       )
     }

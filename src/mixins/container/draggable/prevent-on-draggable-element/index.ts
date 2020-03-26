@@ -12,11 +12,13 @@ export default function DraggablePreventOnInputElement<
     constructor(options: MixinOptions) {
       super(options)
       this.#handler = (e) => {
-        const target = e.detail.originalEvent.target
+        const originalEvent = e.detail.originalEvent
+        const target = originalEvent.target
         if (!(target instanceof HTMLElement)) return
+        if (!target.draggable) return
 
         // prevent dragging from starting, since the element target itself is meant to be dragged
-        if (target.draggable) e.preventDefault()
+        if (originalEvent.type === 'mousedown') e.preventDefault()
       }
     }
 
