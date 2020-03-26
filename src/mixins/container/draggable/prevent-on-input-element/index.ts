@@ -12,7 +12,7 @@ export default function DraggablePreventOnInputElement<
     constructor(options: MixinOptions) {
       super(options)
       this.#handler = (e) => {
-        const target = e.detail.event.target
+        const target = e.detail.originalEvent.target
         if (!(target instanceof HTMLElement)) return
 
         if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf(target.nodeName) > -1) {

@@ -33,13 +33,15 @@ export default function DraggableCore<
       return this.#dragging
     }
 
-    _preventDragging(e: MouseEvent | PointerEvent | TouchEvent): boolean {
+    _preventDragging(
+      originalEvent: MouseEvent | PointerEvent | TouchEvent
+    ): boolean {
       const ev = new CustomEvent<DraggingStartEventDetail>(
         DRAGGING_START_EVENT,
         {
           cancelable: true,
           detail: {
-            event: e,
+            originalEvent,
           },
         }
       )
