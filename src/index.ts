@@ -13,7 +13,6 @@ export { default as EventableElement } from './mixins/eventable/element'
 // container mixins
 export { default as ContainerDraggableCore } from './mixins/container/draggable/core'
 export { default as ContainerDraggableMouse } from './mixins/container/draggable/mouse'
-export { default as ContainerDraggablePointer } from './mixins/container/draggable/pointer'
 export { default as ContainerDraggableTouch } from './mixins/container/draggable/touch'
 export { default as ContainerItemizableCore } from './mixins/container/itemizable/core'
 export { default as ContainerNavablePreviousNextButton } from './mixins/container/navable/previous-next/button'

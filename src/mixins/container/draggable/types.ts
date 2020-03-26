@@ -5,5 +5,5 @@ export interface DraggableEventMap {
 }
 
 export interface DraggingStartEventDetail {
-  event: MouseEvent | PointerEvent | TouchEvent
+  event: MouseEvent | TouchEvent
 }
