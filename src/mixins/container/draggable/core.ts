@@ -1,6 +1,6 @@
 import { ComposeConstructor } from '../../../types'
 import { DraggingStartEventDetail, DRAGGING_START_EVENT } from './types'
-import { ElementEventableInstance } from '../eventable/element'
+import { ElementEventableInstance } from '../../eventable/element'
 
 export interface DraggableCoreOptions {}
 
