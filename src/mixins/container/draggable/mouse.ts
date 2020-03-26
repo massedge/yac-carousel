@@ -66,20 +66,6 @@ export default function DraggableMouse<
     }
 
     private preventDragging(e: MouseEvent): boolean {
-      let prevented: boolean = false
-
-      if (e.target) {
-        if ((e.target as HTMLElement).draggable) {
-          prevented = true
-        } else if (
-          ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(
-            (e.target as HTMLElement).nodeName
-          ) > -1
-        ) {
-          prevented = true
-        }
-      }
-
       const ev = new CustomEvent<DraggingStartEventDetail>(
         DRAGGING_START_EVENT,
         {

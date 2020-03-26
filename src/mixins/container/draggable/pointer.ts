@@ -68,18 +68,6 @@ export default function DraggablePointer<
     }
 
     private preventDragging(e: PointerEvent) {
-      let prevented: boolean = false
-
-      if (e.target) {
-        if (
-          ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(
-            (e.target as HTMLElement).nodeName
-          ) > -1
-        ) {
-          prevented = true
-        }
-      }
-
       const ev = new CustomEvent<DraggingStartEventDetail>(
         DRAGGING_START_EVENT,
         {

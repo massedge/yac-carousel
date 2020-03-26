@@ -12,6 +12,8 @@ import DraggableCore from './mixins/container/draggable/core'
 import DraggableMouse from './mixins/container/draggable/mouse'
 import DraggablePointer from './mixins/container/draggable/pointer'
 import DraggableTouch from './mixins/container/draggable/touch'
+import DraggablePreventOnDraggableEvent from './mixins/container/draggable/prevent-on-draggable-element'
+import DraggablePreventOnInputEvent from './mixins/container/draggable/prevent-on-input-element'
 import IndexablePreviousNext from './mixins/container/indexable/previous-next'
 import IndexableSelect from './mixins/container/indexable/select'
 import ItemizableCore from './mixins/container/itemizable/core'
@@ -42,17 +44,21 @@ const CarouselItemizableBase = BoxModelable(
 
 const Carousel = Visible(
   Wheelable(
-    DraggableTouch(
-      DraggablePointer(
-        DraggableMouse(
-          DraggableCore(
-            IndexablePreviousNext(
-              IndexableSelect(
-                ItemizableTranslate(
-                  ItemizableCore<
-                    InstanceType<typeof CarouselItem>,
-                    typeof CarouselItemizableBase
-                  >(CarouselItemizableBase)
+    DraggablePreventOnDraggableEvent(
+      DraggablePreventOnInputEvent(
+        DraggableTouch(
+          DraggablePointer(
+            DraggableMouse(
+              DraggableCore(
+                IndexablePreviousNext(
+                  IndexableSelect(
+                    ItemizableTranslate(
+                      ItemizableCore<
+                        InstanceType<typeof CarouselItem>,
+                        typeof CarouselItemizableBase
+                      >(CarouselItemizableBase)
+                    )
+                  )
                 )
               )
             )
