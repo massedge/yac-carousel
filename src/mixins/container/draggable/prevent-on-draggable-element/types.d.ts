@@ -11,6 +11,7 @@ export interface MixinInstance {}
 export interface MixinBase {
   render(): void
   destroy(): void
+  readonly element: HTMLElement
   on: (
     type: typeof DRAGGING_START_EVENT,
     listener: (ev: DraggableEventMap[typeof DRAGGING_START_EVENT]) => void
