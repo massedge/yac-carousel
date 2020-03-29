@@ -1,6 +1,13 @@
-import Direction from '../../../../enums/direction'
 import Controller from '../../../../classes/controller'
 import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
+import { IndexableSelectInstance } from '../../indexable/select/types'
+import Core from '../../../../classes/core'
+import { ItemizableCoreInstance } from '../core/types'
+import { DirectionableInstance } from '../../../directionable'
+import { BoxModelableInstance } from '../../../box-modelable'
+import { CssTransformableTranslateInstance } from '../../../item/css-transform/translate/types'
+import { CssTransitionInstance } from '../../../item/css-transition/types'
+import { ActiveInstance } from '../../../item/activatable'
 
 export interface MixinOptions<Item extends MixinItemBase> {
   controllerConstructor: typeof Controller
@@ -10,28 +17,20 @@ export interface MixinClass<Item extends MixinItemBase> {
   new (options: MixinOptions<Item>): MixinInstance<Item>
 }
 
-export interface MixinInstance<Item extends MixinItemBase> {
-  render: () => void
-  refresh: () => void
+export interface MixinInstance<Item extends MixinItemBase> extends Core {}
+
+export interface MixinBase<Item extends MixinItemBase>
+  extends Core,
+    Pick<ItemizableCoreInstance<Item>, 'items'>,
+    Pick<DirectionableInstance, 'direction'>,
+    Pick<BoxModelableInstance, 'width' | 'height'> {
+  on: IndexableSelectInstance['on'] & NudgeableInstance['on']
+  off: IndexableSelectInstance['off'] & NudgeableInstance['off']
 }
 
-export interface MixinBase<Item extends MixinItemBase> {
-  readonly width: number
-  readonly height: number
-  readonly direction: Direction
-  items: readonly Item[]
-  render(): void
-  refresh(): void
-  destroy(): void
-  on: (type: string, listener: (ev: CustomEvent) => void) => void
-  off: (type: string, listener: (ev: CustomEvent) => void) => void
-}
-
-export interface MixinItemBase {
-  active: boolean
-  readonly width: number
-  readonly height: number
-  translateX: number
-  translateY: number
-  transition: string
-}
+export interface MixinItemBase
+  extends Core,
+    Pick<CssTransformableTranslateInstance, 'translateX' | 'translateY'>,
+    Pick<CssTransitionInstance, 'transition'>,
+    Pick<BoxModelableInstance, 'width' | 'height'>,
+    Pick<ActiveInstance, 'active'> {}
