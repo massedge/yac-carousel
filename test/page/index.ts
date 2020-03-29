@@ -15,6 +15,9 @@ const c = new (ContainerNavablePreviousNextButton(YacCarousel))({
   element: elHorizontal,
   previousText: 'Previous',
   nextText: 'Next',
+  // autoplay: {
+  //   enabled: true
+  // },
   items: Array.from(elHorizontal.children)
     .filter((child) => child.nodeType === 1)
     .map((element) => {
