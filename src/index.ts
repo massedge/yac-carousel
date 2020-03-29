@@ -1,5 +1,7 @@
 // classes
+export { default as Controller } from './classes/controller'
 export { default as Core } from './classes/core'
+export { default as Nudge } from './classes/nudge'
 
 // enums
 export { default as Direction } from './enums/direction'
@@ -14,6 +16,7 @@ export { default as EventableElement } from './mixins/eventable/element'
 export { default as ContainerDraggableCore } from './mixins/container/draggable/core'
 export { default as ContainerDraggableMouse } from './mixins/container/draggable/mouse'
 export { default as ContainerDraggableTouch } from './mixins/container/draggable/touch'
+export { default as ContainerItemizableController } from './mixins/container/itemizable/controller'
 export { default as ContainerItemizableCore } from './mixins/container/itemizable/core'
 export { default as ContainerNavablePreviousNextButton } from './mixins/container/navable/previous-next/button'
 export { default as ContainerNavablePreviousNextHandler } from './mixins/container/navable/previous-next/handler'

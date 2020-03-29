@@ -1,9 +1,10 @@
 import { ComposeConstructor } from '../../../types'
 import Direction from '../../../enums/direction'
-import { NudgeableInstance } from '../nudgeable'
+import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
 import { DirectionableInstance } from '../../directionable'
+import Nudge from '../../../classes/nudge'
 
 export interface DraggableMouseOptions {}
 
@@ -64,14 +65,19 @@ export default function DraggableMouse<
 
       this.attachMouseFns()
 
-      this.nudge(0)
+      this.nudge()
     }
 
     private mouseMove(e: MouseEvent) {
       const coordinate = this.getMouseEventCoordinate(e)
       const difference = coordinate - this.#mouseLastCoordinate
 
-      this.nudge(difference)
+      this.nudge(
+        new Nudge({
+          x: this.direction === Direction.HORIZONTAL ? difference : 0,
+          y: this.direction === Direction.VERTICAL ? difference : 0,
+        })
+      )
 
       this.#mouseLastCoordinate = coordinate
     }

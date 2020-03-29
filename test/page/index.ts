@@ -1,6 +1,7 @@
 import {
   YacCarousel,
   YacCarouselItem,
+  Controller,
   Direction,
   ContainerNavablePreviousNextButton,
   ContainerNavablePreviousNextHandler,
@@ -10,6 +11,7 @@ const elHorizontal = document.querySelector<HTMLElement>('.carousel.flex')
 if (!elHorizontal) throw Error('Horizontal carousel element not found.')
 
 const c = new (ContainerNavablePreviousNextButton(YacCarousel))({
+  controllerConstructor: Controller,
   element: elHorizontal,
   previousText: 'Previous',
   nextText: 'Next',
@@ -36,6 +38,7 @@ const elNext = document.querySelector<HTMLElement>('.vertical-next')
 if (!elNext) throw Error('Next button for vertical carousel not found.')
 
 const cVertical = new (ContainerNavablePreviousNextHandler(YacCarousel))({
+  controllerConstructor: Controller,
   element: elVertical,
   direction: Direction.VERTICAL,
   elPrevious,

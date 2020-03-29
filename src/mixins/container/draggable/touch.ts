@@ -1,9 +1,10 @@
 import { ComposeConstructor } from '../../../types'
 import Direction from '../../../enums/direction'
-import { NudgeableInstance } from '../nudgeable'
+import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
 import { DirectionableInstance } from '../../directionable'
+import Nudge from '../../../classes/nudge'
 
 export interface DraggableTouchOptions {}
 
@@ -64,7 +65,7 @@ export default function DraggableTouch<
 
       this.attachTouchFns()
 
-      this.nudge(0)
+      this.nudge()
 
       // SAFARI - prevent scrolling the screen while dragging is active
       e.preventDefault()
@@ -74,7 +75,12 @@ export default function DraggableTouch<
       const coordinate = this.getTouchEventCoordinate(e)
       const difference = coordinate - this.#touchLastCoordinate
 
-      this.nudge(difference)
+      this.nudge(
+        new Nudge({
+          x: this.direction === Direction.HORIZONTAL ? difference : 0,
+          y: this.direction === Direction.VERTICAL ? difference : 0,
+        })
+      )
 
       this.#touchLastCoordinate = coordinate
     }

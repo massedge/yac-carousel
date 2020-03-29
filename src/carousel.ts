@@ -15,8 +15,8 @@ import DraggablePreventOnInputEvent from './mixins/container/draggable/prevent-o
 import ElementEventable from './mixins/eventable/element'
 import IndexablePreviousNext from './mixins/container/indexable/previous-next'
 import IndexableSelect from './mixins/container/indexable/select'
+import ItemizableController from './mixins/container/itemizable/controller'
 import ItemizableCore from './mixins/container/itemizable/core'
-import ItemizableTranslate from './mixins/container/itemizable/translate'
 import Nudgeable from './mixins/container/nudgeable'
 import Visible from './mixins/container/visible'
 import Wheelable from './mixins/container/wheelable'
@@ -50,7 +50,7 @@ const Carousel = Visible(
             DraggableCore(
               IndexablePreviousNext(
                 IndexableSelect(
-                  ItemizableTranslate(
+                  ItemizableController(
                     ItemizableCore<
                       InstanceType<typeof CarouselItem>,
                       typeof CarouselItemizableBase
