@@ -18,7 +18,7 @@ const DEFAULT_AUTOPLAY_OPTIONS: AutoplayOptions = {
   speed: 3000,
 }
 
-export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
+export default function AutoplayMixin<T extends new (o: any) => MixinBase>(
   Base: T
 ) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
