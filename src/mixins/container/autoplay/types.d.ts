@@ -1,9 +1,5 @@
 import Nudge from '../../../classes/nudge'
 import Core from '../../../classes/core'
-import {
-  ItemizableCoreInstance,
-  ItemizableItemBase,
-} from '../itemizable/core/types'
 import { IndexableSelectInstance } from '../indexable/select/types'
 
 export interface AutoplayOptions {
@@ -30,5 +26,6 @@ export interface MixinInstance {
 
 export interface MixinBase
   extends Core,
-    Pick<ItemizableCoreInstance<ItemizableItemBase>, 'items'>,
-    Pick<IndexableSelectInstance, 'index' | 'select'> {}
+    Pick<IndexableSelectInstance, 'index' | 'select'> {
+  items: readonly any[]
+}
