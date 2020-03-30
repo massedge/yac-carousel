@@ -8,9 +8,6 @@ import {
   MixinOptions,
 } from './types'
 
-export const NUDGE_EVENT = 'yacc:nudgeable:nudge'
-export const SETTLE_EVENT = 'yacc:nudgeable:settle'
-
 const DEFAULT_AUTOPLAY_OPTIONS: AutoplayOptions = {
   enabled: false,
   loop: true,
