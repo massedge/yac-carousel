@@ -2,18 +2,18 @@ export default class Core {
   #rendered: boolean = false
   #destroyed: boolean = false
 
-  render(): boolean {
-    if (this.#rendered) return false
-    return (this.#rendered = true)
+  render(): void {
+    if (this.#rendered) throw new Error('Already rendered.')
+    this.#rendered = true
   }
 
-  refresh() {
+  refresh(): void {
     /**/
   }
 
-  destroy(): boolean {
-    if (!this.#rendered) return false
-    if (this.#destroyed) return false
-    return (this.#destroyed = true)
+  destroy(): void {
+    if (!this.#rendered) throw new Error('Not rendered.')
+    if (this.#destroyed) throw new Error('Already destroyed.')
+    this.#destroyed = true
   }
 }

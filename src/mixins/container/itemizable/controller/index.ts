@@ -34,7 +34,7 @@ export default function MixinItemizableController<
     }
 
     render() {
-      if (!super.render()) return false
+      super.render()
 
       this.#controller = new this.#controllerConstructor({
         alignment: 'left',
@@ -109,8 +109,6 @@ export default function MixinItemizableController<
           this._processControllerActions(actions)
         }
       )
-
-      return true
     }
 
     private _processControllerActions(actions: Action[]) {

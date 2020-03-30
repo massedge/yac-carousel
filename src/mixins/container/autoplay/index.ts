@@ -36,17 +36,14 @@ export default function AutoplayMixin<T extends new (o: any) => MixinBase>(
     }
 
     render() {
-      // if (!super.render()) return false
       super.render()
       this._autoplaySetTimer()
       // TODO: update when items added/removed
-      return true
     }
 
     destroy() {
-      if (!super.destroy()) return false
       this._autoplayClearTimer()
-      return true
+      super.destroy()
     }
 
     private _autoplaySetTimer() {

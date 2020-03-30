@@ -61,9 +61,8 @@ export default class Controller extends Core {
   }
 
   render() {
-    if (!super.render()) return false
+    super.render()
     this._calculate()
-    return true
   }
 
   private _calculate() {
