@@ -71,6 +71,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "mitt": "^1.2.0"
   }
 }
