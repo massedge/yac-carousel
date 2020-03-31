@@ -5,6 +5,7 @@ import Core from './classes/core'
 import BoxModelable from './mixins/box-modelable'
 import Directionable from './mixins/directionable'
 import Elementable from './mixins/elementable'
+import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 
 // container
 import Autoplay from './mixins/container/autoplay'
@@ -42,21 +43,23 @@ const CarouselItemizableBase = BoxModelable(
   Nudgeable(ElementEventable(Directionable(Elementable(Core))))
 )
 
-const Carousel = Autoplay(
-  Visible(
-    Wheelable(
-      DraggablePreventOnDraggableEvent(
-        DraggablePreventOnInputEvent(
-          DraggableTouch(
-            DraggableMouse(
-              DraggableCore(
-                IndexablePreviousNext(
-                  IndexableSelect(
-                    ItemizableController(
-                      ItemizableCore<
-                        InstanceType<typeof CarouselItem>,
-                        typeof CarouselItemizableBase
-                      >(CarouselItemizableBase)
+const Carousel = WindowResizeRefreshable(
+  Autoplay(
+    Visible(
+      Wheelable(
+        DraggablePreventOnDraggableEvent(
+          DraggablePreventOnInputEvent(
+            DraggableTouch(
+              DraggableMouse(
+                DraggableCore(
+                  IndexablePreviousNext(
+                    IndexableSelect(
+                      ItemizableController(
+                        ItemizableCore<
+                          InstanceType<typeof CarouselItem>,
+                          typeof CarouselItemizableBase
+                        >(CarouselItemizableBase)
+                      )
                     )
                   )
                 )

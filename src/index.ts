@@ -11,6 +11,7 @@ export { default as BoxModelable } from './mixins/box-modelable'
 export { default as Directionable } from './mixins/directionable'
 export { default as Elementable } from './mixins/elementable'
 export { default as EventableElement } from './mixins/eventable/element'
+export { default as WindowResizeRefreshable } from './mixins/refreshable/window-resize'
 
 // container mixins
 export { default as ContainerAutoplay } from './mixins/container/autoplay'
