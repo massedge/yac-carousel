@@ -1,6 +1,6 @@
-import Core from './core'
-import Nudge from './nudge'
-import Direction from '../enums/direction'
+import Core from '../core'
+import Nudge from '../nudge'
+import Direction from '../../enums/direction'
 
 type Alignment = 'left' | 'right'
 
