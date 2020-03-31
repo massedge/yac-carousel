@@ -2,50 +2,23 @@ import Core from '../core'
 import Nudge from '../nudge'
 import Direction from '../../enums/direction'
 
-type Alignment = 'left' | 'right'
+export { Action } from './types'
 
-interface Options {
-  alignment?: Alignment
-
-  container: {
-    width: number
-    height: number
-  }
-
-  items: Item[]
-
-  direction: Direction
-}
-
-interface Item {
-  width: number
-  height: number
-  margin: [number, number, number, number]
-  leftOffset: number
-  topOffset: number
-}
-
-export type Action = {
-  type: 'itemTranslate'
-  index: number
-  x?: number
-  y?: number
-  ease?: string
-}
+import { Action, Alignment, State } from './types'
 
 export default class Controller extends Core {
   #alignment: Alignment = 'left'
-  #container: Options['container'] = {
+  #container: State['container'] = {
     width: 0,
     height: 0,
   }
-  #items: Options['items'] = []
+  #items: State['items'] = []
   #direction: Direction = Direction.HORIZONTAL
 
   private position = 0
   private itemsLength = 0
 
-  setState({ alignment = 'left', container, items, direction }: Options) {
+  setState({ alignment = 'left', container, items, direction }: State) {
     this.#alignment = alignment
     this.#container = container
     this.#items = items
