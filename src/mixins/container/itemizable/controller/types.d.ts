@@ -10,7 +10,7 @@ import { CssTransitionInstance } from '../../../item/css-transition/types'
 import { ActiveInstance } from '../../../item/activatable'
 
 export interface MixinOptions<Item extends MixinItemBase> {
-  controllerConstructor: typeof Controller
+  controller: InstanceType<typeof Controller>
 }
 
 export interface MixinClass<Item extends MixinItemBase> {

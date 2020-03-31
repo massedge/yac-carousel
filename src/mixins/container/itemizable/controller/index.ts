@@ -22,21 +22,17 @@ export default function MixinItemizableController<
   class Mixin
     extends (Base as new (options: MixinOptions<Item>) => MixinBase<Item>)
     implements MixinInstance<Item> {
-    #controllerConstructor: MixinOptions<Item>['controllerConstructor']
-    #controller?: InstanceType<MixinOptions<Item>['controllerConstructor']>
+    #controller: MixinOptions<Item>['controller']
 
-    constructor({
-      controllerConstructor,
-      ...otherOptions
-    }: MixinOptions<Item>) {
-      super({ controllerConstructor, ...otherOptions })
-      this.#controllerConstructor = controllerConstructor
+    constructor({ controller, ...otherOptions }: MixinOptions<Item>) {
+      super({ controller, ...otherOptions })
+      this.#controller = controller
     }
 
     render() {
       super.render()
 
-      this.#controller = new this.#controllerConstructor({
+      this.#controller.setState({
         alignment: 'left',
         direction: this.direction,
         container: {

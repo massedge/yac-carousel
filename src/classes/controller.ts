@@ -34,16 +34,18 @@ export type Action = {
 }
 
 export default class Controller extends Core {
-  #alignment: Alignment
-  #container: Options['container']
-  #items: Options['items']
-  #direction: Direction
+  #alignment: Alignment = 'left'
+  #container: Options['container'] = {
+    width: 0,
+    height: 0,
+  }
+  #items: Options['items'] = []
+  #direction: Direction = Direction.HORIZONTAL
 
   private position = 0
   private itemsLength = 0
 
-  constructor({ alignment = 'left', container, items, direction }: Options) {
-    super()
+  setState({ alignment = 'left', container, items, direction }: Options) {
     this.#alignment = alignment
     this.#container = container
     this.#items = items
