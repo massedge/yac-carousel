@@ -1,9 +1,7 @@
 import { ComposeConstructor } from '../../../types'
-import Direction from '../../../enums/direction'
 import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
-import { DirectionableInstance } from '../../directionable'
 import Nudge from '../../../classes/nudge'
 
 export interface DraggableTouchOptions {}
@@ -19,7 +17,6 @@ export interface DraggableTouchInstance {
 
 export interface DraggableTouchBase
   extends Pick<ElementableInstance, 'element'>,
-    Pick<DirectionableInstance, 'direction'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
     Pick<DraggableCoreInstance, '_dragging' | '_preventDragging'> {
   render(): void
@@ -35,7 +32,7 @@ export default function DraggableTouch<
     #touchStartFn: (e: TouchEvent) => void
     #touchMoveFn: (e: TouchEvent) => void
     #touchEndFn: (e: TouchEvent) => void
-    #touchLastCoordinate: number = 0
+    #touchLastCoordinate: { x: number; y: number } = { x: 0, y: 0 }
 
     constructor(options: DraggableTouchOptions) {
       super(options)
@@ -73,12 +70,11 @@ export default function DraggableTouch<
 
     private touchMove(e: TouchEvent) {
       const coordinate = this.getTouchEventCoordinate(e)
-      const difference = coordinate - this.#touchLastCoordinate
 
       this.nudge(
         new Nudge({
-          x: this.direction === Direction.HORIZONTAL ? difference : 0,
-          y: this.direction === Direction.VERTICAL ? difference : 0,
+          x: coordinate.x - this.#touchLastCoordinate.x,
+          y: coordinate.y - this.#touchLastCoordinate.y,
         })
       )
 
@@ -95,9 +91,10 @@ export default function DraggableTouch<
 
     private getTouchEventCoordinate(e: TouchEvent) {
       const touch = e.touches[0]
-      return this.direction === Direction.HORIZONTAL
-        ? touch.clientX
-        : touch.clientY
+      return {
+        x: touch.clientX,
+        y: touch.clientY,
+      }
     }
 
     destroy() {

@@ -1,9 +1,7 @@
 import { ComposeConstructor } from '../../../types'
-import Direction from '../../../enums/direction'
 import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
 import { ElementableInstance } from '../../elementable'
 import { DraggableCoreInstance } from './core'
-import { DirectionableInstance } from '../../directionable'
 import Nudge from '../../../classes/nudge'
 
 export interface DraggableMouseOptions {}
@@ -19,7 +17,6 @@ export interface DraggableMouseInstance {
 
 export interface DraggableMouseBase
   extends Pick<ElementableInstance, 'element'>,
-    Pick<DirectionableInstance, 'direction'>,
     Pick<NudgeableInstance, 'nudge' | 'settle'>,
     Pick<DraggableCoreInstance, '_dragging' | '_preventDragging'> {
   render(): void
@@ -35,7 +32,7 @@ export default function DraggableMouse<
     #mouseDownFn: (e: MouseEvent) => void
     #mouseMoveFn: (e: MouseEvent) => void
     #mouseUpFn: (e: MouseEvent) => void
-    #mouseLastCoordinate: number = 0
+    #mouseLastCoordinate: { x: number; y: number } = { x: 0, y: 0 }
 
     constructor(options: DraggableMouseOptions) {
       super(options)
@@ -70,12 +67,11 @@ export default function DraggableMouse<
 
     private mouseMove(e: MouseEvent) {
       const coordinate = this.getMouseEventCoordinate(e)
-      const difference = coordinate - this.#mouseLastCoordinate
 
       this.nudge(
         new Nudge({
-          x: this.direction === Direction.HORIZONTAL ? difference : 0,
-          y: this.direction === Direction.VERTICAL ? difference : 0,
+          x: coordinate.x - this.#mouseLastCoordinate.x,
+          y: coordinate.y - this.#mouseLastCoordinate.y,
         })
       )
 
@@ -91,7 +87,10 @@ export default function DraggableMouse<
     }
 
     private getMouseEventCoordinate(e: MouseEvent) {
-      return this.direction === Direction.HORIZONTAL ? e.clientX : e.clientY
+      return {
+        x: e.clientX,
+        y: e.clientY,
+      }
     }
 
     destroy() {

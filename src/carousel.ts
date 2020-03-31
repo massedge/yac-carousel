@@ -40,7 +40,7 @@ export const CarouselItem = BoxModelable(
 )
 
 const CarouselItemizableBase = BoxModelable(
-  Nudgeable(ElementEventable(Directionable(Elementable(Core))))
+  Nudgeable(ElementEventable(Elementable(Core)))
 )
 
 const Carousel = WindowResizeRefreshable(
@@ -55,10 +55,12 @@ const Carousel = WindowResizeRefreshable(
                   IndexablePreviousNext(
                     IndexableSelect(
                       ItemizableController(
-                        ItemizableCore<
-                          InstanceType<typeof CarouselItem>,
-                          typeof CarouselItemizableBase
-                        >(CarouselItemizableBase)
+                        Directionable(
+                          ItemizableCore<
+                            InstanceType<typeof CarouselItem>,
+                            typeof CarouselItemizableBase
+                          >(CarouselItemizableBase)
+                        )
                       )
                     )
                   )
