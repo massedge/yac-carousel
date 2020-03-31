@@ -1,5 +1,3 @@
-import Direction from '../../enums/direction'
-
 export type Alignment = 'left' | 'right'
 
 export interface State {
@@ -11,8 +9,6 @@ export interface State {
   }
 
   items: Item[]
-
-  direction: Direction
 }
 
 interface Item {

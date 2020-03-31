@@ -1,6 +1,5 @@
 import { ComposeConstructor } from '../../../../types'
-import Direction from '../../../../enums/direction'
-import { Action } from '../../../../classes/controller'
+import { Action } from '../../../../classes/controller/types'
 
 import { NUDGE_EVENT, SETTLE_EVENT } from '../../nudgeable'
 import { MixinEventMap as NudgeableEventMap } from '../../nudgeable/types'
@@ -34,7 +33,6 @@ export default function MixinItemizableController<
 
       this.#controller.setState({
         alignment: 'left',
-        direction: this.direction,
         container: {
           width: this.width,
           height: this.height,
@@ -72,7 +70,7 @@ export default function MixinItemizableController<
           targetItem.active = true
 
           // new position
-          const actions = this.#controller.select(e.detail.to)
+          const actions = this.#controller.select(e.detail.to, this.direction)
           this._processControllerActions(actions)
         }
       )
@@ -86,6 +84,7 @@ export default function MixinItemizableController<
         const actions = this.#controller.nudge({
           nudge: e.detail.nudge,
           ease: false,
+          direction: this.direction,
         })
         this._processControllerActions(actions)
       })
@@ -101,6 +100,7 @@ export default function MixinItemizableController<
           const actions = this.#controller.settle({
             nudges: e.detail.unsettledNudges,
             time: performance.now(),
+            direction: this.direction,
           })
           this._processControllerActions(actions)
         }
