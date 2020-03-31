@@ -6,7 +6,10 @@ interface MixinClass {
   new (options: MixinOptions): MixinInstance
 }
 
-interface MixinInstance {}
+interface MixinInstance {
+  render(): void
+  destroy(): void
+}
 
 interface MixinBase extends Core {}
 

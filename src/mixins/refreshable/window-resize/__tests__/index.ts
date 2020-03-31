@@ -22,4 +22,16 @@ describe('refreshable window-resize mixin', () => {
     window.dispatchEvent(new Event('resize'))
     expect(refreshSpy).not.toHaveBeenCalled()
   })
+
+  test('no global window', () => {
+    jest
+      .spyOn((global as unknown) as Window, 'window', 'get')
+      .mockImplementation(
+        () => (undefined as unknown) as Window & typeof globalThis
+      )
+
+    const instance = new Cls({})
+    instance.render()
+    instance.destroy()
+  })
 })
