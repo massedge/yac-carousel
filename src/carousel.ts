@@ -5,6 +5,8 @@ import Core from './classes/core'
 import BoxModelable from './mixins/box-modelable'
 import Directionable from './mixins/directionable'
 import Elementable from './mixins/elementable/core'
+import Focusable from './mixins/focusable'
+import FocusElementable from './mixins/elementable/focus'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 import ScrollToNudgeTransformableMixin from './mixins/transformable/scroll-to-nudge'
 
@@ -31,10 +33,14 @@ import ItemCssTransition from './mixins/item/css-transition'
 import ItemVisible from './mixins/item/visible'
 
 export const CarouselItem = BoxModelable(
-  ItemActivatable(
-    ItemVisible(
-      ItemCssTransformTranslate(
-        ItemCssTransition(ElementEventable(Elementable(Core)))
+  FocusElementable(
+    Focusable(
+      ItemActivatable(
+        ItemVisible(
+          ItemCssTransformTranslate(
+            ItemCssTransition(ElementEventable(Elementable(Core)))
+          )
+        )
       )
     )
   )
