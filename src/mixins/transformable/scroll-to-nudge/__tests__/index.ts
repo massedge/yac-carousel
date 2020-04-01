@@ -21,7 +21,17 @@ test('transformable scroll-to-nudge mixin', () => {
     }
   )
   instance.on('yacc:nudgeable:nudge', nudgeCallback)
+
+  // render
+  element.scrollLeft = 10
+  element.scrollTop = 20
   instance.render()
+  expect(nudgeCallback).toHaveReturnedWith<{ x: number; y: number }>({
+    x: -10,
+    y: -20,
+  })
+  expect(element.scrollLeft).toBe(0)
+  expect(element.scrollTop).toBe(0)
 
   // scrollLeft
   nudgeCallback.mockClear()
