@@ -8,7 +8,7 @@ import Elementable from './mixins/elementable/core'
 import Focusable from './mixins/focusable'
 import FocusElementable from './mixins/elementable/focus'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
-import ScrollToNudgeTransformableMixin from './mixins/transformable/scroll-to-nudge'
+import PreventScrollTransformableMixin from './mixins/transformable/prevent-scroll'
 
 // container
 import Autoplay from './mixins/container/autoplay'
@@ -22,6 +22,7 @@ import IndexablePreviousNext from './mixins/container/indexable/previous-next'
 import IndexableSelect from './mixins/container/indexable/select'
 import ItemizableController from './mixins/container/itemizable/controller'
 import ItemizableCore from './mixins/container/itemizable/core'
+import ItemizableSelectOnFocusedItem from './mixins/container/itemizable/select-on-focused-item'
 import Nudgeable from './mixins/container/nudgeable'
 import Visible from './mixins/container/visible'
 import Wheelable from './mixins/container/wheelable'
@@ -51,23 +52,25 @@ const CarouselItemizableBase = BoxModelable(
 )
 
 const Carousel = WindowResizeRefreshable(
-  ScrollToNudgeTransformableMixin(
-    Autoplay(
-      Visible(
-        Wheelable(
-          DraggablePreventOnDraggableEvent(
-            DraggablePreventOnInputEvent(
-              DraggableTouch(
-                DraggableMouse(
-                  DraggableCore(
-                    IndexablePreviousNext(
-                      IndexableSelect(
-                        ItemizableController(
-                          Directionable(
-                            ItemizableCore<
-                              InstanceType<typeof CarouselItem>,
-                              typeof CarouselItemizableBase
-                            >(CarouselItemizableBase)
+  ItemizableSelectOnFocusedItem(
+    PreventScrollTransformableMixin(
+      Autoplay(
+        Visible(
+          Wheelable(
+            DraggablePreventOnDraggableEvent(
+              DraggablePreventOnInputEvent(
+                DraggableTouch(
+                  DraggableMouse(
+                    DraggableCore(
+                      IndexablePreviousNext(
+                        IndexableSelect(
+                          ItemizableController(
+                            Directionable(
+                              ItemizableCore<
+                                InstanceType<typeof CarouselItem>,
+                                typeof CarouselItemizableBase
+                              >(CarouselItemizableBase)
+                            )
                           )
                         )
                       )
