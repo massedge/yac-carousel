@@ -9,7 +9,7 @@ export { default as Direction } from './enums/direction'
 // mixins
 export { default as BoxModelable } from './mixins/box-modelable'
 export { default as Directionable } from './mixins/directionable'
-export { default as Elementable } from './mixins/elementable'
+export { default as ElementableCore } from './mixins/elementable/core'
 export { default as EventableElement } from './mixins/eventable/element'
 export { default as WindowResizeRefreshable } from './mixins/refreshable/window-resize'
 export { default as ScrollToNudgetransformable } from './mixins/transformable/scroll-to-nudge'

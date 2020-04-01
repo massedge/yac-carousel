@@ -4,7 +4,7 @@ import Core from './classes/core'
 // mixins
 import BoxModelable from './mixins/box-modelable'
 import Directionable from './mixins/directionable'
-import Elementable from './mixins/elementable'
+import Elementable from './mixins/elementable/core'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 import ScrollToNudgeTransformableMixin from './mixins/transformable/scroll-to-nudge'
 

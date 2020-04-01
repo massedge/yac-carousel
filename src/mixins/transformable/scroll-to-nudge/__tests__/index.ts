@@ -2,7 +2,7 @@ import Core from '../../../../classes/core'
 import NudgeableMixin from '../../../container/nudgeable'
 import { MixinEventMap as NudgeableMixinEvenMap } from '../../../container/nudgeable/types'
 import EventableMixin from '../../../eventable/element'
-import ElementableMixin from '../../../elementable'
+import ElementableMixin from '../../../elementable/core'
 import ScrollToNudgeTransformableMixin from '..'
 
 test('transformable scroll-to-nudge mixin', () => {
