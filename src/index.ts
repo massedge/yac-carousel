@@ -12,6 +12,7 @@ export { default as Directionable } from './mixins/directionable'
 export { default as Elementable } from './mixins/elementable'
 export { default as EventableElement } from './mixins/eventable/element'
 export { default as WindowResizeRefreshable } from './mixins/refreshable/window-resize'
+export { default as ScrollToNudgetransformable } from './mixins/transformable/scroll-to-nudge'
 
 // container mixins
 export { default as ContainerAutoplay } from './mixins/container/autoplay'
