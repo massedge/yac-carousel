@@ -21,10 +21,10 @@ test('typeable horizontal-vertical mixin', () => {
   })
   expect(instance.type).toBe('vertical')
 
-  instance = new Cls({
-    type: 'horizontal-and-vertical',
-  })
-  expect(instance.type).toBe('horizontal-and-vertical')
+  // instance = new Cls({
+  //   type: 'horizontal-and-vertical',
+  // })
+  // expect(instance.type).toBe('horizontal-and-vertical')
 
   instance = new Cls({})
   const refreshSpy = jest.spyOn(instance, 'refresh')

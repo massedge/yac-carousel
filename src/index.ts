@@ -3,18 +3,15 @@ export { default as Controller } from './classes/controller'
 export { default as Core } from './classes/core'
 export { default as Nudge } from './classes/nudge'
 
-// enums
-export { default as Direction } from './enums/direction'
-
 // mixins
 export { default as BoxModelable } from './mixins/box-modelable'
-export { default as Directionable } from './mixins/directionable'
 export { default as ElementableCore } from './mixins/elementable/core'
 export { default as FocusElementable } from './mixins/elementable/focus'
 export { default as EventableElement } from './mixins/eventable/element'
 export { default as WindowResizeRefreshable } from './mixins/refreshable/window-resize'
 export { default as PreventScrollTransformableMixin } from './mixins/transformable/prevent-scroll'
 export { default as ScrollToNudgetransformable } from './mixins/transformable/scroll-to-nudge'
+export { default as TypeableHorizontalVerticalMixin } from './mixins/typeable/horizontal-vertical'
 
 // container mixins
 export { default as ContainerAutoplay } from './mixins/container/autoplay'

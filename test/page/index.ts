@@ -2,7 +2,6 @@ import {
   YacCarousel,
   YacCarouselItem,
   Controller,
-  Direction,
   ContainerNavablePreviousNextButton,
   ContainerNavablePreviousNextHandler,
 } from '../../src'
@@ -43,7 +42,7 @@ if (!elNext) throw Error('Next button for vertical carousel not found.')
 const cVertical = new (ContainerNavablePreviousNextHandler(YacCarousel))({
   controller: new Controller(),
   element: elVertical,
-  direction: Direction.VERTICAL,
+  type: 'vertical',
   elPrevious,
   elNext,
   items: Array.from(elVertical.children)

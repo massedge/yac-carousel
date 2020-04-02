@@ -3,7 +3,7 @@ import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
 import { IndexableSelectInstance } from '../../indexable/select/types'
 import Core from '../../../../classes/core'
 import { ItemizableCoreInstance } from '../core/types'
-import { DirectionableInstance } from '../../../directionable'
+import { MixinInstance as TypeableInstance } from '../../../typeable/horizontal-vertical/types'
 import { BoxModelableInstance } from '../../../box-modelable'
 import { CssTransformableTranslateInstance } from '../../../item/css-transform/translate/types'
 import { CssTransitionInstance } from '../../../item/css-transition/types'
@@ -22,7 +22,7 @@ export interface MixinInstance<Item extends MixinItemBase> extends Core {}
 export interface MixinBase<Item extends MixinItemBase>
   extends Core,
     Pick<ItemizableCoreInstance<Item>, 'items'>,
-    Pick<DirectionableInstance, 'direction'>,
+    Pick<TypeableInstance, 'type'>,
     Pick<BoxModelableInstance, 'width' | 'height'> {
   on: IndexableSelectInstance['on'] & NudgeableInstance['on']
   off: IndexableSelectInstance['off'] & NudgeableInstance['off']

@@ -1,6 +1,5 @@
 import Core from '../core'
 import Nudge from '../nudge'
-import Direction from '../../enums/direction'
 
 import { Action, Alignment, State } from './types'
 
@@ -22,16 +21,14 @@ export default class Controller extends Core {
     this.#items = items
   }
 
-  private length(direction: Direction) {
-    return direction === Direction.HORIZONTAL
+  private length(axis: 'horizontal' | 'vertical') {
+    return axis === 'horizontal'
       ? this.#container.width
       : this.#container.height
   }
 
-  private itemsLength(direction: Direction) {
-    return direction === Direction.HORIZONTAL
-      ? this.itemsWidth
-      : this.itemsHeight
+  private itemsLength(axis: 'horizontal' | 'vertical') {
+    return axis === 'horizontal' ? this.itemsWidth : this.itemsHeight
   }
 
   render() {
@@ -56,43 +53,42 @@ export default class Controller extends Core {
     this.#alignment = value
   }
 
-  select(index: number, direction: Direction): Action[] {
+  select(index: number, axis: 'horizontal' | 'vertical'): Action[] {
     const targetPosition = this.#items
       .slice(0, index)
       .reduce(
         (position, item) =>
-          (position -=
-            direction === Direction.HORIZONTAL ? item.width : item.height),
+          (position -= axis === 'horizontal' ? item.width : item.height),
         0
       )
 
     const distance =
       targetPosition -
-      (direction === Direction.HORIZONTAL ? this.position.x : this.position.y)
+      (axis === 'horizontal' ? this.position.x : this.position.y)
 
     return this.nudge({
       nudge: new Nudge({
-        x: direction === Direction.HORIZONTAL ? distance : 0,
-        y: direction === Direction.VERTICAL ? distance : 0,
+        x: axis === 'horizontal' ? distance : 0,
+        y: axis === 'vertical' ? distance : 0,
       }),
       ease: true,
-      direction,
+      axis,
     })
   }
 
   nudge({
     nudge,
     ease = false,
-    direction,
+    axis,
   }: {
     nudge: Nudge
-    direction: Direction
+    axis: 'horizontal' | 'vertical'
     ease?: boolean
   }): Action[] {
-    // console.log('nudge', nudge, ease, direction)
+    // console.log('nudge', nudge, ease, axis)
 
     const actions: Action[] = []
-    let offset = direction === Direction.HORIZONTAL ? nudge.x : nudge.y
+    let offset = axis === 'horizontal' ? nudge.x : nudge.y
 
     do {
       // console.log(this.position, offset, this.length, this.itemsLength)
@@ -100,36 +96,35 @@ export default class Controller extends Core {
       if (offset === 0) {
         // nothing moved
         break
-      } else if (this.itemsLength(direction) <= this.length(direction)) {
+      } else if (this.itemsLength(axis) <= this.length(axis)) {
         // length of all items is less than the length of the container
         break
       } else if (
-        this.position[direction === Direction.HORIZONTAL ? 'x' : 'y'] + offset >
+        this.position[axis === 'horizontal' ? 'x' : 'y'] + offset >
         0
       ) {
         // ensure don't go beyond first item
-        offset =
-          0 - this.position[direction === Direction.HORIZONTAL ? 'x' : 'y']
+        offset = 0 - this.position[axis === 'horizontal' ? 'x' : 'y']
         if (offset === 0) break
       } else if (
-        this.position[direction === Direction.HORIZONTAL ? 'x' : 'y'] + offset <
-        this.length(direction) - this.itemsLength(direction)
+        this.position[axis === 'horizontal' ? 'x' : 'y'] + offset <
+        this.length(axis) - this.itemsLength(axis)
       ) {
         // ensure don't go beyond last item
         offset =
-          this.length(direction) -
-          this.itemsLength(direction) -
-          this.position[direction === Direction.HORIZONTAL ? 'x' : 'y']
+          this.length(axis) -
+          this.itemsLength(axis) -
+          this.position[axis === 'horizontal' ? 'x' : 'y']
         if (offset === 0) break
       }
 
-      this.position[direction === Direction.HORIZONTAL ? 'x' : 'y'] += offset
+      this.position[axis === 'horizontal' ? 'x' : 'y'] += offset
       this.#items.forEach((item, index) => {
         actions.push({
           index,
           type: 'itemTranslate',
-          x: direction === Direction.HORIZONTAL ? this.position.x : 0,
-          y: direction === Direction.VERTICAL ? this.position.y : 0,
+          x: axis === 'horizontal' ? this.position.x : 0,
+          y: axis === 'vertical' ? this.position.y : 0,
           ease: ease ? `${300 + 'ms'} transform` : '',
         })
       })
@@ -141,11 +136,11 @@ export default class Controller extends Core {
   settle({
     nudges = [],
     time = performance.now(),
-    direction,
+    axis,
   }: {
     nudges: Nudge[]
     time?: number
-    direction: Direction
+    axis: 'horizontal' | 'vertical'
   }): Action[] {
     // console.log('settle')
 
@@ -158,33 +153,27 @@ export default class Controller extends Core {
     // console.log(nudge1, nudge2)
     const interval = nudge2.time - nudge1.time
     const distance =
-      direction === Direction.HORIZONTAL
-        ? nudge2.x + nudge1.x
-        : nudge2.y + nudge1.y
+      axis === 'horizontal' ? nudge2.x + nudge1.x : nudge2.y + nudge1.y
     // console.log(distance)
     const velocity = distance / interval
 
     const momentumDistance = velocity * 40
     let newPosition =
-      this.position[direction === Direction.HORIZONTAL ? 'x' : 'y'] +
-      momentumDistance
+      this.position[axis === 'horizontal' ? 'x' : 'y'] + momentumDistance
     // console.log(this.position, newPosition, this.itemsLength - this.length)
     if (newPosition > 0) newPosition = 0
-    else if (
-      newPosition <
-      this.length(direction) - this.itemsLength(direction)
-    ) {
-      newPosition = this.length(direction) - this.itemsLength(direction)
+    else if (newPosition < this.length(axis) - this.itemsLength(axis)) {
+      newPosition = this.length(axis) - this.itemsLength(axis)
     }
-    this.position[direction === Direction.HORIZONTAL ? 'x' : 'y'] = newPosition
+    this.position[axis === 'horizontal' ? 'x' : 'y'] = newPosition
     // console.log(newPosition)
 
     this.#items.forEach((item, index) => {
       actions.push({
         index,
         type: 'itemTranslate',
-        x: direction === Direction.HORIZONTAL ? this.position.x : 0,
-        y: direction === Direction.VERTICAL ? this.position.y : 0,
+        x: axis === 'horizontal' ? this.position.x : 0,
+        y: axis === 'vertical' ? this.position.y : 0,
         ease: `${300 + 'ms'} transform`,
       })
     })

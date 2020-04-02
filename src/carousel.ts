@@ -3,12 +3,12 @@ import Core from './classes/core'
 
 // mixins
 import BoxModelable from './mixins/box-modelable'
-import Directionable from './mixins/directionable'
 import Elementable from './mixins/elementable/core'
 import Focusable from './mixins/focusable'
 import FocusElementable from './mixins/elementable/focus'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 import PreventScrollTransformableMixin from './mixins/transformable/prevent-scroll'
+import TypeableHorizontalVerticalMixin from './mixins/typeable/horizontal-vertical'
 
 // container
 import Autoplay from './mixins/container/autoplay'
@@ -65,7 +65,7 @@ const Carousel = WindowResizeRefreshable(
                       IndexablePreviousNext(
                         IndexableSelect(
                           ItemizableController(
-                            Directionable(
+                            TypeableHorizontalVerticalMixin(
                               ItemizableCore<
                                 InstanceType<typeof CarouselItem>,
                                 typeof CarouselItemizableBase

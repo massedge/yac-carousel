@@ -70,7 +70,7 @@ export default function MixinItemizableController<
           targetItem.active = true
 
           // new position
-          const actions = this.#controller.select(e.detail.to, this.direction)
+          const actions = this.#controller.select(e.detail.to, this.type)
           this._processControllerActions(actions)
         }
       )
@@ -84,7 +84,7 @@ export default function MixinItemizableController<
         const actions = this.#controller.nudge({
           nudge: e.detail.nudge,
           ease: false,
-          direction: this.direction,
+          axis: this.type,
         })
         this._processControllerActions(actions)
       })
@@ -100,7 +100,7 @@ export default function MixinItemizableController<
           const actions = this.#controller.settle({
             nudges: e.detail.unsettledNudges,
             time: performance.now(),
-            direction: this.direction,
+            axis: this.type,
           })
           this._processControllerActions(actions)
         }

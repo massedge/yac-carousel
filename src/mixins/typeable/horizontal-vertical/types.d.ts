@@ -1,7 +1,5 @@
-export type HorizontalVerticalValue =
-  | 'horizontal'
-  | 'vertical'
-  | 'horizontal-and-vertical'
+export type HorizontalVerticalValue = 'horizontal' | 'vertical'
+// | 'horizontal-and-vertical'
 
 export interface MixinOptions {
   type?: HorizontalVerticalValue
