@@ -4,6 +4,7 @@ import Core from './classes/core'
 // mixins
 import AlignableCoreMixin from './mixins/alignable/core'
 import AlignableFlexElementMixin from './mixins/alignable/element/flex'
+import Autoplayable from './mixins/autoplayable'
 import BoxModelable from './mixins/box-modelable'
 import DirectionableCore from './mixins/directionable/core'
 import DirectionableElement from './mixins/directionable/element'
@@ -15,7 +16,6 @@ import PreventScrollTransformableMixin from './mixins/transformable/prevent-scro
 import TypeableHorizontalVerticalMixin from './mixins/typeable/horizontal-vertical'
 
 // container
-import Autoplay from './mixins/container/autoplay'
 import DraggableCore from './mixins/container/draggable/core'
 import DraggableMouse from './mixins/container/draggable/mouse'
 import DraggableTouch from './mixins/container/draggable/touch'
@@ -58,7 +58,7 @@ const CarouselItemizableBase = BoxModelable(
 const Carousel = WindowResizeRefreshable(
   ItemizableSelectOnFocusedItem(
     PreventScrollTransformableMixin(
-      Autoplay(
+      Autoplayable(
         Visible(
           Wheelable(
             DraggablePreventOnDraggableEvent(

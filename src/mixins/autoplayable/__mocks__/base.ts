@@ -1,4 +1,4 @@
-import Core from '../../../../classes/core'
+import Core from '../../../classes/core'
 
 export default class Base extends Core {
   #items: number[]

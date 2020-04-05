@@ -1,6 +1,6 @@
-import Nudge from '../../../classes/nudge'
-import Core from '../../../classes/core'
-import { IndexableSelectInstance } from '../indexable/select/types'
+import Nudge from '../../classes/nudge'
+import Core from '../../classes/core'
+import { IndexableSelectInstance } from '../container/indexable/select/types'
 
 export interface AutoplayOptions {
   enabled: boolean
