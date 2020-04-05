@@ -32,8 +32,9 @@ export default function ScrollToNudgeTransformableMixin<
     }
 
     destroy() {
-      if (this.#scrollHandler)
+      if (this.#scrollHandler) {
         this.element.removeEventListener('scroll', this.#scrollHandler)
+      }
       super.destroy()
     }
 
@@ -42,15 +43,13 @@ export default function ScrollToNudgeTransformableMixin<
       const y = this.element.scrollTop
       if (x === 0 && y === 0) return
 
-      this.nudge(
-        new Nudge({
+      this.nudge({
+        nudge: new Nudge({
           x: x !== 0 ? -1 * x : 0,
           y: y !== 0 ? -1 * y : 0,
         }),
-        {
-          ease: false,
-        }
-      )
+        ease: false,
+      })
       this.element.scrollLeft = 0
       this.element.scrollTop = 0
     }

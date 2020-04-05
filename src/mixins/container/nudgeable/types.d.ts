@@ -7,10 +7,11 @@ export interface MixinClass {
 }
 
 export interface MixinInstance {
-  nudge: (
-    nudge?: Nudge,
-    options?: { ease?: boolean; settled?: boolean }
-  ) => void
+  nudge: (options?: {
+    nudge?: Nudge
+    ease?: boolean
+    settled?: boolean
+  }) => void
   settle: (options?: { ease?: boolean }) => void
   on: <K extends keyof MixinEventMap>(
     type: K,

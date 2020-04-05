@@ -62,7 +62,8 @@ export default function DraggableMouse<
 
       this.attachMouseFns()
 
-      this.nudge(new Nudge(), {
+      this.nudge({
+        nudge: new Nudge(),
         settled: false,
       })
     }
@@ -70,13 +71,13 @@ export default function DraggableMouse<
     private mouseMove(e: MouseEvent) {
       const coordinate = this.getMouseEventCoordinate(e)
 
-      this.nudge(
-        new Nudge({
+      this.nudge({
+        nudge: new Nudge({
           x: coordinate.x - this.#mouseLastCoordinate.x,
           y: coordinate.y - this.#mouseLastCoordinate.y,
         }),
-        { settled: false }
-      )
+        settled: false,
+      })
 
       this.#mouseLastCoordinate = coordinate
     }

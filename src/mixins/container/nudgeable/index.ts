@@ -34,11 +34,12 @@ export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
      * @return returns true if nudge resulted in shifting of items, false otherwise.
      */
     nudge(
-      nudge = new Nudge(),
       {
+        nudge = new Nudge(),
         ease = false,
         settled = true,
-      }: NonNullable<Parameters<MixinInstance['nudge']>[1]> = {
+      }: NonNullable<Parameters<MixinInstance['nudge']>[0]> = {
+        nudge: new Nudge(),
         ease: false,
         settled: true,
       }
