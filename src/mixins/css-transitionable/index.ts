@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../../types'
+import { ComposeConstructor } from '../../types'
 
 import {
   CssTransitionBase,
@@ -10,7 +10,7 @@ import {
 // @see https://www.w3schools.com/cssref/css3_pr_transition.asp
 const TRANSITION_DEFAULT_VALUE = 'all 0s ease 0s'
 
-export default function CssTransition<
+export default function CssTransitionable<
   T extends new (o: any) => CssTransitionBase
 >(Base: T) {
   class Mixin

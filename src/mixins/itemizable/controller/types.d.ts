@@ -6,7 +6,7 @@ import { ItemizableCoreInstance } from '../core/types'
 import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-vertical/types'
 import { BoxModelableInstance } from '../../box-modelable'
 import { CssTransformableTranslateInstance } from '../../item/css-transform/translate/types'
-import { CssTransitionInstance } from '../../item/css-transition/types'
+import { CssTransitionInstance } from '../../css-transitionable/types'
 import { ActiveInstance } from '../../activatable'
 
 export interface MixinOptions<Item extends MixinItemBase> {
