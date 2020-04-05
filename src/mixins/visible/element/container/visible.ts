@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../types'
+import { ComposeConstructor } from '../../../../types'
 
 export interface VisibleOptions {
   element: HTMLElement
@@ -24,7 +24,7 @@ export interface VisibleBase<Item> {
   destroy(): void
 }
 
-export default function Visible<
+export default function VisibleContainerElement<
   Item extends VisibleItem,
   T extends new (o: any) => VisibleBase<Item>
 >(Base: T) {

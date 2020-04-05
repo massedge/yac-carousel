@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../types'
+import { ComposeConstructor } from '../../../../types'
 
 export interface VisibleOptions {}
 
@@ -18,9 +18,9 @@ export interface VisibleEventDetail {
   visible: boolean
 }
 
-export default function Visible<T extends new (o: any) => VisibleBase>(
-  Base: T
-) {
+export default function VisibleContainerItem<
+  T extends new (o: any) => VisibleBase
+>(Base: T) {
   class Mixin extends (Base as new (options: VisibleOptions) => VisibleBase)
     implements VisibleInstance {
     #visible: boolean = false

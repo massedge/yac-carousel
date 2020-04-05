@@ -28,14 +28,12 @@ export { default as RefreshableWindowResize } from './mixins/refreshable/window-
 export { default as TransformablePreventScroll } from './mixins/transformable/prevent-scroll'
 export { default as TransformableScrollToNudge } from './mixins/transformable/scroll-to-nudge'
 export { default as TypeableHorizontalVertical } from './mixins/typeable/horizontal-vertical'
+export { default as VisibleContainerElement } from './mixins/visible/element/container/visible'
+export { default as VisibleContainerItem } from './mixins/visible/element/item/visible'
 export { default as Wheelable } from './mixins/wheelable'
-
-// container mixins
-export { default as ContainerVisible } from './mixins/container/visible'
 
 // item mixin
 export { default as ItemActivatable } from './mixins/item/activatable'
-export { default as ItemVisible } from './mixins/item/visible'
 
 export {
   default,

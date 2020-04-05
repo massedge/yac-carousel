@@ -14,6 +14,7 @@ import DraggableTouch from './mixins/draggable/touch'
 import DraggablePreventOnDraggableElement from './mixins/draggable/prevent-on-draggable-element'
 import DraggablePreventOnInputElement from './mixins/draggable/prevent-on-input-element'
 import Elementable from './mixins/elementable/core'
+import EventableElement from './mixins/eventable/element'
 import Focusable from './mixins/focusable'
 import FocusElementable from './mixins/elementable/focus'
 import IndexablePreviousNext from './mixins/indexable/previous-next'
@@ -25,25 +26,22 @@ import Nudgeable from './mixins/nudgeable'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 import PreventScrollTransformableMixin from './mixins/transformable/prevent-scroll'
 import TypeableHorizontalVerticalMixin from './mixins/typeable/horizontal-vertical'
+import VisibleContainerElement from './mixins/visible/element/container/visible'
+import VisibleContainerItem from './mixins/visible/element/item/visible'
 import Wheelable from './mixins/wheelable'
-
-// container
-import ElementEventable from './mixins/eventable/element'
-import Visible from './mixins/container/visible'
 
 // item
 import ItemActivatable from './mixins/item/activatable'
 import ItemCssTransformTranslate from './mixins/item/css-transform/translate'
 import ItemCssTransition from './mixins/item/css-transition'
-import ItemVisible from './mixins/item/visible'
 
 export const CarouselItem = BoxModelable(
   FocusElementable(
     Focusable(
       ItemActivatable(
-        ItemVisible(
+        VisibleContainerItem(
           ItemCssTransformTranslate(
-            ItemCssTransition(ElementEventable(Elementable(Core)))
+            ItemCssTransition(EventableElement(Elementable(Core)))
           )
         )
       )
@@ -52,14 +50,14 @@ export const CarouselItem = BoxModelable(
 )
 
 const CarouselItemizableBase = BoxModelable(
-  Nudgeable(ElementEventable(Elementable(Core)))
+  Nudgeable(EventableElement(Elementable(Core)))
 )
 
 const Carousel = WindowResizeRefreshable(
   ItemizableSelectOnFocusedItem(
     PreventScrollTransformableMixin(
       Autoplayable(
-        Visible(
+        VisibleContainerElement(
           Wheelable(
             DraggablePreventOnDraggableElement(
               DraggablePreventOnInputElement(
