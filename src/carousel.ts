@@ -14,6 +14,7 @@ import FocusElementable from './mixins/elementable/focus'
 import WindowResizeRefreshable from './mixins/refreshable/window-resize'
 import PreventScrollTransformableMixin from './mixins/transformable/prevent-scroll'
 import TypeableHorizontalVerticalMixin from './mixins/typeable/horizontal-vertical'
+import Wheelable from './mixins/wheelable'
 
 // container
 import DraggableCore from './mixins/container/draggable/core'
@@ -29,7 +30,6 @@ import ItemizableCore from './mixins/container/itemizable/core'
 import ItemizableSelectOnFocusedItem from './mixins/container/itemizable/select-on-focused-item'
 import Nudgeable from './mixins/container/nudgeable'
 import Visible from './mixins/container/visible'
-import Wheelable from './mixins/container/wheelable'
 
 // item
 import ItemActivatable from './mixins/item/activatable'

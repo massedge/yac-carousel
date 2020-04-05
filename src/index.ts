@@ -15,6 +15,7 @@ export { default as RefreshableWindowResize } from './mixins/refreshable/window-
 export { default as TransformablePreventScroll } from './mixins/transformable/prevent-scroll'
 export { default as TransformableScrollToNudge } from './mixins/transformable/scroll-to-nudge'
 export { default as TypeableHorizontalVertical } from './mixins/typeable/horizontal-vertical'
+export { default as Wheelable } from './mixins/wheelable'
 
 // container mixins
 export { default as ContainerDraggableCore } from './mixins/container/draggable/core'
@@ -27,7 +28,6 @@ export { default as ContainerNavablePreviousNextButton } from './mixins/containe
 export { default as ContainerNavablePreviousNextHandler } from './mixins/container/navable/previous-next/handler'
 export { default as ContainerNudgeable } from './mixins/container/nudgeable'
 export { default as ContainerVisible } from './mixins/container/visible'
-export { default as ContainerWheelable } from './mixins/container/wheelable'
 
 // item mixin
 export { default as ItemActivatable } from './mixins/item/activatable'
