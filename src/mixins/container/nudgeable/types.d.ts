@@ -7,7 +7,10 @@ export interface MixinClass {
 }
 
 export interface MixinInstance {
-  nudge: (nudge?: Nudge, options?: { ease?: boolean }) => void
+  nudge: (
+    nudge?: Nudge,
+    options?: { ease?: boolean; settled?: boolean }
+  ) => void
   settle: (options?: { ease?: boolean }) => void
   on: <K extends keyof MixinEventMap>(
     type: K,
@@ -26,12 +29,12 @@ export interface NudgeEventDetail {
 
 export interface SettleEventDetail {
   readonly ease: boolean
-  readonly unsettledNudges: Nudge[]
+  readonly nudges: Nudge[]
 }
 
 export interface MixinEventMap {
-  'yacc:nudgeable:nudge': CustomEvent<NudgeEventDetail>
-  'yacc:nudgeable:settle': CustomEvent<SettleEventDetail>
+  'yacc:nudge': CustomEvent<NudgeEventDetail>
+  'yacc:settle': CustomEvent<SettleEventDetail>
 }
 
 export interface MixinBase {

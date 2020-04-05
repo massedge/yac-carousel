@@ -62,7 +62,7 @@ export default function DraggableTouch<
 
       this.attachTouchFns()
 
-      this.nudge()
+      this.nudge(new Nudge(), { settled: false })
 
       // SAFARI - prevent scrolling the screen while dragging is active
       e.preventDefault()
@@ -75,7 +75,10 @@ export default function DraggableTouch<
         new Nudge({
           x: coordinate.x - this.#touchLastCoordinate.x,
           y: coordinate.y - this.#touchLastCoordinate.y,
-        })
+        }),
+        {
+          settled: false,
+        }
       )
 
       this.#touchLastCoordinate = coordinate

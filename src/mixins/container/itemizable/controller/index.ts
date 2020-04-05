@@ -1,11 +1,6 @@
 import { ComposeConstructor } from '../../../../types'
 import { Action } from '../../../../classes/controller/types'
 
-import { NUDGE_EVENT, SETTLE_EVENT } from '../../nudgeable'
-import { MixinEventMap as NudgeableEventMap } from '../../nudgeable/types'
-import { SELECT_BEFORE_EVENT, SELECT_AFTER_EVENT } from '../../indexable/select'
-import { IndexableSelectEventDetail } from '../../indexable/select/types'
-
 import {
   MixinClass,
   MixinBase,
@@ -48,34 +43,28 @@ export default function MixinItemizableController<
 
       this.#controller.render()
 
-      this.on(
-        SELECT_BEFORE_EVENT,
-        (e: CustomEvent<IndexableSelectEventDetail>) => {
-          if (e.detail.from === e.detail.to) return e.preventDefault()
-          if (e.detail.to < 0) return e.preventDefault()
-          if (e.detail.to >= this.items.length) return e.preventDefault()
-        }
-      )
+      this.on('yacc:select:before', (e) => {
+        if (e.detail.from === e.detail.to) return e.preventDefault()
+        if (e.detail.to < 0) return e.preventDefault()
+        if (e.detail.to >= this.items.length) return e.preventDefault()
+      })
 
-      this.on(
-        SELECT_AFTER_EVENT,
-        (e: CustomEvent<IndexableSelectEventDetail>) => {
-          if (!this.#controller) return
+      this.on('yacc:select:after', (e) => {
+        if (!this.#controller) return
 
-          const fromItem = this.items[e.detail.from]
-          const targetItem = this.items[e.detail.to]
+        const fromItem = this.items[e.detail.from]
+        const targetItem = this.items[e.detail.to]
 
-          // update active
-          fromItem.active = false
-          targetItem.active = true
+        // update active
+        fromItem.active = false
+        targetItem.active = true
 
-          // new position
-          const actions = this.#controller.select(e.detail.to, this.type)
-          this._processControllerActions(actions)
-        }
-      )
+        // new position
+        const actions = this.#controller.select(e.detail.to, this.type)
+        this._processControllerActions(actions)
+      })
 
-      this.on(NUDGE_EVENT, (e: NudgeableEventMap[typeof NUDGE_EVENT]) => {
+      this.on('yacc:nudge', (e) => {
         // console.log('nudge');
 
         if (!this.#controller) return
@@ -89,22 +78,19 @@ export default function MixinItemizableController<
         this._processControllerActions(actions)
       })
 
-      this.on(
-        SETTLE_EVENT,
-        (e: NudgeableEventMap[typeof SETTLE_EVENT]): void => {
-          // console.log('settle');
+      this.on('yacc:settle', (e): void => {
+        // console.log('settle');
 
-          if (!this.#controller) return
-          if (e.defaultPrevented) return
+        if (!this.#controller) return
+        if (e.defaultPrevented) return
 
-          const actions = this.#controller.settle({
-            nudges: e.detail.unsettledNudges,
-            time: performance.now(),
-            axis: this.type,
-          })
-          this._processControllerActions(actions)
-        }
-      )
+        const actions = this.#controller.settle({
+          nudges: e.detail.nudges,
+          time: performance.now(),
+          axis: this.type,
+        })
+        this._processControllerActions(actions)
+      })
     }
 
     private _processControllerActions(actions: Action[]) {

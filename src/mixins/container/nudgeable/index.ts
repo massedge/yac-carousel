@@ -7,12 +7,7 @@ import {
   MixinEventMap,
   MixinInstance,
   MixinOptions,
-  NudgeEventDetail,
-  SettleEventDetail,
 } from './types'
-
-export const NUDGE_EVENT = 'yacc:nudgeable:nudge'
-export const SETTLE_EVENT = 'yacc:nudgeable:settle'
 
 export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
   Base: T
@@ -40,14 +35,20 @@ export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
      */
     nudge(
       nudge = new Nudge(),
-      { ease = false }: NonNullable<Parameters<MixinInstance['nudge']>[1]> = {
+      {
+        ease = false,
+        settled = true,
+      }: NonNullable<Parameters<MixinInstance['nudge']>[1]> = {
         ease: false,
+        settled: true,
       }
     ) {
-      this.#unsettledNudges.push(nudge)
+      if (!settled) {
+        this.#unsettledNudges.push(nudge)
+      }
 
       // trigger event
-      const event = new CustomEvent<NudgeEventDetail>(NUDGE_EVENT, {
+      const event: MixinEventMap['yacc:nudge'] = new CustomEvent('yacc:nudge', {
         cancelable: true,
         detail: {
           nudge,
@@ -63,12 +64,15 @@ export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
       }
     ) {
       // trigger event
-      const event = new CustomEvent<SettleEventDetail>(SETTLE_EVENT, {
-        detail: {
-          ease,
-          unsettledNudges: this.#unsettledNudges,
-        },
-      })
+      const event: MixinEventMap['yacc:settle'] = new CustomEvent(
+        'yacc:settle',
+        {
+          detail: {
+            ease,
+            nudges: this.#unsettledNudges,
+          },
+        }
+      )
       this._emit(event)
 
       this.#unsettledNudges = []
