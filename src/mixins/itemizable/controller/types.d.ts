@@ -7,7 +7,7 @@ import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-ver
 import { BoxModelableInstance } from '../../box-modelable'
 import { CssTransformableTranslateInstance } from '../../item/css-transform/translate/types'
 import { CssTransitionInstance } from '../../item/css-transition/types'
-import { ActiveInstance } from '../../item/activatable'
+import { ActiveInstance } from '../../activatable'
 
 export interface MixinOptions<Item extends MixinItemBase> {
   controller: InstanceType<typeof Controller>

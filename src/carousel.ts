@@ -2,6 +2,7 @@
 import Core from './classes/core'
 
 import {
+  Activatable,
   AlignableCore,
   AlignableFlexElement,
   Autoplayable,
@@ -29,7 +30,6 @@ import {
   VisibleContainerElement,
   VisibleContainerItem,
   Wheelable,
-  ItemActivatable,
   ItemCssTransformTranslate,
   ItemCssTransition,
 } from './lib'
@@ -37,7 +37,7 @@ import {
 export const CarouselItem = BoxModelable(
   ElementableFocus(
     Focusable(
-      ItemActivatable(
+      Activatable(
         VisibleContainerItem(
           ItemCssTransformTranslate(
             ItemCssTransition(EventableElement(ElementableCore(Core)))

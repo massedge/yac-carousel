@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../types'
+import { ComposeConstructor } from '../types'
 
 export interface ActiveOptions {}
 
@@ -31,7 +31,7 @@ export default function Active<T extends new (o: any) => ActiveBase>(Base: T) {
       this.#active = value
 
       // trigger event
-      const event = new CustomEvent<ActiveEventDetail>('yacc:item:active', {
+      const event = new CustomEvent<ActiveEventDetail>('yacc:active', {
         detail: {
           active: this.#active,
         },
