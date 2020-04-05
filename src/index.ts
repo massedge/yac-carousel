@@ -11,6 +11,8 @@ export { default as BoxModelable } from './mixins/box-modelable'
 export { default as ElementableCore } from './mixins/elementable/core'
 export { default as ElementableFocus } from './mixins/elementable/focus'
 export { default as EventableElement } from './mixins/eventable/element'
+export { default as NavablePreviousNextButton } from './mixins/navable/previous-next/button'
+export { default as NavablePreviousNextHandler } from './mixins/navable/previous-next/handler'
 export { default as Nudgeable } from './mixins/nudgeable'
 export { default as RefreshableWindowResize } from './mixins/refreshable/window-resize'
 export { default as TransformablePreventScroll } from './mixins/transformable/prevent-scroll'
@@ -25,8 +27,6 @@ export { default as ContainerDraggableTouch } from './mixins/container/draggable
 export { default as ContainerItemizableController } from './mixins/container/itemizable/controller'
 export { default as ContainerItemizableCore } from './mixins/container/itemizable/core'
 export { default as ContainerItemizableSelectOnFocusedItem } from './mixins/container/itemizable/select-on-focused-item'
-export { default as ContainerNavablePreviousNextButton } from './mixins/container/navable/previous-next/button'
-export { default as ContainerNavablePreviousNextHandler } from './mixins/container/navable/previous-next/handler'
 export { default as ContainerVisible } from './mixins/container/visible'
 
 // item mixin
