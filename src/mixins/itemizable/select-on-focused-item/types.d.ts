@@ -1,7 +1,7 @@
-import Core from '../../../../classes/core'
+import Core from '../../../classes/core'
 import { ItemizableCoreInstance } from '../core/types'
-import { IndexableSelectInstance } from '../../../indexable/select/types'
-import { MixinInstance as FocusableInstance } from '../../../focusable/types'
+import { IndexableSelectInstance } from '../../indexable/select/types'
+import { MixinInstance as FocusableInstance } from '../../focusable/types'
 
 export interface MixinOptions {}
 

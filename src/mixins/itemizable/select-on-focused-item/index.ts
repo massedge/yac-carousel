@@ -1,4 +1,4 @@
-import { ComposeConstructor } from '../../../../types'
+import { ComposeConstructor } from '../../../types'
 
 import {
   MixinClass,
@@ -13,7 +13,7 @@ import {
  * it appears within the containing element and not cut off.
  * @param Base
  */
-export default function SelectOnFocusedItemItemizableMixin<
+export default function ItemizableSelectOnFocusedItem<
   T extends new (o: any) => MixinBase<Item>,
   Item extends MixinItemBase
 >(Base: T) {

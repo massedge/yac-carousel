@@ -1,5 +1,5 @@
-import { ComposeConstructor } from '../../../../types'
-import { Action } from '../../../../classes/controller/types'
+import { ComposeConstructor } from '../../../types'
+import { Action } from '../../../classes/controller/types'
 
 import {
   MixinClass,
@@ -9,7 +9,7 @@ import {
   MixinItemBase,
 } from './types'
 
-export default function MixinItemizableController<
+export default function ItemizableController<
   T extends new (o: any) => MixinBase<Item>,
   Item extends MixinItemBase
 >(Base: T) {
