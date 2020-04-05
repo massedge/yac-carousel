@@ -4,8 +4,8 @@ import FocusableMixin from '../../../../focusable'
 
 import SelectOnFocusedItemItemizableMixin from '..'
 import ItemizableCoreMixin from '../../core'
-import SelectIndexableMixin from '../../../indexable/select'
-import { IndexableSelectEventMap } from '../../../indexable/select/types'
+import SelectIndexableMixin from '../../../../indexable/select'
+import { IndexableSelectEventMap } from '../../../../indexable/select/types'
 
 test('itemizable prevent-scroll mixin', () => {
   const ItemCls = FocusableMixin(EventableMixin(Core))
