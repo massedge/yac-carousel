@@ -4,6 +4,8 @@ export { default as Core } from './classes/core'
 export { default as Nudge } from './classes/nudge'
 
 // mixins
+export { default as AlignableCore } from './mixins/alignable/core'
+export { default as AlignableFlexElement } from './mixins/alignable/element/flex'
 export { default as BoxModelable } from './mixins/box-modelable'
 export { default as ElementableCore } from './mixins/elementable/core'
 export { default as FocusElementable } from './mixins/elementable/focus'
