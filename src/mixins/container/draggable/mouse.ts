@@ -1,5 +1,5 @@
 import { ComposeConstructor } from '../../../types'
-import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
+import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
 import { ElementableInstance } from '../../elementable/core'
 import { DraggableCoreInstance } from './core'
 import Nudge from '../../../classes/nudge'

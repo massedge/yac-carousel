@@ -1,5 +1,5 @@
-import { ComposeConstructor } from '../../../types'
-import Nudge from '../../../classes/nudge'
+import { ComposeConstructor } from '../../types'
+import Nudge from '../../classes/nudge'
 
 import {
   MixinBase,
@@ -9,7 +9,7 @@ import {
   MixinOptions,
 } from './types'
 
-export default function NudgeableMixin<T extends new (o: any) => MixinBase>(
+export default function Nudgeable<T extends new (o: any) => MixinBase>(
   Base: T
 ) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)

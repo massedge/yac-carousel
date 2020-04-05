@@ -1,6 +1,6 @@
 import Core from '../../../../classes/core'
-import NudgeableMixin from '../../../container/nudgeable'
-import { MixinEventMap as NudgeableMixinEvenMap } from '../../../container/nudgeable/types'
+import NudgeableMixin from '../../../nudgeable'
+import { MixinEventMap as NudgeableMixinEvenMap } from '../../../nudgeable/types'
 import EventableMixin from '../../../eventable/element'
 import ElementableMixin from '../../../elementable/core'
 import ScrollToNudgeTransformableMixin from '..'

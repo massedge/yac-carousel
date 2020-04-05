@@ -1,4 +1,4 @@
-import Nudge from '../../../classes/nudge'
+import Nudge from '../../classes/nudge'
 
 export interface MixinOptions {}
 
