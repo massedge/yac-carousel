@@ -5,7 +5,7 @@ import Core from '../../../classes/core'
 import { ItemizableCoreInstance } from '../core/types'
 import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-vertical/types'
 import { BoxModelableInstance } from '../../box-modelable'
-import { CssTransformableTranslateInstance } from '../../item/css-transform/translate/types'
+import { CssTransformableTranslateInstance } from '../../css-transformable/translate/types'
 import { CssTransitionInstance } from '../../css-transitionable/types'
 import { ActiveInstance } from '../../activatable'
 

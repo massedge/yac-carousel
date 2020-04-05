@@ -7,6 +7,7 @@ import {
   AlignableFlexElement,
   Autoplayable,
   BoxModelable,
+  CssTransformableTranslate,
   CssTransitionable,
   DirectionableCore,
   DirectionableElement,
@@ -31,7 +32,6 @@ import {
   VisibleContainerElement,
   VisibleContainerItem,
   Wheelable,
-  ItemCssTransformTranslate,
 } from './lib'
 
 export const CarouselItem = BoxModelable(
@@ -39,7 +39,7 @@ export const CarouselItem = BoxModelable(
     Focusable(
       Activatable(
         VisibleContainerItem(
-          ItemCssTransformTranslate(
+          CssTransformableTranslate(
             CssTransitionable(EventableElement(ElementableCore(Core)))
           )
         )
