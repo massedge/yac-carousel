@@ -8,9 +8,9 @@ import {
   MixinOptions,
 } from './types'
 
-export default function DirectionableCoreMixin<
-  T extends new (o: any) => MixinBase
->(Base: T) {
+export default function DirectionableCore<T extends new (o: any) => MixinBase>(
+  Base: T
+) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
     #auto: boolean

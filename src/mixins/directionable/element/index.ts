@@ -4,7 +4,7 @@ import { Direction } from '../core/types'
 
 import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
 
-export default function DirectionableElementMixin<
+export default function DirectionableElement<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
