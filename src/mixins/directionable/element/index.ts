@@ -9,29 +9,35 @@ export default function DirectionableElementMixin<
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
-    #originalDirectionAttr: string | null = null
+    #originalDirectionStyle: { value: string; priority: string } = {
+      value: '',
+      priority: '',
+    }
 
     render() {
       super.render()
 
-      // store original attribute if one was set
-      this.#originalDirectionAttr = this.element.getAttribute('dir')
+      // store original direction style if one was set
+      this.#originalDirectionStyle = {
+        value: this.element.style.getPropertyValue('direction'),
+        priority: this.element.style.getPropertyPriority('direction'),
+      }
 
-      this._directionableElementSetAttribute()
+      this._directionableElementSetDirectionStyle()
     }
 
     refresh() {
       super.refresh()
-      this._directionableElementSetAttribute()
+      this._directionableElementSetDirectionStyle()
     }
 
     destroy() {
-      this._directionableElementResetDirAttribute()
+      this._directionableElementResetDirectionStyle()
       this.destroy()
     }
 
     directionAutoUpdate(defaultDirection?: Direction) {
-      this._directionableElementResetDirAttribute()
+      this._directionableElementResetDirectionStyle()
 
       const directionAttr = getComputedStyle(this.element).direction
       if (directionAttr === 'ltr' || directionAttr === 'rtl') {
@@ -41,20 +47,24 @@ export default function DirectionableElementMixin<
       return super.directionAutoUpdate(defaultDirection)
     }
 
-    private _directionableElementSetAttribute() {
-      this.element.removeAttribute('dir')
+    private _directionableElementSetDirectionStyle() {
+      this._directionableElementResetDirectionStyle()
 
       const direction = getComputedStyle(this.element).direction
       if (direction === this.direction) return
 
-      this.element.setAttribute('dir', this.direction)
+      this.element.style.setProperty('direction', this.direction, 'important')
     }
 
-    private _directionableElementResetDirAttribute() {
-      if (this.#originalDirectionAttr) {
-        this.element.setAttribute('dir', this.#originalDirectionAttr)
+    private _directionableElementResetDirectionStyle() {
+      if (this.#originalDirectionStyle.value) {
+        this.element.style.setProperty(
+          'direction',
+          this.#originalDirectionStyle.value,
+          this.#originalDirectionStyle.priority
+        )
       } else {
-        this.element.removeAttribute('dir')
+        this.element.style.removeProperty('direction')
       }
     }
   }
