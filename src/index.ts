@@ -8,6 +8,11 @@ export { default as AlignableCore } from './mixins/alignable/core'
 export { default as AlignableFlexElement } from './mixins/alignable/element/flex'
 export { default as Autoplayable } from './mixins/autoplayable'
 export { default as BoxModelable } from './mixins/box-modelable'
+export { default as DraggableCore } from './mixins/draggable/core'
+export { default as DraggableMouse } from './mixins/draggable/mouse'
+export { default as DraggableTouch } from './mixins/draggable/touch'
+export { default as DraggablePreventOnDraggableElement } from './mixins/draggable/prevent-on-draggable-element'
+export { default as DraggablePreventOnInputElement } from './mixins/draggable/prevent-on-input-element'
 export { default as ElementableCore } from './mixins/elementable/core'
 export { default as ElementableFocus } from './mixins/elementable/focus'
 export { default as EventableElement } from './mixins/eventable/element'
@@ -26,9 +31,6 @@ export { default as TypeableHorizontalVertical } from './mixins/typeable/horizon
 export { default as Wheelable } from './mixins/wheelable'
 
 // container mixins
-export { default as ContainerDraggableCore } from './mixins/container/draggable/core'
-export { default as ContainerDraggableMouse } from './mixins/container/draggable/mouse'
-export { default as ContainerDraggableTouch } from './mixins/container/draggable/touch'
 export { default as ContainerVisible } from './mixins/container/visible'
 
 // item mixin

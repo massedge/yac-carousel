@@ -1,8 +1,8 @@
-import { ComposeConstructor } from '../../../types'
-import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
-import { ElementableInstance } from '../../elementable/core'
+import { ComposeConstructor } from '../../types'
+import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
+import { ElementableInstance } from '../elementable/core'
 import { DraggableCoreInstance } from './core'
-import Nudge from '../../../classes/nudge'
+import Nudge from '../../classes/nudge'
 
 export interface DraggableMouseOptions {}
 

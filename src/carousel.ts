@@ -8,6 +8,11 @@ import Autoplayable from './mixins/autoplayable'
 import BoxModelable from './mixins/box-modelable'
 import DirectionableCore from './mixins/directionable/core'
 import DirectionableElement from './mixins/directionable/element'
+import DraggableCore from './mixins/draggable/core'
+import DraggableMouse from './mixins/draggable/mouse'
+import DraggableTouch from './mixins/draggable/touch'
+import DraggablePreventOnDraggableElement from './mixins/draggable/prevent-on-draggable-element'
+import DraggablePreventOnInputElement from './mixins/draggable/prevent-on-input-element'
 import Elementable from './mixins/elementable/core'
 import Focusable from './mixins/focusable'
 import FocusElementable from './mixins/elementable/focus'
@@ -23,11 +28,6 @@ import TypeableHorizontalVerticalMixin from './mixins/typeable/horizontal-vertic
 import Wheelable from './mixins/wheelable'
 
 // container
-import DraggableCore from './mixins/container/draggable/core'
-import DraggableMouse from './mixins/container/draggable/mouse'
-import DraggableTouch from './mixins/container/draggable/touch'
-import DraggablePreventOnDraggableEvent from './mixins/container/draggable/prevent-on-draggable-element'
-import DraggablePreventOnInputEvent from './mixins/container/draggable/prevent-on-input-element'
 import ElementEventable from './mixins/eventable/element'
 import Visible from './mixins/container/visible'
 
@@ -61,8 +61,8 @@ const Carousel = WindowResizeRefreshable(
       Autoplayable(
         Visible(
           Wheelable(
-            DraggablePreventOnDraggableEvent(
-              DraggablePreventOnInputEvent(
+            DraggablePreventOnDraggableElement(
+              DraggablePreventOnInputElement(
                 DraggableTouch(
                   DraggableMouse(
                     DraggableCore(
