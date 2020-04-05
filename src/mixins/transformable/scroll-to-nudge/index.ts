@@ -12,7 +12,7 @@ import Nudge from '../../../classes/nudge'
  * This behavior has been observed in Chrome, but other browsers may also be affected.
  * @param Base
  */
-export default function ScrollToNudgeTransformableMixin<
+export default function TransformableScrollToNudge<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)

@@ -7,9 +7,9 @@ import { MixinEventMap as FocusableMixinEventMap } from '../../focusable/types'
  * Keep track whether the root element or one of its decendents has focus.
  * @param Base
  */
-export default function FocusElementableMixin<
-  T extends new (o: any) => MixinBase
->(Base: T) {
+export default function ElementableFocus<T extends new (o: any) => MixinBase>(
+  Base: T
+) {
   class Mixin extends (Base as new (...args: any[]) => MixinBase)
     implements MixinInstance {
     #focusHandler: (this: HTMLElement, ev: FocusEvent) => void
@@ -35,8 +35,9 @@ export default function FocusElementableMixin<
           e.relatedTarget instanceof HTMLElement &&
           (e.relatedTarget === this.element ||
             this.element.contains(e.relatedTarget))
-        )
+        ) {
           return
+        }
 
         this.off('yacc:blur', this.#preventBlurHandler)
         this.blur()

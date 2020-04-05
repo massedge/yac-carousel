@@ -12,7 +12,9 @@ export interface ElementableInstance {
   readonly element: HTMLElement
 }
 
-export default function Elementable<T extends new (o: any) => any>(Base: T) {
+export default function ElementableCore<T extends new (o: any) => any>(
+  Base: T
+) {
   class Mixin extends (Base as new (...a: any[]) => any)
     implements ElementableInstance {
     #element: HTMLElement

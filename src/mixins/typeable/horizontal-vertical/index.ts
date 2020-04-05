@@ -8,7 +8,7 @@ import {
   MixinOptions,
 } from './types'
 
-export default function HorizontalVerticalTypeableMixin<
+export default function TypeableHorizontalVertical<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)

@@ -11,7 +11,7 @@ import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
  * This behavior has been observed in Chrome, but other browsers may also be affected.
  * @param Base
  */
-export default function PreventScrollTransformableMixin<
+export default function TransformablePreventScroll<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)

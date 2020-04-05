@@ -2,7 +2,7 @@ import { ComposeConstructor } from '../../../types'
 
 import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
 
-export default function WindowResizeRefreshableMixin<
+export default function RefreshableWindowResize<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)

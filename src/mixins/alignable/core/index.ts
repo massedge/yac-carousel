@@ -9,7 +9,7 @@ import {
   MixinOptions,
 } from './types'
 
-export default function AlignableCoreMixin<T extends new (o: any) => MixinBase>(
+export default function AlignableCore<T extends new (o: any) => MixinBase>(
   Base: T
 ) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
@@ -47,8 +47,9 @@ export default function AlignableCoreMixin<T extends new (o: any) => MixinBase>(
     alignAutoUpdate(defaultAlign?: Align | Align2d) {
       this.#auto = true
 
-      if (defaultAlign)
+      if (defaultAlign) {
         defaultAlign = this._alignableCoreNormalize(defaultAlign)
+      }
 
       if (
         defaultAlign &&

@@ -18,7 +18,7 @@ const FLEX_TO_ALIGN_MAP: { [x: string]: Align } = {
   'flex-end': 'end',
 }
 
-export default function AlignableFlexElementMixin<
+export default function AlignableFlexElement<
   T extends new (o: any) => MixinBase
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
@@ -55,8 +55,9 @@ export default function AlignableFlexElementMixin<
     }
 
     alignAutoUpdate(defaultAlign?: Align | Align2d) {
-      if (defaultAlign)
+      if (defaultAlign) {
         defaultAlign = this._alignableCoreNormalize(defaultAlign)
+      }
       this._alignableElementResetInlineStyles()
 
       const style = getComputedStyle(this.element)

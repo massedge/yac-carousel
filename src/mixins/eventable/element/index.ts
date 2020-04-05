@@ -2,9 +2,9 @@ import { ComposeConstructor } from '../../../types'
 
 import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
 
-export default function ElementEventableMixin<
-  T extends new (o: any) => MixinBase
->(Base: T) {
+export default function EventableElement<T extends new (o: any) => MixinBase>(
+  Base: T
+) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
     on(type: string, listener: (evt: CustomEvent) => void) {
