@@ -17,6 +17,8 @@ export default function Controllable<
     extends (Base as new (options: MixinOptions<Item>) => MixinBase<Item>)
     implements MixinInstance<Item> {
     #controller: MixinOptions<Item>['controller']
+    #pendingRequestAnimationFrameId?: number
+    #pendingActions: Action[] = []
 
     constructor({ controller, ...otherOptions }: MixinOptions<Item>) {
       super({ controller, ...otherOptions })
@@ -94,19 +96,29 @@ export default function Controllable<
     }
 
     private _processControllerActions(actions: Action[]) {
-      actions.forEach((action) => {
-        switch (action.type) {
-          case 'itemTranslate':
-            const item = this.items[action.index]
+      this.#pendingActions = this.#pendingActions.concat(actions)
 
-            if (action.x !== undefined) item.translateX = action.x
-            if (action.y !== undefined) item.translateY = action.y
-            item.transition = action.ease !== undefined ? action.ease : ''
-            break
+      if (this.#pendingRequestAnimationFrameId) return
 
-          default:
-            throw new Error('unsupported action type')
-        }
+      this.#pendingRequestAnimationFrameId = requestAnimationFrame(() => {
+        this.#pendingRequestAnimationFrameId = undefined
+
+        this.#pendingActions.forEach((action) => {
+          switch (action.type) {
+            case 'itemTranslate':
+              const item = this.items[action.index]
+
+              if (action.x !== undefined) item.translateX = action.x
+              if (action.y !== undefined) item.translateY = action.y
+              item.transition = action.ease !== undefined ? action.ease : ''
+              break
+
+            default:
+              throw new Error('unsupported action type')
+          }
+        })
+
+        this.#pendingActions = []
       })
     }
 
