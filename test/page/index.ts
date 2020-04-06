@@ -1,3 +1,7 @@
+// IE 11 polyfills
+import 'intersection-observer'
+import 'custom-event-polyfill'
+
 import {
   YacCarousel,
   YacCarouselItem,
@@ -17,7 +21,8 @@ const c = new (NavablePreviousNextButton(YacCarousel))({
   // autoplay: {
   //   enabled: true
   // },
-  items: Array.from(elHorizontal.children)
+  items: Array.prototype.slice
+    .call(elHorizontal.children)
     .filter((child) => child.nodeType === 1)
     .map((element) => {
       const item = new YacCarouselItem({
@@ -45,7 +50,8 @@ const cVertical = new (NavablePreviousNextHandler(YacCarousel))({
   type: 'vertical',
   elPrevious,
   elNext,
-  items: Array.from(elVertical.children)
+  items: Array.prototype.slice
+    .call(elVertical.children)
     .filter((child) => child.nodeType === 1)
     .map((element) => {
       const item = new YacCarouselItem({
