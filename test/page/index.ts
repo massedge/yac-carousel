@@ -2,6 +2,9 @@
 import 'intersection-observer'
 import 'custom-event-polyfill'
 
+// IE 10 polyfills
+import 'core-js/stable/weak-map'
+
 import {
   YacCarousel,
   YacCarouselItem,
