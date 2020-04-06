@@ -22,7 +22,7 @@ import {
   Focusable,
   IndexablePreviousNext,
   IndexableSelect,
-  ItemizableController,
+  Controllable,
   ItemizableCore,
   ItemizableSelectOnFocusedItem,
   Nudgeable,
@@ -65,7 +65,7 @@ const Carousel = RefreshableWindowResize(
                     DraggableCore(
                       IndexablePreviousNext(
                         IndexableSelect(
-                          ItemizableController(
+                          Controllable(
                             AlignableFlexElement(
                               AlignableCore(
                                 DirectionableElement(

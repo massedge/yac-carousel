@@ -1,13 +1,13 @@
-import Controller from '../../../classes/controller'
-import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
-import { IndexableSelectInstance } from '../../indexable/select/types'
-import Core from '../../../classes/core'
-import { ItemizableCoreInstance } from '../core/types'
-import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-vertical/types'
-import { BoxModelableInstance } from '../../box-modelable'
-import { CssTransformableTranslateInstance } from '../../css-transformable/translate/types'
-import { CssTransitionInstance } from '../../css-transitionable/types'
-import { ActiveInstance } from '../../activatable'
+import Controller from '../../classes/controller'
+import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
+import { IndexableSelectInstance } from '../indexable/select/types'
+import Core from '../../classes/core'
+import { ItemizableCoreInstance } from '../itemizable/core/types'
+import { MixinInstance as TypeableInstance } from '../typeable/horizontal-vertical/types'
+import { BoxModelableInstance } from '../box-modelable'
+import { CssTransformableTranslateInstance } from '../css-transformable/translate/types'
+import { CssTransitionInstance } from '../css-transitionable/types'
+import { ActiveInstance } from '../activatable'
 
 export interface MixinOptions<Item extends MixinItemBase> {
   controller: InstanceType<typeof Controller>
