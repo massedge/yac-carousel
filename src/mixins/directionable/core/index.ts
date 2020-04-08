@@ -6,11 +6,9 @@ import {
   MixinClass,
   MixinInstance,
   MixinOptions,
-} from './types'
+} from './types.d'
 
-export default function DirectionableCore<T extends new (o: any) => MixinBase>(
-  Base: T
-) {
+function DirectionableCore<T extends new (o: any) => MixinBase>(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
     #auto: boolean
@@ -56,4 +54,10 @@ export default function DirectionableCore<T extends new (o: any) => MixinBase>(
   }
 
   return (Mixin as unknown) as ComposeConstructor<MixinClass, typeof Base>
+}
+
+export {
+  DirectionableCore as default,
+  Direction as DirectionableCoreDirection,
+  MixinInstance as DirectionableCoreMixinInstance,
 }

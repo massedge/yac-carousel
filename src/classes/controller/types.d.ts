@@ -1,7 +1,10 @@
-export type Alignment = 'left' | 'right'
+import { AlignableCoreAlign2d } from '../../mixins/alignable/core'
+import { DirectionableCoreDirection } from '../../mixins/directionable/core'
 
 export interface State {
-  alignment?: Alignment
+  align?: AlignableCoreAlign2d
+
+  direction?: DirectionableCoreDirection
 
   container: {
     width: number

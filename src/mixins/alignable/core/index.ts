@@ -7,11 +7,9 @@ import {
   MixinClass,
   MixinInstance,
   MixinOptions,
-} from './types'
+} from './types.d'
 
-export default function AlignableCore<T extends new (o: any) => MixinBase>(
-  Base: T
-) {
+function AlignableCore<T extends new (o: any) => MixinBase>(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
     #auto: boolean
@@ -73,4 +71,10 @@ export default function AlignableCore<T extends new (o: any) => MixinBase>(
   }
 
   return (Mixin as unknown) as ComposeConstructor<MixinClass, typeof Base>
+}
+
+export {
+  AlignableCore as default,
+  Align2d as AlignableCoreAlign2d,
+  MixinInstance as AlignableCoreInstance,
 }

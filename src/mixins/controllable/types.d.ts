@@ -8,6 +8,8 @@ import { BoxModelableInstance } from '../box-modelable'
 import { CssTransformableTranslateInstance } from '../css-transformable/translate/types'
 import { CssTransitionInstance } from '../css-transitionable/types'
 import { ActiveInstance } from '../activatable'
+import { AlignableCoreInstance } from '../alignable/core'
+import { DirectionableCoreMixinInstance } from '../directionable/core'
 
 export interface MixinOptions<Item extends MixinItemBase> {
   controller: InstanceType<typeof Controller>
@@ -23,7 +25,9 @@ export interface MixinBase<Item extends MixinItemBase>
   extends Core,
     Pick<ItemizableCoreInstance<Item>, 'items'>,
     Pick<TypeableInstance, 'type'>,
-    Pick<BoxModelableInstance, 'width' | 'height'> {
+    Pick<BoxModelableInstance, 'width' | 'height'>,
+    Pick<AlignableCoreInstance, 'align'>,
+    Pick<DirectionableCoreMixinInstance, 'direction'> {
   on: IndexableSelectInstance['on'] & NudgeableInstance['on']
   off: IndexableSelectInstance['off'] & NudgeableInstance['off']
 }

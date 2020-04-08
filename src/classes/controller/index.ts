@@ -1,10 +1,11 @@
 import Core from '../core'
 import Nudge from '../nudge'
 
-import { Action, Alignment, State } from './types'
+import { Action, State } from './types'
 
 export default class Controller extends Core {
-  #alignment: Alignment = 'left'
+  #align: NonNullable<State['align']> = ['start', 'start']
+  #direction: NonNullable<State['direction']> = 'ltr'
   #container: State['container'] = {
     width: 0,
     height: 0,
@@ -15,8 +16,9 @@ export default class Controller extends Core {
   private itemsWidth = 0
   private itemsHeight = 0
 
-  setState({ alignment = 'left', container, items }: State) {
-    this.#alignment = alignment
+  setState({ align, direction, container, items }: State) {
+    if (align) this.#align = align
+    if (direction) this.#direction = direction
     this.#container = container
     this.#items = items
   }
@@ -48,9 +50,9 @@ export default class Controller extends Core {
     )
   }
 
-  set alignment(value: Alignment) {
-    if (this.#alignment === value) return
-    this.#alignment = value
+  set alignment(value: NonNullable<State['align']>) {
+    if (this.#align === value) return
+    this.#align = value
   }
 
   select(index: number, axis: 'horizontal' | 'vertical'): Action[] {

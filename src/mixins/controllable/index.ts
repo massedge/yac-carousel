@@ -29,7 +29,8 @@ export default function Controllable<
       super.render()
 
       this.#controller.setState({
-        alignment: 'left',
+        align: this.align,
+        direction: this.direction,
         container: {
           width: this.width,
           height: this.height,
