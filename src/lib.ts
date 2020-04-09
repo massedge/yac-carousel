@@ -30,6 +30,7 @@ export { default as ItemizableSelectOnFocusedItem } from './mixins/itemizable/se
 export { default as NavablePreviousNextButton } from './mixins/navable/previous-next/button'
 export { default as NavablePreviousNextHandler } from './mixins/navable/previous-next/handler'
 export { default as Nudgeable } from './mixins/nudgeable'
+export { default as RefreshableImageLoad } from './mixins/refreshable/image-load'
 export { default as RefreshableWindowResize } from './mixins/refreshable/window-resize'
 export { default as TransformablePreventScroll } from './mixins/transformable/prevent-scroll'
 export { default as TransformableScrollToNudge } from './mixins/transformable/scroll-to-nudge'

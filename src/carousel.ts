@@ -27,6 +27,7 @@ import {
   ItemizableSelectOnFocusedItem,
   Nudgeable,
   RefreshableWindowResize,
+  RefreshableImageLoad,
   TransformablePreventScroll,
   TypeableHorizontalVertical,
   VisibleContainerElement,
@@ -53,28 +54,30 @@ const CarouselItemizableBase = BoxModelable(
 )
 
 const Carousel = RefreshableWindowResize(
-  ItemizableSelectOnFocusedItem(
-    TransformablePreventScroll(
-      Autoplayable(
-        VisibleContainerElement(
-          Wheelable(
-            DraggablePreventOnDraggableElement(
-              DraggablePreventOnInputElement(
-                DraggableTouch(
-                  DraggableMouse(
-                    DraggableCore(
-                      IndexablePreviousNext(
-                        IndexableSelect(
-                          Controllable(
-                            AlignableFlexElement(
-                              AlignableCore(
-                                DirectionableElement(
-                                  DirectionableCore(
-                                    TypeableHorizontalVertical(
-                                      ItemizableCore<
-                                        InstanceType<typeof CarouselItem>,
-                                        typeof CarouselItemizableBase
-                                      >(CarouselItemizableBase)
+  RefreshableImageLoad(
+    ItemizableSelectOnFocusedItem(
+      TransformablePreventScroll(
+        Autoplayable(
+          VisibleContainerElement(
+            Wheelable(
+              DraggablePreventOnDraggableElement(
+                DraggablePreventOnInputElement(
+                  DraggableTouch(
+                    DraggableMouse(
+                      DraggableCore(
+                        IndexablePreviousNext(
+                          IndexableSelect(
+                            Controllable(
+                              AlignableFlexElement(
+                                AlignableCore(
+                                  DirectionableElement(
+                                    DirectionableCore(
+                                      TypeableHorizontalVertical(
+                                        ItemizableCore<
+                                          InstanceType<typeof CarouselItem>,
+                                          typeof CarouselItemizableBase
+                                        >(CarouselItemizableBase)
+                                      )
                                     )
                                   )
                                 )
