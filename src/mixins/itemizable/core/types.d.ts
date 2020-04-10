@@ -21,4 +21,6 @@ export interface ItemizableItemBase {
   refresh(): void
 }
 
-// export type ItemizableItemConstructor<Item extends ItemizableItemBase> = new (...args: any[]) => Item
+export type ItemizableItemConstructor<Item extends ItemizableItemBase> = new (
+  ...args: any[]
+) => Item

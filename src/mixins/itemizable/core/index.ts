@@ -5,13 +5,13 @@ import {
   ItemizableCoreInstance,
   ItemizableCoreOptions,
   ItemizableItemBase,
-  // ItemizableItemConstructor,
+  ItemizableItemConstructor,
 } from './types'
 
 export default function ItemizableCore<
-  Item extends ItemizableItemBase,
-  T extends new (o: any) => ItemizableCoreBase
->(Base: T) {
+  T extends new (o: any) => ItemizableCoreBase,
+  Item extends ItemizableItemBase
+>(Base: T, ItemBase: ItemizableItemConstructor<Item>) {
   class Mixin
     extends (Base as new (
       options: ItemizableCoreOptions<Item>

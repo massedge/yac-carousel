@@ -12,12 +12,7 @@ test('itemizable prevent-scroll mixin', () => {
 
   const ContainerBaseCls = EventableMixin(Core)
   const ContainerCls = SelectOnFocusedItemItemizableMixin(
-    SelectIndexableMixin(
-      ItemizableCoreMixin<
-        InstanceType<typeof ItemCls>,
-        typeof ContainerBaseCls
-      >(ContainerBaseCls)
-    )
+    SelectIndexableMixin(ItemizableCoreMixin(ContainerBaseCls, ItemCls))
   )
 
   const selectCallback = jest.fn(

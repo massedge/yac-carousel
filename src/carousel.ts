@@ -27,7 +27,6 @@ import {
   ItemizableSelectOnFocusedItem,
   Nudgeable,
   RefreshableWindowResize,
-  RefreshableImageLoad,
   TransformablePreventScroll,
   TypeableHorizontalVertical,
   VisibleContainerElement,
@@ -49,34 +48,34 @@ export const CarouselItem = BoxModelable(
   )
 )
 
-const CarouselItemizableBase = BoxModelable(
-  Nudgeable(EventableElement(ElementableCore(Core)))
-)
-
 const Carousel = RefreshableWindowResize(
-  RefreshableImageLoad(
-    ItemizableSelectOnFocusedItem(
-      TransformablePreventScroll(
-        Autoplayable(
-          VisibleContainerElement(
-            Wheelable(
-              DraggablePreventOnDraggableElement(
-                DraggablePreventOnInputElement(
-                  DraggableTouch(
-                    DraggableMouse(
-                      DraggableCore(
-                        IndexablePreviousNext(
-                          IndexableSelect(
-                            Controllable(
-                              AlignableFlexElement(
-                                AlignableCore(
-                                  DirectionableElement(
-                                    DirectionableCore(
-                                      TypeableHorizontalVertical(
-                                        ItemizableCore<
-                                          InstanceType<typeof CarouselItem>,
-                                          typeof CarouselItemizableBase
-                                        >(CarouselItemizableBase)
+  ItemizableSelectOnFocusedItem(
+    TransformablePreventScroll(
+      Autoplayable(
+        VisibleContainerElement(
+          Wheelable(
+            DraggablePreventOnDraggableElement(
+              DraggablePreventOnInputElement(
+                DraggableTouch(
+                  DraggableMouse(
+                    DraggableCore(
+                      IndexablePreviousNext(
+                        IndexableSelect(
+                          Controllable(
+                            AlignableFlexElement(
+                              AlignableCore(
+                                DirectionableElement(
+                                  DirectionableCore(
+                                    TypeableHorizontalVertical(
+                                      ItemizableCore(
+                                        BoxModelable(
+                                          Nudgeable(
+                                            EventableElement(
+                                              ElementableCore(Core)
+                                            )
+                                          )
+                                        ),
+                                        CarouselItem
                                       )
                                     )
                                   )
