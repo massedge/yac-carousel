@@ -6,7 +6,7 @@ declare module 'lodash' {
       func: T,
       wait?: number,
       options?: DebounceSettings
-    ): T & Cancelable & { pending(): void }
+    ): T & Cancelable & { pending(): boolean }
   }
 }
 
@@ -19,9 +19,8 @@ export type ComposeConstructor<T, U> = [T, U] extends [
 ]
   ? {
       new (options: O1 & O2): R1 & R2
-    } // NOTE: Currently not using static methods in mixins, so no need
-  : // to complicate composition with merging of static methods.
-    // & Pick<T, keyof T> & Pick<U, keyof U>
+    } // NOTE: Currently not using static methods in mixins, so no need // to complicate composition with merging of static methods.
+  : // & Pick<T, keyof T> & Pick<U, keyof U>
     never
 
 /**
