@@ -60,7 +60,11 @@ module.exports = (env, argv) => {
       // host: '0.0.0.0',
       stats: {
         colors: true
-      }
+      },
+      before: (app, server) => {
+        // @see https://github.com/webpack/webpack-dev-server/issues/1271#issuecomment-379792541
+        server._watch(`test/*/**.html`);
+      } 
     }
   }
 }
