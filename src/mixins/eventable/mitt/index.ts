@@ -15,7 +15,7 @@ export default function MittEventableMixin<T extends new (o: any) => MixinBase>(
       this.#emitter.on(type, listener)
     }
 
-    off(type: string, listener: (evt: CustomEvent) => void) {
+    _off(type: string, listener: (evt: CustomEvent) => void) {
       this.#emitter.off(type, listener)
     }
 

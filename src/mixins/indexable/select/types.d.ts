@@ -27,7 +27,7 @@ export interface IndexableSelectEventMap {
 export interface IndexableSelectBase<Item = any> {
   items: readonly Item[]
   _on(type: string, listener: (evt: CustomEvent) => void): void
-  off(type: string, listener: (evt: CustomEvent) => void): void
+  _off(type: string, listener: (evt: CustomEvent) => void): void
   _emit(evt: CustomEvent): void
 }
 

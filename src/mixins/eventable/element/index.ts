@@ -15,7 +15,7 @@ export default function EventableElement<T extends new (o: any) => MixinBase>(
       )
     }
 
-    off(type: string, listener: (evt: CustomEvent) => void) {
+    _off(type: string, listener: (evt: CustomEvent) => void) {
       this.element.removeEventListener(
         type,
         // @see https://github.com/Microsoft/TypeScript/issues/28357

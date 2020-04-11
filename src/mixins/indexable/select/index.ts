@@ -38,7 +38,7 @@ export default function IndexableSelect<
       type: K,
       listener: (ev: IndexableSelectEventMap[K]) => void
     ) {
-      return super.off.call(this, type, listener)
+      return this._off.call(this, type, listener)
     }
 
     get index() {
