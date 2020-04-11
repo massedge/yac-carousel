@@ -23,7 +23,7 @@
     "test-watch": "jest --watch",
     "tslint-fix": "tslint --fix \"src/**/*.ts\" \"test/**/*.ts\"",
     "tslint-test": "tslint --project ./test-types/ \"./test-types/**/*.ts\"",
-    "typescript-build": "tsc",
+    "typescript-build": "tsc --project tsconfig.build.json",
     "typescript-check": "tsc --noEmit",
     "typescript-watch": "tsc --noEmit --watch"
   },
