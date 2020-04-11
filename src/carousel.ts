@@ -7,6 +7,7 @@ import {
   AlignableFlexElement,
   Autoplayable,
   BoxModelable,
+  Controller,
   CssTransformableTranslate,
   CssTransitionable,
   DirectionableCore,
@@ -33,6 +34,8 @@ import {
   VisibleContainerItem,
   Wheelable,
 } from './lib'
+
+export const CarouselController = Controller
 
 export const CarouselItem = BoxModelable(
   ElementableFocus(
