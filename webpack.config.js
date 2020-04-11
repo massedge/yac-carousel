@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => {
   const PRODUCTION = argv.mode === 'production';
@@ -18,6 +19,13 @@ module.exports = (env, argv) => {
   if (!PRODUCTION) {
     plugins.push(new webpack.NamedModulesPlugin());
     plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
+  
+  if (PRODUCTION) {
+    plugins.push(new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      defaultSizes: 'gzip',
+    }));
   }
   
   return {

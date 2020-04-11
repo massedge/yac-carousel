@@ -54,6 +54,7 @@
     "@types/jest": "^25.1.4",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^13.9.5",
+    "@types/webpack-bundle-analyzer": "^2.13.3",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.4",
     "custom-event-polyfill": "^1.0.7",
@@ -70,6 +71,7 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
