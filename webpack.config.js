@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
   }
   
   return {
-    entry: path.resolve(__dirname, 'test/page/index.ts'),
+    entry: (!PRODUCTION) ? path.resolve(__dirname, 'test/page/index.ts') : path.resolve(__dirname, 'src/index.ts'),
     devtool: "source-map",
     module: {
       rules: [{
