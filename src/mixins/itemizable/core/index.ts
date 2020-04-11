@@ -18,11 +18,11 @@ export default function ItemizableCore<
     ) => ItemizableCoreBase)
     implements ItemizableCoreInstance<Item> {
     #items: Item[]
-    // #itemConstructor: ItemizableItemConstructor<Item>
+    // #itemConstructor: typeof ItemBase
 
     constructor({
       items = [],
-      // itemConstructor,
+      // itemConstructor = ItemBase,
       ...otherOptions
     }: ItemizableCoreOptions<Item>) {
       super({

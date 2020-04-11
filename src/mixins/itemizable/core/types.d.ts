@@ -1,6 +1,6 @@
 export interface ItemizableCoreOptions<Item extends ItemizableItemBase> {
   items?: Item[]
-  // itemConstructor: ItemizableItemConstructor<Item>
+  // itemConstructor?: ItemizableItemConstructor<Item>
 }
 
 export interface ItemizableCoreMixin<Item extends ItemizableItemBase> {
