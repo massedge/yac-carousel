@@ -30,8 +30,8 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       if (e.defaultPrevented) return false
       this.#focused = true
 
-      const eChanged: MixinEventMap['yac:focused:changed'] = new CustomEvent(
-        'yac:focused:changed',
+      const eChanged: MixinEventMap['yac:focus:changed'] = new CustomEvent(
+        'yac:focus:changed',
         {
           detail: {
             focused: this.#focused,
@@ -54,8 +54,8 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       if (e.defaultPrevented) return false
       this.#focused = false
 
-      const eChanged: MixinEventMap['yac:focused:changed'] = new CustomEvent(
-        'yac:focused:changed',
+      const eChanged: MixinEventMap['yac:focus:changed'] = new CustomEvent(
+        'yac:focus:changed',
         {
           detail: {
             focused: this.#focused,

@@ -27,7 +27,7 @@ export interface MixinBase {
 export interface MixinEventMap {
   'yac:focus': CustomEvent<FocusEventDetail>
   'yac:blur': CustomEvent<BlurEventDetail>
-  'yac:focused:changed': CustomEvent<FocusedChangedEventDetail>
+  'yac:focus:changed': CustomEvent<FocusedChangedEventDetail>
 }
 
 export interface FocusEventDetail {}

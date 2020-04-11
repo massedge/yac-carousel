@@ -36,10 +36,10 @@ describe('focusable mixin', () => {
     expect(instance.focused).toBe(true)
   })
 
-  test('yac:focused:change event', () => {
+  test('yac:focus:changed event', () => {
     const instance = new Cls({})
     const callback = jest.fn((e) => e.detail.focused)
-    instance.on('yac:focused:changed', callback)
+    instance.on('yac:focus:changed', callback)
 
     callback.mockClear()
     instance.focus()
