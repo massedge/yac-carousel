@@ -33,7 +33,7 @@ export default function VisibleContainerItem<
       this.#visible = value
 
       // trigger event
-      const event = new CustomEvent<VisibleEventDetail>('yacc:item:visible', {
+      const event = new CustomEvent<VisibleEventDetail>('yac:item:visible', {
         detail: {
           visible: this.#visible,
         },

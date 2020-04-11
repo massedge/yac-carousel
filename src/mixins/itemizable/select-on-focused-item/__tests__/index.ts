@@ -16,12 +16,12 @@ test('itemizable prevent-scroll mixin', () => {
   )
 
   const selectCallback = jest.fn(
-    (e: IndexableSelectEventMap['yacc:select:after']) => e.detail.to
+    (e: IndexableSelectEventMap['yac:select:after']) => e.detail.to
   )
   const container = new ContainerCls({
     items: [new ItemCls({}), new ItemCls({}), new ItemCls({})],
   })
-  container.on('yacc:select:after', selectCallback)
+  container.on('yac:select:after', selectCallback)
   container.render()
 
   selectCallback.mockClear()

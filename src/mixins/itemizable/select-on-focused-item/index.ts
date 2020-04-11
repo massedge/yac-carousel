@@ -26,14 +26,14 @@ export default function ItemizableSelectOnFocusedItem<
 
       this.items.forEach((item, i) => {
         const handler = () => this.select(i)
-        item.on('yacc:focus', handler)
+        item.on('yac:focus', handler)
         this.#itemFocusHandlers.push(handler)
       })
     }
 
     destroy() {
       this.#itemFocusHandlers.forEach((handler, i) => {
-        this.items[i].off('yacc:focus', handler)
+        this.items[i].off('yac:focus', handler)
       })
       this.#itemFocusHandlers = []
       super.destroy()

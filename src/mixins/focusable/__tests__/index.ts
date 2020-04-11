@@ -15,9 +15,9 @@ describe('focusable mixin', () => {
     expect(instance.focused).toBe(false)
   })
 
-  test('yacc:focus event', () => {
+  test('yac:focus event', () => {
     const instance = new Cls({})
-    instance.on('yacc:focus', (e) => {
+    instance.on('yac:focus', (e) => {
       e.preventDefault()
     })
 
@@ -25,9 +25,9 @@ describe('focusable mixin', () => {
     expect(instance.focused).toBe(false)
   })
 
-  test('yacc:blur event', () => {
+  test('yac:blur event', () => {
     const instance = new Cls({})
-    instance.on('yacc:blur', (e) => {
+    instance.on('yac:blur', (e) => {
       e.preventDefault()
     })
     instance.focus()
@@ -36,10 +36,10 @@ describe('focusable mixin', () => {
     expect(instance.focused).toBe(true)
   })
 
-  test('yacc:focused:change event', () => {
+  test('yac:focused:change event', () => {
     const instance = new Cls({})
     const callback = jest.fn((e) => e.detail.focused)
-    instance.on('yacc:focused:changed', callback)
+    instance.on('yac:focused:changed', callback)
 
     callback.mockClear()
     instance.focus()
@@ -58,10 +58,10 @@ describe('focusable mixin', () => {
     expect(callback).not.toHaveBeenCalled()
   })
 
-  test('does not trigger yacc:focus on fucus() call when already in focus', () => {
+  test('does not trigger yac:focus on fucus() call when already in focus', () => {
     const instance = new Cls({})
     const callback = jest.fn()
-    instance.on('yacc:focus', callback)
+    instance.on('yac:focus', callback)
 
     instance.focus()
     expect(callback).toHaveBeenCalled()
@@ -76,10 +76,10 @@ describe('focusable mixin', () => {
     expect(callback).toHaveBeenCalled()
   })
 
-  test('does not trigger yacc:blur on blur() call when already not in focus', () => {
+  test('does not trigger yac:blur on blur() call when already not in focus', () => {
     const instance = new Cls({})
     const callback = jest.fn()
-    instance.on('yacc:blur', callback)
+    instance.on('yac:blur', callback)
     instance.focus()
 
     instance.blur()

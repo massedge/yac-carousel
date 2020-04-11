@@ -8,8 +8,8 @@ import {
   IndexableSelectEventDetail,
 } from './types'
 
-export const SELECT_BEFORE_EVENT = 'yacc:select:before'
-export const SELECT_AFTER_EVENT = 'yacc:select:after'
+export const SELECT_BEFORE_EVENT = 'yac:select:before'
+export const SELECT_AFTER_EVENT = 'yac:select:after'
 
 export default function IndexableSelect<
   T extends new (o: any) => IndexableSelectBase

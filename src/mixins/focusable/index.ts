@@ -22,7 +22,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
     focus() {
       if (this.#focused) return true
 
-      const e: MixinEventMap['yacc:focus'] = new CustomEvent('yacc:focus', {
+      const e: MixinEventMap['yac:focus'] = new CustomEvent('yac:focus', {
         cancelable: true,
       })
       this._emit(e)
@@ -30,8 +30,8 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       if (e.defaultPrevented) return false
       this.#focused = true
 
-      const eChanged: MixinEventMap['yacc:focused:changed'] = new CustomEvent(
-        'yacc:focused:changed',
+      const eChanged: MixinEventMap['yac:focused:changed'] = new CustomEvent(
+        'yac:focused:changed',
         {
           detail: {
             focused: this.#focused,
@@ -46,7 +46,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
     blur() {
       if (!this.#focused) return false
 
-      const e: MixinEventMap['yacc:blur'] = new CustomEvent('yacc:blur', {
+      const e: MixinEventMap['yac:blur'] = new CustomEvent('yac:blur', {
         cancelable: true,
       })
       this._emit(e)
@@ -54,8 +54,8 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       if (e.defaultPrevented) return false
       this.#focused = false
 
-      const eChanged: MixinEventMap['yacc:focused:changed'] = new CustomEvent(
-        'yacc:focused:changed',
+      const eChanged: MixinEventMap['yac:focused:changed'] = new CustomEvent(
+        'yac:focused:changed',
         {
           detail: {
             focused: this.#focused,

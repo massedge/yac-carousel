@@ -45,8 +45,9 @@ describe('focus elementable mixin', () => {
   const button1 = document.querySelector<HTMLElement>('#button1')
   const button2 = document.querySelector<HTMLElement>('#button2')
   const outsideElement = document.querySelector<HTMLElement>('#outsideElement')
-  if (!element || !button1 || !button2 || !outsideElement)
+  if (!element || !button1 || !button2 || !outsideElement) {
     throw new Error('element not found')
+  }
 
   const instance = new Cls({
     element,
@@ -54,8 +55,8 @@ describe('focus elementable mixin', () => {
   const focusCallback = jest.fn()
   const blurCallback = jest.fn()
 
-  instance.on('yacc:focus', focusCallback)
-  instance.on('yacc:blur', blurCallback)
+  instance.on('yac:focus', focusCallback)
+  instance.on('yac:blur', blurCallback)
   instance.render()
 
   beforeEach(() => {

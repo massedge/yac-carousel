@@ -14,7 +14,7 @@ export default function ElementableFocus<T extends new (o: any) => MixinBase>(
     implements MixinInstance {
     #focusHandler: (this: HTMLElement, ev: FocusEvent) => void
     #blurHandler: (this: HTMLElement, ev: FocusEvent) => void
-    #preventBlurHandler: (e: FocusableMixinEventMap['yacc:blur']) => void
+    #preventBlurHandler: (e: FocusableMixinEventMap['yac:blur']) => void
     #focused: boolean = false
 
     constructor(...args: any[]) {
@@ -26,7 +26,7 @@ export default function ElementableFocus<T extends new (o: any) => MixinBase>(
         this.element.removeEventListener('focusin', this.#focusHandler)
         this.element.addEventListener('focusout', this.#blurHandler)
         this.focus()
-        this.on('yacc:blur', this.#preventBlurHandler)
+        this.on('yac:blur', this.#preventBlurHandler)
         this.#focused = true
       }
 
@@ -39,7 +39,7 @@ export default function ElementableFocus<T extends new (o: any) => MixinBase>(
           return
         }
 
-        this.off('yacc:blur', this.#preventBlurHandler)
+        this.off('yac:blur', this.#preventBlurHandler)
         this.blur()
         this.#focused = false
         this.element.addEventListener('focusin', this.#focusHandler)
@@ -56,7 +56,7 @@ export default function ElementableFocus<T extends new (o: any) => MixinBase>(
       if (!this.#focused) {
         this.element.removeEventListener('focusin', this.#focusHandler)
       } else {
-        this.off('yacc:blur', this.#preventBlurHandler)
+        this.off('yac:blur', this.#preventBlurHandler)
         this.element.removeEventListener('focusout', this.#blurHandler)
       }
       super.destroy()

@@ -46,13 +46,13 @@ export default function Controllable<
 
       this.#controller.render()
 
-      this.on('yacc:select:before', (e) => {
+      this.on('yac:select:before', (e) => {
         if (e.detail.from === e.detail.to) return e.preventDefault()
         if (e.detail.to < 0) return e.preventDefault()
         if (e.detail.to >= this.items.length) return e.preventDefault()
       })
 
-      this.on('yacc:select:after', (e) => {
+      this.on('yac:select:after', (e) => {
         if (!this.#controller) return
 
         const fromItem = this.items[e.detail.from]
@@ -67,7 +67,7 @@ export default function Controllable<
         this._processControllerActions(actions)
       })
 
-      this.on('yacc:nudge', (e) => {
+      this.on('yac:nudge', (e) => {
         // console.log('nudge');
 
         if (!this.#controller) return
@@ -81,7 +81,7 @@ export default function Controllable<
         this._processControllerActions(actions)
       })
 
-      this.on('yacc:settle', (e): void => {
+      this.on('yac:settle', (e): void => {
         // console.log('settle');
 
         if (!this.#controller) return

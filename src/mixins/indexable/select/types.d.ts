@@ -20,8 +20,8 @@ export interface IndexableSelectInstance {
 }
 
 export interface IndexableSelectEventMap {
-  ['yacc:select:before']: CustomEvent<IndexableSelectEventDetail>
-  ['yacc:select:after']: CustomEvent<IndexableSelectEventDetail>
+  ['yac:select:before']: CustomEvent<IndexableSelectEventDetail>
+  ['yac:select:after']: CustomEvent<IndexableSelectEventDetail>
 }
 
 export interface IndexableSelectBase<Item = any> {

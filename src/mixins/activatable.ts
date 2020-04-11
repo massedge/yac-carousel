@@ -31,7 +31,7 @@ export default function Active<T extends new (o: any) => ActiveBase>(Base: T) {
       this.#active = value
 
       // trigger event
-      const event = new CustomEvent<ActiveEventDetail>('yacc:active', {
+      const event = new CustomEvent<ActiveEventDetail>('yac:active', {
         detail: {
           active: this.#active,
         },

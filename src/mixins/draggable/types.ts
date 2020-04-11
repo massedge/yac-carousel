@@ -1,7 +1,7 @@
-export const DRAGGING_START_EVENT = 'yacc:dragging:start'
+export const DRAGGING_START_EVENT = 'yac:dragging:start'
 
 export interface DraggableEventMap {
-  'yacc:dragging:start': CustomEvent<DraggingStartEventDetail>
+  'yac:dragging:start': CustomEvent<DraggingStartEventDetail>
 }
 
 export interface DraggingStartEventDetail {

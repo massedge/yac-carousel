@@ -34,8 +34,8 @@ export interface SettleEventDetail {
 }
 
 export interface MixinEventMap {
-  'yacc:nudge': CustomEvent<NudgeEventDetail>
-  'yacc:settle': CustomEvent<SettleEventDetail>
+  'yac:nudge': CustomEvent<NudgeEventDetail>
+  'yac:settle': CustomEvent<SettleEventDetail>
 }
 
 export interface MixinBase {

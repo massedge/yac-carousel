@@ -12,13 +12,13 @@ test('transformable scroll-to-nudge mixin', () => {
 
   const element = document.createElement('div')
   const instance = new Cls({ element })
-  const nudgeCallback = jest.fn((e: NudgeableMixinEvenMap['yacc:nudge']) => {
+  const nudgeCallback = jest.fn((e: NudgeableMixinEvenMap['yac:nudge']) => {
     return {
       x: e.detail.nudge.x,
       y: e.detail.nudge.y,
     }
   })
-  instance.on('yacc:nudge', nudgeCallback)
+  instance.on('yac:nudge', nudgeCallback)
 
   // render
   element.scrollLeft = 10

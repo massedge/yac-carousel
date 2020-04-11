@@ -49,7 +49,7 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
       }
 
       // trigger event
-      const event: MixinEventMap['yacc:nudge'] = new CustomEvent('yacc:nudge', {
+      const event: MixinEventMap['yac:nudge'] = new CustomEvent('yac:nudge', {
         cancelable: true,
         detail: {
           nudge,
@@ -65,15 +65,12 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
       }
     ) {
       // trigger event
-      const event: MixinEventMap['yacc:settle'] = new CustomEvent(
-        'yacc:settle',
-        {
-          detail: {
-            ease,
-            nudges: this.#unsettledNudges,
-          },
-        }
-      )
+      const event: MixinEventMap['yac:settle'] = new CustomEvent('yac:settle', {
+        detail: {
+          ease,
+          nudges: this.#unsettledNudges,
+        },
+      })
       this._emit(event)
 
       this.#unsettledNudges = []
