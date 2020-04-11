@@ -25,11 +25,15 @@ const c = new (NavablePreviousNextButton(YacCarousel))({
   //   enabled: true
   // },
   items: Array.prototype.slice
-    .call(elHorizontal.children)
-    .filter((child) => child.nodeType === 1)
-    .map((element) => {
+    .call<HTMLCollection, Parameters<Element[]['slice']>, Element[]>(
+      elHorizontal.children
+    )
+    .filter(
+      (child: Element): child is HTMLElement => child instanceof HTMLElement
+    )
+    .map((element, i) => {
       const item = new YacCarouselItem({
-        element: element as HTMLElement,
+        element,
       })
       item.render()
       return item
@@ -54,11 +58,15 @@ const cVertical = new (NavablePreviousNextHandler(YacCarousel))({
   elPrevious,
   elNext,
   items: Array.prototype.slice
-    .call(elVertical.children)
-    .filter((child) => child.nodeType === 1)
+    .call<HTMLCollection, Parameters<Element[]['slice']>, Element[]>(
+      elVertical.children
+    )
+    .filter(
+      (child: Element): child is HTMLElement => child instanceof HTMLElement
+    )
     .map((element) => {
       const item = new YacCarouselItem({
-        element: element as HTMLElement,
+        element,
       })
       item.render()
       return item
