@@ -19,6 +19,13 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       return this.#focused
     }
 
+    on<K extends keyof MixinEventMap>(
+      type: K,
+      listener: (ev: MixinEventMap[K]) => void
+    ) {
+      return this._on.call(this, type, listener)
+    }
+
     focus() {
       if (this.#focused) return true
 

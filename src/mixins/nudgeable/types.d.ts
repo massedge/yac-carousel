@@ -39,7 +39,7 @@ export interface MixinEventMap {
 }
 
 export interface MixinBase {
-  on(type: string, listener: (evt: CustomEvent) => void): void
+  _on(type: string, listener: (evt: CustomEvent) => void): void
   off(type: string, listener: (evt: CustomEvent) => void): void
   _emit(evt: CustomEvent): void
 }

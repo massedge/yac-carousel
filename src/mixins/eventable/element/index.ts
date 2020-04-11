@@ -7,7 +7,7 @@ export default function EventableElement<T extends new (o: any) => MixinBase>(
 ) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
-    on(type: string, listener: (evt: CustomEvent) => void) {
+    _on(type: string, listener: (evt: CustomEvent) => void) {
       this.element.addEventListener(
         type,
         // @see https://github.com/Microsoft/TypeScript/issues/28357

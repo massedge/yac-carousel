@@ -20,7 +20,7 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
       type: K,
       listener: (ev: MixinEventMap[K]) => void
     ) {
-      return super.on.call(this, type, listener)
+      return this._on.call(this, type, listener)
     }
 
     off<K extends keyof MixinEventMap>(

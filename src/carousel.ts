@@ -63,8 +63,8 @@ const Carousel = RefreshableWindowResize(
                   DraggableMouse(
                     DraggableCore(
                       IndexablePreviousNext(
-                        IndexableSelect(
-                          Controllable(
+                        Controllable(
+                          IndexableSelect(
                             AlignableFlexElement(
                               AlignableCore(
                                 DirectionableElement(
