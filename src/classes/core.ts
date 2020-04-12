@@ -7,6 +7,10 @@ export default class Core {
     this.#rendered = true
   }
 
+  get rendered() {
+    return this.#rendered
+  }
+
   refresh(): void {
     /**/
   }
@@ -15,5 +19,9 @@ export default class Core {
     if (!this.#rendered) throw new Error('Not rendered.')
     if (this.#destroyed) throw new Error('Already destroyed.')
     this.#destroyed = true
+  }
+
+  get destroyed() {
+    return this.#destroyed
   }
 }
