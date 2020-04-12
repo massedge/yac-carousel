@@ -1,42 +1,43 @@
 import { ComposeConstructor } from '../../../types'
 import {
-  ItemizableCoreMixin,
-  ItemizableCoreBase,
-  ItemizableCoreInstance,
-  ItemizableCoreOptions,
-  ItemizableItemBase,
-  ItemizableItemConstructor,
+  MixinBase,
+  MixinClass,
+  MixinInstance,
+  MixinOptions,
+  MixinItemBase,
+  MixinItemConstructor,
 } from './types'
 
 export default function ItemizableCore<
-  T extends new (o: any) => ItemizableCoreBase,
-  Item extends ItemizableItemBase
->(Base: T, ItemBase: ItemizableItemConstructor<Item>) {
-  class Mixin
-    extends (Base as new (
-      options: ItemizableCoreOptions<Item>
-    ) => ItemizableCoreBase)
-    implements ItemizableCoreInstance<Item> {
+  T extends new (o: any) => MixinBase,
+  Item extends MixinItemBase
+>(Base: T, ItemBase: MixinItemConstructor<Item>) {
+  class Mixin extends (Base as new (options: MixinOptions<Item>) => MixinBase)
+    implements MixinInstance<Item> {
     #items: Item[]
-    // #itemConstructor: typeof ItemBase
+    #itemConstructor: typeof ItemBase
 
     constructor({
       items = [],
-      // itemConstructor = ItemBase,
+      itemConstructor = ItemBase,
       ...otherOptions
-    }: ItemizableCoreOptions<Item>) {
+    }: MixinOptions<Item>) {
       super({
         items,
-        // itemConstructor,
+        itemConstructor,
         ...otherOptions,
       })
 
       this.#items = items
-      // this.#itemConstructor = itemConstructor
+      this.#itemConstructor = itemConstructor
     }
 
     get items(): readonly Item[] {
       return this.#items
+    }
+
+    get itemConstructor(): typeof ItemBase {
+      return this.#itemConstructor
     }
 
     refresh() {
@@ -50,8 +51,5 @@ export default function ItemizableCore<
     }
   }
 
-  return (Mixin as unknown) as ComposeConstructor<
-    ItemizableCoreMixin<Item>,
-    typeof Base
-  >
+  return (Mixin as unknown) as ComposeConstructor<MixinClass<Item>, typeof Base>
 }
