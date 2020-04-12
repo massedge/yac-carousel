@@ -24,6 +24,7 @@ import {
   IndexablePreviousNext,
   IndexableSelect,
   Controllable,
+  ItemizableAutoRender,
   ItemizableCore,
   ItemizableSelectOnFocusedItem,
   Nudgeable,
@@ -70,15 +71,17 @@ const Carousel = RefreshableWindowResize(
                                 DirectionableElement(
                                   DirectionableCore(
                                     TypeableHorizontalVertical(
-                                      ItemizableCore(
-                                        BoxModelable(
-                                          Nudgeable(
-                                            EventableElement(
-                                              ElementableCore(Core)
+                                      ItemizableAutoRender(
+                                        ItemizableCore(
+                                          BoxModelable(
+                                            Nudgeable(
+                                              EventableElement(
+                                                ElementableCore(Core)
+                                              )
                                             )
-                                          )
-                                        ),
-                                        CarouselItem
+                                          ),
+                                          CarouselItem
+                                        )
                                       )
                                     )
                                   )

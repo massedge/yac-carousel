@@ -31,13 +31,12 @@ const c = new (NavablePreviousNextButton(YacCarousel))({
     .filter(
       (child: Element): child is HTMLElement => child instanceof HTMLElement
     )
-    .map((element, i) => {
-      const item = new YacCarouselItem({
-        element,
-      })
-      item.render()
-      return item
-    }),
+    .map(
+      (element, i) =>
+        new YacCarouselItem({
+          element,
+        })
+    ),
 })
 c.render()
 
@@ -64,12 +63,11 @@ const cVertical = new (NavablePreviousNextHandler(YacCarousel))({
     .filter(
       (child: Element): child is HTMLElement => child instanceof HTMLElement
     )
-    .map((element) => {
-      const item = new YacCarouselItem({
-        element,
-      })
-      item.render()
-      return item
-    }),
+    .map(
+      (element) =>
+        new YacCarouselItem({
+          element,
+        })
+    ),
 })
 cVertical.render()
