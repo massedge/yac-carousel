@@ -7,8 +7,6 @@ import 'core-js/stable/weak-map'
 
 import {
   YacCarousel,
-  YacCarouselItem,
-  YacCarouselController,
   NavablePreviousNextButton,
   NavablePreviousNextHandler,
 } from '../../src'
@@ -17,7 +15,6 @@ const elHorizontal = document.querySelector<HTMLElement>('.carousel.flex')
 if (!elHorizontal) throw Error('Horizontal carousel element not found.')
 
 const c = new (NavablePreviousNextButton(YacCarousel))({
-  controller: new YacCarouselController(),
   element: elHorizontal,
   previousText: 'Previous',
   nextText: 'Next',
@@ -39,7 +36,6 @@ const elNext = document.querySelector<HTMLElement>('.vertical-next')
 if (!elNext) throw Error('Next button for vertical carousel not found.')
 
 const cVertical = new (NavablePreviousNextHandler(YacCarousel))({
-  controller: new YacCarouselController(),
   element: elVertical,
   type: 'vertical',
   elPrevious,

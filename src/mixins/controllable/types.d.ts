@@ -1,4 +1,4 @@
-import Controller from '../../classes/controller'
+import { default as ControllerClass } from '../../classes/controller'
 import { MixinInstance as NudgeableInstance } from '../nudgeable/types'
 import { IndexableSelectInstance } from '../indexable/select/types'
 import Core from '../../classes/core'
@@ -11,12 +11,18 @@ import { ActiveInstance } from '../activatable'
 import { AlignableCoreInstance } from '../alignable/core'
 import { DirectionableCoreMixinInstance } from '../directionable/core'
 
-export interface MixinOptions<Item extends MixinItemBase> {
-  controller: InstanceType<typeof Controller>
+export interface MixinOptions<
+  Item extends MixinItemBase,
+  Controller extends MixinControllerBase
+> {
+  controller?: InstanceType<Controller>
 }
 
-export interface MixinClass<Item extends MixinItemBase> {
-  new (options: MixinOptions<Item>): MixinInstance<Item>
+export interface MixinClass<
+  Item extends MixinItemBase,
+  Controller extends MixinControllerBase
+> {
+  new (options: MixinOptions<Item, Controller>): MixinInstance<Item>
 }
 
 export interface MixinInstance<Item extends MixinItemBase> extends Core {}
@@ -38,3 +44,9 @@ export interface MixinItemBase
     Pick<CssTransitionInstance, 'transition'>,
     Pick<BoxModelableInstance, 'width' | 'height'>,
     Pick<ActiveInstance, 'active'> {}
+
+export type MixinControllerBase = typeof ControllerClass
+
+export type MixinControllerConstructor<
+  Controller extends ControllerClass
+> = new () => Controller

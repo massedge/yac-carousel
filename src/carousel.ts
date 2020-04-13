@@ -53,19 +53,19 @@ export const CarouselItem = BoxModelable(
   )
 )
 
-const Carousel = RefreshableWindowResize(
-  ItemizableSelectOnFocusedItem(
-    TransformablePreventScroll(
-      Autoplayable(
-        VisibleContainerElement(
-          Wheelable(
-            DraggablePreventOnDraggableElement(
-              DraggablePreventOnInputElement(
-                DraggableTouch(
-                  DraggableMouse(
-                    DraggableCore(
-                      IndexablePreviousNext(
-                        Controllable(
+const Carousel = Controllable(
+  RefreshableWindowResize(
+    ItemizableSelectOnFocusedItem(
+      TransformablePreventScroll(
+        Autoplayable(
+          VisibleContainerElement(
+            Wheelable(
+              DraggablePreventOnDraggableElement(
+                DraggablePreventOnInputElement(
+                  DraggableTouch(
+                    DraggableMouse(
+                      DraggableCore(
+                        IndexablePreviousNext(
                           IndexableSelect(
                             AlignableFlexElement(
                               AlignableCore(
@@ -104,7 +104,8 @@ const Carousel = RefreshableWindowResize(
         )
       )
     )
-  )
+  ),
+  CarouselController
 )
 
 export default Carousel

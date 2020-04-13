@@ -7,20 +7,31 @@ import {
   MixinInstance,
   MixinOptions,
   MixinItemBase,
+  MixinControllerBase,
+  MixinControllerConstructor,
 } from './types'
 
 export default function Controllable<
   T extends new (o: any) => MixinBase<Item>,
-  Item extends MixinItemBase
->(Base: T) {
+  Item extends MixinItemBase,
+  Controller extends MixinControllerBase
+>(
+  Base: T,
+  ControllerClass: MixinControllerConstructor<InstanceType<Controller>>
+) {
   class Mixin
-    extends (Base as new (options: MixinOptions<Item>) => MixinBase<Item>)
+    extends (Base as new (options: MixinOptions<Item, Controller>) => MixinBase<
+      Item
+    >)
     implements MixinInstance<Item> {
-    #controller: MixinOptions<Item>['controller']
+    #controller: InstanceType<Controller>
     #pendingRequestAnimationFrameId?: number
     #pendingActions: Action[] = []
 
-    constructor({ controller, ...otherOptions }: MixinOptions<Item>) {
+    constructor({
+      controller = new ControllerClass(),
+      ...otherOptions
+    }: MixinOptions<Item, Controller>) {
       super({ controller, ...otherOptions })
       this.#controller = controller
     }
@@ -129,5 +140,8 @@ export default function Controllable<
     }
   }
 
-  return (Mixin as unknown) as ComposeConstructor<MixinClass<Item>, typeof Base>
+  return (Mixin as unknown) as ComposeConstructor<
+    MixinClass<Item, Controller>,
+    typeof Base
+  >
 }
