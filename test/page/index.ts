@@ -24,19 +24,7 @@ const c = new (NavablePreviousNextButton(YacCarousel))({
   // autoplay: {
   //   enabled: true
   // },
-  items: Array.prototype.slice
-    .call<HTMLCollection, Parameters<Element[]['slice']>, Element[]>(
-      elHorizontal.children
-    )
-    .filter(
-      (child: Element): child is HTMLElement => child instanceof HTMLElement
-    )
-    .map(
-      (element, i) =>
-        new YacCarouselItem({
-          element,
-        })
-    ),
+  items: elHorizontal.children,
 })
 c.render()
 
@@ -56,18 +44,6 @@ const cVertical = new (NavablePreviousNextHandler(YacCarousel))({
   type: 'vertical',
   elPrevious,
   elNext,
-  items: Array.prototype.slice
-    .call<HTMLCollection, Parameters<Element[]['slice']>, Element[]>(
-      elVertical.children
-    )
-    .filter(
-      (child: Element): child is HTMLElement => child instanceof HTMLElement
-    )
-    .map(
-      (element) =>
-        new YacCarouselItem({
-          element,
-        })
-    ),
+  items: elVertical.childNodes,
 })
 cVertical.render()

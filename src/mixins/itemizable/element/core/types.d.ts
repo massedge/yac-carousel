@@ -1,5 +1,6 @@
 export interface MixinOptions<Item extends MixinItemBase> {
-  items?: Item[]
+  items?: Item[] | HTMLCollection | NodeList | HTMLElement[]
+  itemConstructor?: MixinItemConstructor<Item>
 }
 
 export interface MixinClass<Item extends MixinItemBase> {
@@ -7,7 +8,11 @@ export interface MixinClass<Item extends MixinItemBase> {
 }
 
 export interface MixinInstance<Item extends MixinItemBase> {
-  readonly items: readonly Item[]
+  readonly itemConstructor: MixinItemConstructor<Item>
+}
+
+export interface MixinBaseOptions<Item extends MixinItemBase> {
+  items?: Item[]
 }
 
 export interface MixinBase {
@@ -19,3 +24,7 @@ export interface MixinItemBase {
   render(): void
   refresh(): void
 }
+
+export type MixinItemConstructor<Item extends MixinItemBase> = new (
+  ...args: any[]
+) => Item
