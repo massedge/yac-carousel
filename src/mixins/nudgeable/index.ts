@@ -20,14 +20,14 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
       type: K,
       listener: (ev: MixinEventMap[K]) => void
     ) {
-      return this._on.call(this, type, listener)
+      return this.emitter.on.call(this, type, listener)
     }
 
     off<K extends keyof MixinEventMap>(
       type: K,
       listener: (ev: MixinEventMap[K]) => void
     ) {
-      return this._off.call(this, type, listener)
+      return this.emitter.off.call(this, type, listener)
     }
 
     /**
@@ -56,7 +56,7 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
           ease,
         },
       })
-      this._emit(event)
+      this.emitter.emit(event)
     }
 
     settle(
@@ -71,7 +71,7 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
           nudges: this.#unsettledNudges,
         },
       })
-      this._emit(event)
+      this.emitter.emit(event)
 
       this.#unsettledNudges = []
     }

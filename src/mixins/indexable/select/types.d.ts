@@ -1,3 +1,5 @@
+import { MixinInstance as EventableInstance } from '../../eventable/types'
+
 export interface IndexableSelectOptions {
   index?: number
 }
@@ -24,11 +26,9 @@ export interface IndexableSelectEventMap {
   ['yac:select:after']: CustomEvent<IndexableSelectEventDetail>
 }
 
-export interface IndexableSelectBase<Item = any> {
+export interface IndexableSelectBase<Item = any>
+  extends Pick<EventableInstance, 'emitter'> {
   items: readonly Item[]
-  _on(type: string, listener: (evt: CustomEvent) => void): void
-  _off(type: string, listener: (evt: CustomEvent) => void): void
-  _emit(evt: CustomEvent): void
 }
 
 export interface IndexableSelectEventDetail {

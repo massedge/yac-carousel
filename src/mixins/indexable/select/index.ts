@@ -31,14 +31,14 @@ export default function IndexableSelect<
       type: K,
       listener: (ev: IndexableSelectEventMap[K]) => void
     ) {
-      return this._on.call(this, type, listener)
+      return this.emitter.on.call(this, type, listener)
     }
 
     off<K extends keyof IndexableSelectEventMap>(
       type: K,
       listener: (ev: IndexableSelectEventMap[K]) => void
     ) {
-      return this._off.call(this, type, listener)
+      return this.emitter.off.call(this, type, listener)
     }
 
     get index() {
@@ -56,7 +56,7 @@ export default function IndexableSelect<
           },
         }
       )
-      this._emit(eBefore)
+      this.emitter.emit(eBefore)
 
       if (eBefore.defaultPrevented) {
         return false
@@ -73,7 +73,7 @@ export default function IndexableSelect<
           },
         }
       )
-      this._emit(eAfter)
+      this.emitter.emit(eAfter)
 
       return true
     }

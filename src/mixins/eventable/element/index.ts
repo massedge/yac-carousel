@@ -7,24 +7,36 @@ export default function EventableElement<T extends new (o: any) => MixinBase>(
 ) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
-    _on(type: string, listener: (evt: CustomEvent) => void) {
-      this.element.addEventListener(
-        type,
-        // @see https://github.com/Microsoft/TypeScript/issues/28357
-        listener as EventListener
-      )
+    #emitter: MixinInstance['emitter']
+
+    get emitter() {
+      return this.#emitter
     }
 
-    _off(type: string, listener: (evt: CustomEvent) => void) {
-      this.element.removeEventListener(
-        type,
-        // @see https://github.com/Microsoft/TypeScript/issues/28357
-        listener as EventListener
-      )
-    }
+    constructor(options: MixinOptions) {
+      super(options)
 
-    _emit(e: CustomEvent) {
-      this.element.dispatchEvent(e)
+      this.#emitter = {
+        on: (type: string, listener: (evt: CustomEvent) => void) => {
+          this.element.addEventListener(
+            type,
+            // @see https://github.com/Microsoft/TypeScript/issues/28357
+            listener as EventListener
+          )
+        },
+
+        off: (type: string, listener: (evt: CustomEvent) => void) => {
+          this.element.removeEventListener(
+            type,
+            // @see https://github.com/Microsoft/TypeScript/issues/28357
+            listener as EventListener
+          )
+        },
+
+        emit: (e: CustomEvent) => {
+          this.element.dispatchEvent(e)
+        },
+      }
     }
   }
 

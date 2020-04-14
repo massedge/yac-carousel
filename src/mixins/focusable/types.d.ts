@@ -1,3 +1,5 @@
+import { MixinInstance as EventableInstance } from '../eventable/types'
+
 export interface MixinOptions {}
 
 export interface MixinClass {
@@ -18,11 +20,7 @@ export interface MixinInstance {
   ) => void
 }
 
-export interface MixinBase {
-  _on(type: string, listener: (evt: CustomEvent) => void): void
-  _off(type: string, listener: (evt: CustomEvent) => void): void
-  _emit(evt: CustomEvent): void
-}
+export interface MixinBase extends Pick<EventableInstance, 'emitter'> {}
 
 export interface MixinEventMap {
   'yac:focus': CustomEvent<FocusEventDetail>

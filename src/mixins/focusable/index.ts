@@ -23,14 +23,14 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       type: K,
       listener: (ev: MixinEventMap[K]) => void
     ) {
-      return this._on.call(this, type, listener)
+      return this.emitter.on.call(this, type, listener)
     }
 
     off<K extends keyof MixinEventMap>(
       type: K,
       listener: (ev: MixinEventMap[K]) => void
     ) {
-      return this._off.call(this, type, listener)
+      return this.emitter.off.call(this, type, listener)
     }
 
     focus() {
@@ -39,7 +39,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       const e: MixinEventMap['yac:focus'] = new CustomEvent('yac:focus', {
         cancelable: true,
       })
-      this._emit(e)
+      this.emitter.emit(e)
 
       if (e.defaultPrevented) return false
       this.#focused = true
@@ -52,7 +52,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
           },
         }
       )
-      this._emit(eChanged)
+      this.emitter.emit(eChanged)
 
       return true
     }
@@ -63,7 +63,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       const e: MixinEventMap['yac:blur'] = new CustomEvent('yac:blur', {
         cancelable: true,
       })
-      this._emit(e)
+      this.emitter.emit(e)
 
       if (e.defaultPrevented) return false
       this.#focused = false
@@ -76,7 +76,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
           },
         }
       )
-      this._emit(eChanged)
+      this.emitter.emit(eChanged)
 
       return true
     }

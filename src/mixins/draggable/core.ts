@@ -1,6 +1,10 @@
 import { ComposeConstructor } from '../../types'
-import { DraggingStartEventDetail, DRAGGING_START_EVENT } from './types'
-import { MixinInstance as ElementEventableInstance } from '../eventable/element/types'
+import {
+  DraggableEventMap,
+  DraggingStartEventDetail,
+  DRAGGING_START_EVENT,
+} from './types'
+import { MixinInstance as EventableInstance } from '../eventable/types'
 
 export interface DraggableCoreOptions {}
 
@@ -11,10 +15,17 @@ export interface DraggableCore {
 export interface DraggableCoreInstance {
   _dragging: boolean
   _preventDragging(e: MouseEvent | PointerEvent | TouchEvent): boolean
+  on: (
+    type: typeof DRAGGING_START_EVENT,
+    listener: (ev: DraggableEventMap[typeof DRAGGING_START_EVENT]) => void
+  ) => void
+  off: (
+    type: typeof DRAGGING_START_EVENT,
+    listener: (ev: DraggableEventMap[typeof DRAGGING_START_EVENT]) => void
+  ) => void
 }
 
-export interface DraggableCoreBase
-  extends Pick<ElementEventableInstance, '_emit'> {}
+export interface DraggableCoreBase extends Pick<EventableInstance, 'emitter'> {}
 
 export default function DraggableCore<
   T extends new (o: any) => DraggableCoreBase
@@ -33,6 +44,20 @@ export default function DraggableCore<
       return this.#dragging
     }
 
+    on<K extends keyof DraggableEventMap>(
+      type: K,
+      listener: (ev: DraggableEventMap[K]) => void
+    ) {
+      return this.emitter.on.call(this, type, listener)
+    }
+
+    off<K extends keyof DraggableEventMap>(
+      type: K,
+      listener: (ev: DraggableEventMap[K]) => void
+    ) {
+      return this.emitter.off.call(this, type, listener)
+    }
+
     _preventDragging(
       originalEvent: MouseEvent | PointerEvent | TouchEvent
     ): boolean {
@@ -45,7 +70,7 @@ export default function DraggableCore<
           },
         }
       )
-      this._emit(ev)
+      this.emitter.emit(ev)
 
       return ev.defaultPrevented
     }
