@@ -9,6 +9,7 @@ import {
   BoxModelable,
   Controller,
   Controllable,
+  ControllableLoop,
   ControllableSnap,
   CssTransformableTranslate,
   CssTransitionable,
@@ -54,39 +55,41 @@ export const CarouselItem = BoxModelable(
   )
 )
 
-const Carousel = ControllableSnap(
-  Controllable(
-    RefreshableWindowResize(
-      ItemizableSelectOnFocusedItem(
-        TransformablePreventScroll(
-          Autoplayable(
-            VisibleContainerElement(
-              Wheelable(
-                DraggablePreventOnDraggableElement(
-                  DraggablePreventOnInputElement(
-                    DraggableTouch(
-                      DraggableMouse(
-                        DraggableCore(
-                          IndexablePreviousNext(
-                            IndexableSelect(
-                              AlignableFlexElement(
-                                AlignableCore(
-                                  DirectionableElement(
-                                    DirectionableCore(
-                                      TypeableHorizontalVertical(
-                                        ItemizableAutoRender(
-                                          ItemizableElementCore(
-                                            ItemizableCore(
-                                              BoxModelable(
-                                                Nudgeable(
-                                                  EventableElement(
-                                                    ElementableCore(Core)
+const Carousel = ControllableLoop(
+  ControllableSnap(
+    Controllable(
+      RefreshableWindowResize(
+        ItemizableSelectOnFocusedItem(
+          TransformablePreventScroll(
+            Autoplayable(
+              VisibleContainerElement(
+                Wheelable(
+                  DraggablePreventOnDraggableElement(
+                    DraggablePreventOnInputElement(
+                      DraggableTouch(
+                        DraggableMouse(
+                          DraggableCore(
+                            IndexablePreviousNext(
+                              IndexableSelect(
+                                AlignableFlexElement(
+                                  AlignableCore(
+                                    DirectionableElement(
+                                      DirectionableCore(
+                                        TypeableHorizontalVertical(
+                                          ItemizableAutoRender(
+                                            ItemizableElementCore(
+                                              ItemizableCore(
+                                                BoxModelable(
+                                                  Nudgeable(
+                                                    EventableElement(
+                                                      ElementableCore(Core)
+                                                    )
                                                   )
-                                                )
+                                                ),
+                                                CarouselItem
                                               ),
                                               CarouselItem
-                                            ),
-                                            CarouselItem
+                                            )
                                           )
                                         )
                                       )
@@ -105,9 +108,9 @@ const Carousel = ControllableSnap(
             )
           )
         )
-      )
-    ),
-    CarouselController
+      ),
+      CarouselController
+    )
   )
 )
 
