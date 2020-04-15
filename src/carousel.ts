@@ -7,10 +7,12 @@ import {
   AlignableFlexElement,
   Autoplayable,
   BoxModelable,
-  Controller,
-  Controllable,
+  ControllableCore,
   ControllableLoop,
   ControllableSnap,
+  ControllableNudge,
+  ControllableSelect,
+  ControllableSettle,
   CssTransformableTranslate,
   CssTransitionable,
   DirectionableCore,
@@ -39,8 +41,6 @@ import {
   Wheelable,
 } from './lib'
 
-export const CarouselController = Controller
-
 export const CarouselItem = BoxModelable(
   ElementableFocus(
     Focusable(
@@ -57,38 +57,46 @@ export const CarouselItem = BoxModelable(
 
 const Carousel = ControllableLoop(
   ControllableSnap(
-    Controllable(
-      RefreshableWindowResize(
-        ItemizableSelectOnFocusedItem(
-          TransformablePreventScroll(
-            Autoplayable(
-              VisibleContainerElement(
-                Wheelable(
-                  DraggablePreventOnDraggableElement(
-                    DraggablePreventOnInputElement(
-                      DraggableTouch(
-                        DraggableMouse(
-                          DraggableCore(
-                            IndexablePreviousNext(
-                              IndexableSelect(
-                                AlignableFlexElement(
-                                  AlignableCore(
-                                    DirectionableElement(
-                                      DirectionableCore(
-                                        TypeableHorizontalVertical(
-                                          ItemizableAutoRender(
-                                            ItemizableElementCore(
-                                              ItemizableCore(
-                                                BoxModelable(
-                                                  Nudgeable(
-                                                    EventableElement(
-                                                      ElementableCore(Core)
-                                                    )
+    ControllableSelect(
+      ControllableSettle(
+        ControllableNudge(
+          ControllableCore(
+            RefreshableWindowResize(
+              ItemizableSelectOnFocusedItem(
+                TransformablePreventScroll(
+                  Autoplayable(
+                    VisibleContainerElement(
+                      Wheelable(
+                        DraggablePreventOnDraggableElement(
+                          DraggablePreventOnInputElement(
+                            DraggableTouch(
+                              DraggableMouse(
+                                DraggableCore(
+                                  IndexablePreviousNext(
+                                    IndexableSelect(
+                                      AlignableFlexElement(
+                                        AlignableCore(
+                                          DirectionableElement(
+                                            DirectionableCore(
+                                              TypeableHorizontalVertical(
+                                                ItemizableAutoRender(
+                                                  ItemizableElementCore(
+                                                    ItemizableCore(
+                                                      BoxModelable(
+                                                        Nudgeable(
+                                                          EventableElement(
+                                                            ElementableCore(
+                                                              Core
+                                                            )
+                                                          )
+                                                        )
+                                                      ),
+                                                      CarouselItem
+                                                    ),
+                                                    CarouselItem
                                                   )
-                                                ),
-                                                CarouselItem
-                                              ),
-                                              CarouselItem
+                                                )
+                                              )
                                             )
                                           )
                                         )
@@ -108,8 +116,7 @@ const Carousel = ControllableLoop(
             )
           )
         )
-      ),
-      CarouselController
+      )
     )
   )
 )
