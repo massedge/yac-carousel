@@ -20,7 +20,7 @@ export default function ControllableLoopMixin<
     ) => ControllableLoopMixinBase<Item>)
     implements ControllableLoopMixinInstance {
     #loop: boolean
-    #selectBeforeHandler?: (
+    #selectBeforeHandler: (
       e: IndexableSelectMixinEventMap['yac:select:before']
     ) => void
 
@@ -37,24 +37,21 @@ export default function ControllableLoopMixin<
     }: ControllableLoopMixinOptions) {
       super({ loop, ...otherOptions })
       this.#loop = loop
-    }
-
-    render() {
-      super.render()
 
       this.#selectBeforeHandler = (e) => {
         if (e.defaultPrevented) return
         e.detail.toIndex = mod(e.detail.targetIndex, this.items.length)
       }
+    }
 
+    render() {
+      super.render()
       this.on('yac:select:before', this.#selectBeforeHandler)
     }
 
     destroy() {
       super.destroy()
-      if (this.#selectBeforeHandler) {
-        this.off('yac:select:before', this.#selectBeforeHandler)
-      }
+      this.off('yac:select:before', this.#selectBeforeHandler)
     }
   }
 
