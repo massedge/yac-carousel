@@ -2,7 +2,7 @@ import Core from '../../../classes/core'
 import { MixinInstance as ItemizableCoreInstance } from '../../itemizable/core/types'
 import { CssTransformableTranslateInstance } from '../../css-transformable/translate/types'
 import { CssTransitionInstance } from '../../css-transitionable/types'
-import { BoxModelableInstance } from '../../box-modelable'
+import { BoxModelableMixinInstance } from '../../box-modelable'
 
 export interface ControllableCoreMixinOptions {}
 
@@ -22,7 +22,7 @@ export interface ControllableCoreMixinBase<
   Item extends ControllableCoreMixinItemBase
 >
   extends Pick<ItemizableCoreInstance<Item>, 'items'>,
-    Pick<BoxModelableInstance, 'width' | 'height'> {
+    Pick<BoxModelableMixinInstance, 'width' | 'height'> {
   render(): void
 }
 
@@ -30,7 +30,7 @@ export interface ControllableCoreMixinItemBase
   extends Core,
     Pick<CssTransformableTranslateInstance, 'translateX' | 'translateY'>,
     Pick<CssTransitionInstance, 'transition'>,
-    Pick<BoxModelableInstance, 'width' | 'height'> {}
+    Pick<BoxModelableMixinInstance, 'width' | 'height'> {}
 
 export interface ControllableCoreMixinAction {
   type: 'itemTranslate'
