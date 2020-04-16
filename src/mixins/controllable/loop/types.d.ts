@@ -1,8 +1,8 @@
 import { IndexableSelectMixinInstance } from '../../indexable/select'
 import {
-  MixinInstance as ItemizableCoreMixinInstance,
-  MixinItemBase as ItemizableCoreMixinItemBase,
-} from '../../itemizable/core/types'
+  ItemizableCoreMixinInstance,
+  ItemizableCoreMixinItemBase,
+} from '../../itemizable/core'
 
 export interface ControllableLoopMixinOptions {
   loop?: boolean

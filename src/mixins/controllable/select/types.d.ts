@@ -1,7 +1,7 @@
 import { ControllableCoreMixinInstance } from '../core'
 import { ControllableNudgeMixinInstance } from '../nudge'
 import { IndexableSelectMixinInstance } from '../../indexable/select'
-import { MixinInstance as ItemizableCoreInstance } from '../../itemizable/core/types'
+import { ItemizableCoreMixinInstance } from '../../itemizable/core'
 import { ActivatableMixinInstance } from '../../activatable'
 import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-vertical/types'
 import Core from '../../../classes/core'
@@ -17,7 +17,7 @@ export interface ControllableSelectMixinInstance {}
 export interface ControllableSelectMixinBase<
   Item extends ControllableSelectMixinItemBase
 >
-  extends Pick<ItemizableCoreInstance<Item>, 'items'>,
+  extends Pick<ItemizableCoreMixinInstance<Item>, 'items'>,
     Pick<
       ControllableCoreMixinInstance,
       | '_processControllerActions'

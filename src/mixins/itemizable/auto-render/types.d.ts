@@ -1,5 +1,5 @@
 import Core from '../../../classes/core'
-import { MixinInstance as ItemizableCoreInstance } from '../core/types'
+import { ItemizableCoreMixinInstance } from '../core'
 
 export interface MixinOptions {}
 
@@ -11,7 +11,7 @@ export interface MixinInstance {}
 
 export interface MixinBase<Item extends MixinItemBase>
   extends Core,
-    Pick<ItemizableCoreInstance<Item>, 'items'> {}
+    Pick<ItemizableCoreMixinInstance<Item>, 'items'> {}
 
 export interface MixinItemBase
   extends Pick<Core, 'rendered' | 'render' | 'destroy' | 'refresh'> {}

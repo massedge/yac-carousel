@@ -1,6 +1,6 @@
 import { ComposeConstructor } from '../../../types'
 import mod from '../../../utils/mod'
-import { MixinItemBase as ItemizableCoreMixinItemBase } from '../../itemizable/core/types'
+import { ItemizableCoreMixinItemBase } from '../../itemizable/core'
 import { IndexableSelectMixinEventMap } from '../../indexable/select'
 
 import {

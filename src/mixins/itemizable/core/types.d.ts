@@ -1,21 +1,29 @@
-export interface MixinOptions<Item extends MixinItemBase> {
+export interface ItemizableCoreMixinOptions<
+  Item extends ItemizableCoreMixinItemBase
+> {
   items?: Item[]
 }
 
-export interface MixinClass<Item extends MixinItemBase> {
-  new (options: MixinOptions<Item>): MixinInstance<Item>
+export interface ItemizableCoreMixinClass<
+  Item extends ItemizableCoreMixinItemBase
+> {
+  new (options: ItemizableCoreMixinOptions<Item>): ItemizableCoreMixinInstance<
+    Item
+  >
 }
 
-export interface MixinInstance<Item extends MixinItemBase> {
+export interface ItemizableCoreMixinInstance<
+  Item extends ItemizableCoreMixinItemBase
+> {
   readonly items: readonly Item[]
 }
 
-export interface MixinBase {
+export interface ItemizableCoreMixinBase {
   refresh(): void
   destroy(): void
 }
 
-export interface MixinItemBase {
+export interface ItemizableCoreMixinItemBase {
   render(): void
   refresh(): void
 }
