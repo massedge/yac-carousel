@@ -68,8 +68,9 @@ export default function IndexableSelectMixin<
       toIndex = eBefore.detail.toIndex
 
       // ensure toIndex is not out of bounds
-      if (toIndex < 0 || toIndex >= this.items.length)
+      if (toIndex < 0 || toIndex >= this.items.length) {
         throw new Error('item index out of bounds')
+      }
 
       if (eBefore.defaultPrevented || fromIndex === toIndex) {
         return false
