@@ -1,37 +1,37 @@
 import { MixinInstance as EventableInstance } from '../../eventable/types'
 
-export interface IndexableSelectOptions {
+export interface IndexableSelectMixinOptions {
   index?: number
 }
 
-export interface IndexableSelectMixin {
-  new (options: IndexableSelectOptions): IndexableSelectInstance
+export interface IndexableSelectMixinClass {
+  new (options: IndexableSelectMixinOptions): IndexableSelectMixinInstance
 }
 
-export interface IndexableSelectInstance {
+export interface IndexableSelectMixinInstance {
   readonly index: number
   select(index: number): boolean
-  on: <K extends keyof IndexableSelectEventMap>(
+  on: <K extends keyof IndexableSelectMixinEventMap>(
     type: K,
-    listener: (ev: IndexableSelectEventMap[K]) => void
+    listener: (ev: IndexableSelectMixinEventMap[K]) => void
   ) => void
-  off: <K extends keyof IndexableSelectEventMap>(
+  off: <K extends keyof IndexableSelectMixinEventMap>(
     type: K,
-    listener: (ev: IndexableSelectEventMap[K]) => void
+    listener: (ev: IndexableSelectMixinEventMap[K]) => void
   ) => void
 }
 
-export interface IndexableSelectEventMap {
-  ['yac:select:before']: CustomEvent<IndexableSelectEventDetail>
-  ['yac:select:after']: CustomEvent<IndexableSelectEventDetail>
+export interface IndexableSelectMixinEventMap {
+  ['yac:select:before']: CustomEvent<IndexableSelectMixinEventDetail>
+  ['yac:select:after']: CustomEvent<IndexableSelectMixinEventDetail>
 }
 
-export interface IndexableSelectBase<Item = any>
+export interface IndexableSelectMixinBase<Item = any>
   extends Pick<EventableInstance, 'emitter'> {
   items: readonly Item[]
 }
 
-export interface IndexableSelectEventDetail {
+export interface IndexableSelectMixinEventDetail {
   from: number
   to: number
 }

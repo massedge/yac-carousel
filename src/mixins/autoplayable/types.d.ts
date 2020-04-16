@@ -1,6 +1,6 @@
 import Nudge from '../../classes/nudge'
 import Core from '../../classes/core'
-import { IndexableSelectInstance } from '../indexable/select/types'
+import { IndexableSelectMixinInstance } from '../indexable/select'
 
 export interface AutoplayOptions {
   enabled: boolean
@@ -26,6 +26,6 @@ export interface MixinInstance {
 
 export interface MixinBase
   extends Core,
-    Pick<IndexableSelectInstance, 'index' | 'select'> {
+    Pick<IndexableSelectMixinInstance, 'index' | 'select'> {
   items: readonly any[]
 }
