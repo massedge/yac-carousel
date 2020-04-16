@@ -37,7 +37,7 @@ import {
   TransformablePreventScrollMixin,
   TypeableHorizontalVerticalMixin,
   VisibleContainerElementMixin,
-  VisibleContainerItemMixin,
+  VisibleItemElementMixin,
   WheelableMixin,
 } from './lib'
 
@@ -45,7 +45,7 @@ export const CarouselItem = BoxModelableMixin(
   ElementableFocusMixin(
     FocusableMixin(
       ActivatableMixin(
-        VisibleContainerItemMixin(
+        VisibleItemElementMixin(
           CssTransformableTranslateMixin(
             CssTransitionableMixin(
               EventableElementMixin(ElementableCoreMixin(Core))

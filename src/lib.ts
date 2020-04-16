@@ -41,6 +41,6 @@ export { default as RefreshableWindowResizeMixin } from './mixins/refreshable/wi
 export { default as TransformablePreventScrollMixin } from './mixins/transformable/prevent-scroll'
 export { default as TransformableScrollToNudgeMixin } from './mixins/transformable/scroll-to-nudge'
 export { default as TypeableHorizontalVerticalMixin } from './mixins/typeable/horizontal-vertical'
-export { default as VisibleContainerElementMixin } from './mixins/visible/element/container/visible'
-export { default as VisibleContainerItemMixin } from './mixins/visible/element/item/visible'
+export { default as VisibleContainerElementMixin } from './mixins/visible/element/container'
+export { default as VisibleItemElementMixin } from './mixins/visible/element/item'
 export { default as WheelableMixin } from './mixins/wheelable'
