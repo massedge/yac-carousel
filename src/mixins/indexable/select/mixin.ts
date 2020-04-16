@@ -42,8 +42,13 @@ export default function IndexableSelectMixin<
       return this.#index
     }
 
-    select(index: number) {
+    select(targetIndex: number) {
       const fromIndex = this.index
+
+      // normalize toIndex to be within bounds of items array
+      let toIndex = targetIndex
+      if (toIndex >= this.items.length) toIndex = this.items.length - 1
+      if (toIndex < 0) toIndex = 0
 
       const eBefore: IndexableSelectMixinEventMap['yac:select:before'] = new CustomEvent(
         'yac:select:before',
@@ -52,20 +57,25 @@ export default function IndexableSelectMixin<
           bubbles: false,
           detail: {
             fromIndex,
-            toIndex: index,
+            targetIndex,
+            toIndex,
           },
         }
       )
       this.emitter.emit(eBefore)
 
-      // to index may have been changed by an event handler, so use it instead of the original index
-      const toIndex = eBefore.detail.toIndex
+      // use toIndex as returned by the event handler
+      toIndex = eBefore.detail.toIndex
+
+      // ensure toIndex is not out of bounds
+      if (toIndex < 0 || toIndex >= this.items.length)
+        throw new Error('item index out of bounds')
 
       if (eBefore.defaultPrevented || fromIndex === toIndex) {
         return false
       }
 
-      this.#index = index
+      this.#index = toIndex
 
       const eAfter: IndexableSelectMixinEventMap['yac:select:after'] = new CustomEvent(
         'yac:select:after',
@@ -73,6 +83,7 @@ export default function IndexableSelectMixin<
           bubbles: false,
           detail: {
             fromIndex,
+            targetIndex,
             toIndex,
           },
         }

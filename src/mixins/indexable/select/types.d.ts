@@ -10,7 +10,7 @@ export interface IndexableSelectMixinClass {
 
 export interface IndexableSelectMixinInstance {
   readonly index: number
-  select(index: number): boolean
+  select(targetIndex: number): boolean
   on: <K extends keyof IndexableSelectMixinEventMap>(
     type: K,
     listener: (ev: IndexableSelectMixinEventMap[K]) => void
@@ -33,5 +33,6 @@ export interface IndexableSelectMixinBase<Item = any>
 
 export interface IndexableSelectMixinEventDetail {
   readonly fromIndex: number
+  readonly targetIndex: number
   toIndex: number
 }
