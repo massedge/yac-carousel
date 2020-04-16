@@ -1,4 +1,7 @@
 import { ComposeConstructor } from '../../../types'
+import mod from '../../../utils/mod'
+import { MixinItemBase as ItemizableCoreMixinItemBase } from '../../itemizable/core/types'
+import { IndexableSelectMixinEventMap } from '../../indexable/select'
 
 import {
   ControllableLoopMixinBase,
@@ -8,14 +11,18 @@ import {
 } from './types'
 
 export default function ControllableLoopMixin<
-  T extends new (o: any) => ControllableLoopMixinBase
+  T extends new (o: any) => ControllableLoopMixinBase<Item>,
+  Item extends ItemizableCoreMixinItemBase
 >(Base: T) {
   class Mixin
     extends (Base as new (
       options: ControllableLoopMixinOptions
-    ) => ControllableLoopMixinBase)
+    ) => ControllableLoopMixinBase<Item>)
     implements ControllableLoopMixinInstance {
     #loop: boolean
+    #selectBeforeHandler?: (
+      e: IndexableSelectMixinEventMap['yac:select:before']
+    ) => void
 
     get loop() {
       return this.#loop
@@ -30,6 +37,24 @@ export default function ControllableLoopMixin<
     }: ControllableLoopMixinOptions) {
       super({ loop, ...otherOptions })
       this.#loop = loop
+    }
+
+    render() {
+      super.render()
+
+      this.#selectBeforeHandler = (e) => {
+        if (e.defaultPrevented) return
+        e.detail.toIndex = mod(e.detail.targetIndex, this.items.length)
+      }
+
+      this.on('yac:select:before', this.#selectBeforeHandler)
+    }
+
+    destroy() {
+      super.destroy()
+      if (this.#selectBeforeHandler) {
+        this.off('yac:select:before', this.#selectBeforeHandler)
+      }
     }
   }
 
