@@ -5,6 +5,6 @@ export {
   IndexableSelectMixinInstance,
   IndexableSelectMixinEventMap,
   IndexableSelectMixinEventDetail,
-} from './types'
+} from './types.d'
 
 export { default } from './mixin'

@@ -43,24 +43,25 @@ export default function IndexableSelectMixin<
     }
 
     select(index: number) {
-      const from = this.index
+      const fromIndex = this.index
 
       const eBefore: IndexableSelectMixinEventMap['yac:select:before'] = new CustomEvent(
         'yac:select:before',
         {
           cancelable: true,
+          bubbles: false,
           detail: {
-            from,
-            to: index,
+            fromIndex,
+            toIndex: index,
           },
         }
       )
       this.emitter.emit(eBefore)
 
       // to index may have been changed by an event handler, so use it instead of the original index
-      index = eBefore.detail.to
+      const toIndex = eBefore.detail.toIndex
 
-      if (eBefore.defaultPrevented || eBefore.detail.to === index) {
+      if (eBefore.defaultPrevented || fromIndex === toIndex) {
         return false
       }
 
@@ -69,9 +70,10 @@ export default function IndexableSelectMixin<
       const eAfter: IndexableSelectMixinEventMap['yac:select:after'] = new CustomEvent(
         'yac:select:after',
         {
+          bubbles: false,
           detail: {
-            from,
-            to: index,
+            fromIndex,
+            toIndex,
           },
         }
       )

@@ -27,21 +27,21 @@ export default function ControllableSelectMixin<
       super.render()
 
       this.on('yac:select:before', (e) => {
-        if (e.detail.from === e.detail.to) return e.preventDefault()
-        if (e.detail.to < 0) return e.preventDefault()
-        if (e.detail.to >= this.items.length) return e.preventDefault()
+        if (e.detail.fromIndex === e.detail.toIndex) return e.preventDefault()
+        if (e.detail.toIndex < 0) return e.preventDefault()
+        if (e.detail.toIndex >= this.items.length) return e.preventDefault()
       })
 
       this.on('yac:select:after', (e) => {
-        const fromItem = this.items[e.detail.from]
-        const targetItem = this.items[e.detail.to]
+        const fromItem = this.items[e.detail.fromIndex]
+        const toItem = this.items[e.detail.toIndex]
 
         // update active
         fromItem.active = false
-        targetItem.active = true
+        toItem.active = true
 
         // new position
-        const actions = this._controllableSelect(e.detail.to, this.type)
+        const actions = this._controllableSelect(e.detail.toIndex, this.type)
         this._processControllerActions(actions)
       })
     }

@@ -32,6 +32,6 @@ export interface IndexableSelectMixinBase<Item = any>
 }
 
 export interface IndexableSelectMixinEventDetail {
-  readonly from: number
-  to: number
+  readonly fromIndex: number
+  toIndex: number
 }
