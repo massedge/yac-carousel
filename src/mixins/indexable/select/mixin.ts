@@ -42,7 +42,7 @@ export default function IndexableSelectMixin<
       return this.#index
     }
 
-    select(targetIndex: number) {
+    canSelect(targetIndex: number) {
       const fromIndex = this.index
 
       // normalize toIndex to be within bounds of items array
@@ -75,6 +75,15 @@ export default function IndexableSelectMixin<
       if (eBefore.defaultPrevented || fromIndex === toIndex) {
         return false
       }
+
+      return toIndex
+    }
+
+    select(targetIndex: number) {
+      const fromIndex = this.index
+      const toIndex = this.canSelect(targetIndex)
+
+      if (toIndex === false) return false
 
       this.#index = toIndex
 

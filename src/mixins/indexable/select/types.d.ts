@@ -10,7 +10,22 @@ export interface IndexableSelectMixinClass {
 
 export interface IndexableSelectMixinInstance {
   readonly index: number
+
+  /**
+   * Check if the targetIndex can be selected.
+   * @param targetIndex Index to be selected.
+   * @returns Returns false when {targetIndex} cannot be selected, otherwise returns
+   * the index that would be selected (not necessarily equal to the targetIndex).
+   */
+  canSelect(targetIndex: number): false | number
+
+  /**
+   * Attempt to select targetIndex.
+   * @param targetIndex
+   * @returns Returns true when successful, false otherwise.
+   */
   select(targetIndex: number): boolean
+
   on: <K extends keyof IndexableSelectMixinEventMap>(
     type: K,
     listener: (ev: IndexableSelectMixinEventMap[K]) => void
