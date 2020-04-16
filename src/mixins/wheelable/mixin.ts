@@ -1,40 +1,27 @@
 import _debounce from 'lodash/debounce'
 
-import { ComposeConstructor } from '../types'
+import { ComposeConstructor } from '../../types'
 
-export interface WheelableOptions {}
+import {
+  WheelableMixinBase,
+  WheelableMixinClass,
+  WheelableMixinInstance,
+  WheelableMixinOptions,
+} from './types'
 
-export interface Wheelable {
-  new (options: WheelableOptions): WheelableInstance
-}
-
-export interface WheelableInstance {
-  render: () => void
-  destroy: () => void
-}
-
-// ElementableInstance & Core
-export interface WheelableBase {
-  element: HTMLElement
-  render(): void
-  previous(): void
-  next(): void
-  destroy(): void
-}
-
-export default function Wheelable<
+export default function WheelableMixin<
   T extends {
-    new (options: any): WheelableBase
+    new (options: any): WheelableMixinBase
   }
 >(Base: T) {
   class Mixin
     extends ((Base as unknown) as new (
-      options: WheelableOptions
-    ) => WheelableBase)
-    implements WheelableInstance {
+      options: WheelableMixinOptions
+    ) => WheelableMixinBase)
+    implements WheelableMixinInstance {
     #wheelFn: (e: WheelEvent) => void
 
-    constructor(options: WheelableOptions) {
+    constructor(options: WheelableMixinOptions) {
       super(options)
 
       // use debounce allow for more fine-grained navigation when using touchpad
@@ -83,5 +70,8 @@ export default function Wheelable<
     }
   }
 
-  return (Mixin as unknown) as ComposeConstructor<Wheelable, typeof Base>
+  return (Mixin as unknown) as ComposeConstructor<
+    WheelableMixinClass,
+    typeof Base
+  >
 }
