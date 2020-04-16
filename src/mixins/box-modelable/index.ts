@@ -3,6 +3,6 @@ export {
   BoxModelableMixinClass,
   BoxModelableMixinInstance,
   BoxModelableMixinOptions,
-} from './types'
+} from './types.d'
 
 export { default } from './mixin'
