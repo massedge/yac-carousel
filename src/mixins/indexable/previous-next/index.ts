@@ -17,10 +17,16 @@ export default function IndexablePreviousNext<
       options: IndexablePreviousNextOptions
     ) => IndexablePreviousNextBase)
     implements IndexablePreviousNextInstance {
+    canPrevious() {
+      return this.canSelect(this.index - 1) !== false
+    }
     previous() {
       return this.select(this.index - 1)
     }
 
+    canNext() {
+      return this.canSelect(this.index + 1) !== false
+    }
     next() {
       return this.select(this.index + 1)
     }
