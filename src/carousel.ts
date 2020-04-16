@@ -2,52 +2,54 @@
 import Core from './classes/core'
 
 import {
-  Activatable,
-  AlignableCore,
-  AlignableFlexElement,
-  Autoplayable,
-  BoxModelable,
-  ControllableCore,
-  ControllableLoop,
-  ControllableSnap,
-  ControllableNudge,
-  ControllableSelect,
-  ControllableSettle,
-  CssTransformableTranslate,
-  CssTransitionable,
-  DirectionableCore,
-  DirectionableElement,
-  DraggableCore,
-  DraggableMouse,
-  DraggableTouch,
-  DraggablePreventOnDraggableElement,
-  DraggablePreventOnInputElement,
-  ElementableCore,
-  ElementableFocus,
-  EventableElement,
-  Focusable,
-  IndexablePreviousNext,
-  IndexableSelect,
-  ItemizableAutoRender,
-  ItemizableCore,
-  ItemizableElementCore,
-  ItemizableSelectOnFocusedItem,
-  Nudgeable,
-  RefreshableWindowResize,
-  TransformablePreventScroll,
-  TypeableHorizontalVertical,
-  VisibleContainerElement,
-  VisibleContainerItem,
-  Wheelable,
+  ActivatableMixin,
+  AlignableCoreMixin,
+  AlignableFlexElementMixin,
+  AutoplayableMixin,
+  BoxModelableMixin,
+  ControllableCoreMixin,
+  ControllableLoopMixin,
+  ControllableSnapMixin,
+  ControllableNudgeMixin,
+  ControllableSelectMixin,
+  ControllableSettleMixin,
+  CssTransformableTranslateMixin,
+  CssTransitionableMixin,
+  DirectionableCoreMixin,
+  DirectionableElementMixin,
+  DraggableCoreMixin,
+  DraggableMouseMixin,
+  DraggableTouchMixin,
+  DraggablePreventOnDraggableElementMixin,
+  DraggablePreventOnInputElementMixin,
+  ElementableCoreMixin,
+  ElementableFocusMixin,
+  EventableElementMixin,
+  FocusableMixin,
+  IndexablePreviousNextMixin,
+  IndexableSelectMixin,
+  ItemizableAutoRenderMixin,
+  ItemizableCoreMixin,
+  ItemizableElementCoreMixin,
+  ItemizableSelectOnFocusedItemMixin,
+  NudgeableMixin,
+  RefreshableWindowResizeMixin,
+  TransformablePreventScrollMixin,
+  TypeableHorizontalVerticalMixin,
+  VisibleContainerElementMixin,
+  VisibleContainerItemMixin,
+  WheelableMixin,
 } from './lib'
 
-export const CarouselItem = BoxModelable(
-  ElementableFocus(
-    Focusable(
-      Activatable(
-        VisibleContainerItem(
-          CssTransformableTranslate(
-            CssTransitionable(EventableElement(ElementableCore(Core)))
+export const CarouselItem = BoxModelableMixin(
+  ElementableFocusMixin(
+    FocusableMixin(
+      ActivatableMixin(
+        VisibleContainerItemMixin(
+          CssTransformableTranslateMixin(
+            CssTransitionableMixin(
+              EventableElementMixin(ElementableCoreMixin(Core))
+            )
           )
         )
       )
@@ -55,37 +57,37 @@ export const CarouselItem = BoxModelable(
   )
 )
 
-const Carousel = ControllableLoop(
-  ControllableSnap(
-    ControllableSelect(
-      ControllableSettle(
-        ControllableNudge(
-          ControllableCore(
-            RefreshableWindowResize(
-              ItemizableSelectOnFocusedItem(
-                TransformablePreventScroll(
-                  Autoplayable(
-                    VisibleContainerElement(
-                      Wheelable(
-                        DraggablePreventOnDraggableElement(
-                          DraggablePreventOnInputElement(
-                            DraggableTouch(
-                              DraggableMouse(
-                                DraggableCore(
-                                  IndexablePreviousNext(
-                                    IndexableSelect(
-                                      AlignableFlexElement(
-                                        AlignableCore(
-                                          DirectionableElement(
-                                            DirectionableCore(
-                                              TypeableHorizontalVertical(
-                                                ItemizableAutoRender(
-                                                  ItemizableElementCore(
-                                                    ItemizableCore(
-                                                      BoxModelable(
-                                                        Nudgeable(
-                                                          EventableElement(
-                                                            ElementableCore(
+const Carousel = ControllableLoopMixin(
+  ControllableSnapMixin(
+    ControllableSelectMixin(
+      ControllableSettleMixin(
+        ControllableNudgeMixin(
+          ControllableCoreMixin(
+            RefreshableWindowResizeMixin(
+              ItemizableSelectOnFocusedItemMixin(
+                TransformablePreventScrollMixin(
+                  AutoplayableMixin(
+                    VisibleContainerElementMixin(
+                      WheelableMixin(
+                        DraggablePreventOnDraggableElementMixin(
+                          DraggablePreventOnInputElementMixin(
+                            DraggableTouchMixin(
+                              DraggableMouseMixin(
+                                DraggableCoreMixin(
+                                  IndexablePreviousNextMixin(
+                                    IndexableSelectMixin(
+                                      AlignableFlexElementMixin(
+                                        AlignableCoreMixin(
+                                          DirectionableElementMixin(
+                                            DirectionableCoreMixin(
+                                              TypeableHorizontalVerticalMixin(
+                                                ItemizableAutoRenderMixin(
+                                                  ItemizableElementCoreMixin(
+                                                    ItemizableCoreMixin(
+                                                      BoxModelableMixin(
+                                                        NudgeableMixin(
+                                                          EventableElementMixin(
+                                                            ElementableCoreMixin(
                                                               Core
                                                             )
                                                           )
