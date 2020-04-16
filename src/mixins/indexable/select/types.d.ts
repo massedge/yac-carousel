@@ -22,8 +22,10 @@ export interface IndexableSelectMixinInstance {
 }
 
 export interface IndexableSelectMixinEventMap {
-  ['yac:select:before']: CustomEvent<IndexableSelectMixinEventDetail>
-  ['yac:select:after']: CustomEvent<IndexableSelectMixinEventDetail>
+  ['yac:select:before']: CustomEvent<
+    IndexableSelectMixinSelectBeforeEventDetail
+  >
+  ['yac:select:after']: CustomEvent<IndexableSelectMixinSelectAfterEventDetail>
 }
 
 export interface IndexableSelectMixinBase<Item = any>
@@ -31,8 +33,13 @@ export interface IndexableSelectMixinBase<Item = any>
   items: readonly Item[]
 }
 
-export interface IndexableSelectMixinEventDetail {
+interface IndexableSelectMixinSelectBeforeEventDetail {
   readonly fromIndex: number
   readonly targetIndex: number
   toIndex: number
+}
+
+interface IndexableSelectMixinSelectAfterEventDetail
+  extends IndexableSelectMixinSelectBeforeEventDetail {
+  readonly toIndex: number
 }
