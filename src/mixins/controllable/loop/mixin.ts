@@ -1,7 +1,7 @@
 import { ComposeConstructor } from '../../../types'
 import mod from '../../../utils/mod'
 import { ItemizableCoreMixinItemBase } from '../../itemizable/core'
-import { IndexableSelectMixinEventMap } from '../../indexable/select'
+import { IndexableCoreMixinEventMap } from '../../indexable/core'
 
 import {
   ControllableLoopMixinBase,
@@ -21,7 +21,7 @@ export default function ControllableLoopMixin<
     implements ControllableLoopMixinInstance {
     #loop: boolean
     #selectBeforeHandler: (
-      e: IndexableSelectMixinEventMap['yac:select:before']
+      e: IndexableCoreMixinEventMap['yac:select:before']
     ) => void
 
     get loop() {

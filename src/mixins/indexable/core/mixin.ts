@@ -1,39 +1,39 @@
 import { ComposeConstructor } from '../../../types'
 
 import {
-  IndexableSelectMixinClass,
-  IndexableSelectMixinBase,
-  IndexableSelectMixinOptions,
-  IndexableSelectMixinInstance,
-  IndexableSelectMixinEventMap,
+  IndexableCoreMixinClass,
+  IndexableCoreMixinBase,
+  IndexableCoreMixinOptions,
+  IndexableCoreMixinInstance,
+  IndexableCoreMixinEventMap,
 } from './types'
 
-export default function IndexableSelectMixin<
-  T extends new (o: any) => IndexableSelectMixinBase
+export default function IndexableCoreMixin<
+  T extends new (o: any) => IndexableCoreMixinBase
 >(Base: T) {
   class Mixin
     extends (Base as new (
-      options: IndexableSelectMixinOptions
-    ) => IndexableSelectMixinBase)
-    implements IndexableSelectMixinInstance {
+      options: IndexableCoreMixinOptions
+    ) => IndexableCoreMixinBase)
+    implements IndexableCoreMixinInstance {
     #index: number
 
-    constructor({ index = 0, ...otherOptions }: IndexableSelectMixinOptions) {
+    constructor({ index = 0, ...otherOptions }: IndexableCoreMixinOptions) {
       super({ index, ...otherOptions })
 
       this.#index = index
     }
 
-    on<K extends keyof IndexableSelectMixinEventMap>(
+    on<K extends keyof IndexableCoreMixinEventMap>(
       type: K,
-      listener: (ev: IndexableSelectMixinEventMap[K]) => void
+      listener: (ev: IndexableCoreMixinEventMap[K]) => void
     ) {
       return this.emitter.on.call(this, type, listener)
     }
 
-    off<K extends keyof IndexableSelectMixinEventMap>(
+    off<K extends keyof IndexableCoreMixinEventMap>(
       type: K,
-      listener: (ev: IndexableSelectMixinEventMap[K]) => void
+      listener: (ev: IndexableCoreMixinEventMap[K]) => void
     ) {
       return this.emitter.off.call(this, type, listener)
     }
@@ -50,7 +50,7 @@ export default function IndexableSelectMixin<
       if (toIndex >= this.items.length) toIndex = this.items.length - 1
       if (toIndex < 0) toIndex = 0
 
-      const eBefore: IndexableSelectMixinEventMap['yac:select:before'] = new CustomEvent(
+      const eBefore: IndexableCoreMixinEventMap['yac:select:before'] = new CustomEvent(
         'yac:select:before',
         {
           cancelable: true,
@@ -87,7 +87,7 @@ export default function IndexableSelectMixin<
 
       this.#index = toIndex
 
-      const eAfter: IndexableSelectMixinEventMap['yac:select:after'] = new CustomEvent(
+      const eAfter: IndexableCoreMixinEventMap['yac:select:after'] = new CustomEvent(
         'yac:select:after',
         {
           bubbles: false,
@@ -105,7 +105,7 @@ export default function IndexableSelectMixin<
   }
 
   return (Mixin as unknown) as ComposeConstructor<
-    IndexableSelectMixinClass,
+    IndexableCoreMixinClass,
     typeof Base
   >
 }

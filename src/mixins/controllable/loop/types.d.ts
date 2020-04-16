@@ -1,4 +1,4 @@
-import { IndexableSelectMixinInstance } from '../../indexable/select'
+import { IndexableCoreMixinInstance } from '../../indexable/core'
 import {
   ItemizableCoreMixinInstance,
   ItemizableCoreMixinItemBase,
@@ -20,7 +20,7 @@ export interface ControllableLoopMixinBase<
   Item extends ItemizableCoreMixinItemBase
 >
   extends Pick<ItemizableCoreMixinInstance<Item>, 'items'>,
-    Pick<IndexableSelectMixinInstance, 'on' | 'off'> {
+    Pick<IndexableCoreMixinInstance, 'on' | 'off'> {
   render(): void
   destroy(): void
 }

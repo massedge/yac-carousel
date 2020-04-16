@@ -4,20 +4,21 @@ import FocusableMixin from '../../../focusable'
 
 import SelectOnFocusedItemItemizableMixin from '..'
 import ItemizableCoreMixin from '../../core'
-import SelectIndexableMixin, {
-  IndexableSelectMixinEventMap,
-} from '../../../indexable/select'
+import {
+  default as IndexableCoreMixin,
+  IndexableCoreMixinEventMap,
+} from '../../../indexable/core'
 
 test('itemizable prevent-scroll mixin', () => {
   const ItemCls = FocusableMixin(EventableMixin(Core))
 
   const ContainerBaseCls = EventableMixin(Core)
   const ContainerCls = SelectOnFocusedItemItemizableMixin(
-    SelectIndexableMixin(ItemizableCoreMixin(ContainerBaseCls, ItemCls))
+    IndexableCoreMixin(ItemizableCoreMixin(ContainerBaseCls, ItemCls))
   )
 
   const selectCallback = jest.fn(
-    (e: IndexableSelectMixinEventMap['yac:select:after']) => e.detail.toIndex
+    (e: IndexableCoreMixinEventMap['yac:select:after']) => e.detail.toIndex
   )
   const container = new ContainerCls({
     items: [new ItemCls({}), new ItemCls({}), new ItemCls({})],

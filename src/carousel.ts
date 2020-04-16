@@ -26,8 +26,8 @@ import {
   ElementableFocusMixin,
   EventableElementMixin,
   FocusableMixin,
+  IndexableCoreMixin,
   IndexableSelectNextPreviousMixin,
-  IndexableSelectMixin,
   ItemizableAutoRenderMixin,
   ItemizableCoreMixin,
   ItemizableElementCoreMixin,
@@ -75,7 +75,7 @@ const Carousel = ControllableLoopMixin(
                               DraggableMouseMixin(
                                 DraggableCoreMixin(
                                   IndexableSelectNextPreviousMixin(
-                                    IndexableSelectMixin(
+                                    IndexableCoreMixin(
                                       AlignableFlexElementMixin(
                                         AlignableCoreMixin(
                                           DirectionableElementMixin(

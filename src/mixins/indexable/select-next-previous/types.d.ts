@@ -1,4 +1,4 @@
-import { IndexableSelectMixinInstance } from '../select'
+import { IndexableCoreMixinInstance } from '../core'
 
 export interface IndexableSelectNextPreviousMixinOptions {
   index?: number
@@ -37,7 +37,4 @@ export interface IndexableSelectNextPreviousMixinInstance {
 }
 
 export interface IndexableSelectNextPreviousMixinBase
-  extends Pick<
-    IndexableSelectMixinInstance,
-    'index' | 'canSelect' | 'select'
-  > {}
+  extends Pick<IndexableCoreMixinInstance, 'index' | 'canSelect' | 'select'> {}
