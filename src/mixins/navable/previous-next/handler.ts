@@ -1,4 +1,5 @@
 import { ComposeConstructor } from '../../../types'
+import { IndexableSelectNextPreviousMixinInstance } from '../../indexable/select-next-previous'
 
 export interface NavablePreviousNextHandlerOptions {
   elPrevious: HTMLElement
@@ -16,11 +17,13 @@ export interface NavablePreviousNextHandlerInstance {
   destroy: () => void
 }
 
-export interface NavablePreviousNextHandlerBase {
+export interface NavablePreviousNextHandlerBase
+  extends Pick<
+    IndexableSelectNextPreviousMixinInstance,
+    'selectNext' | 'selectPrevious'
+  > {
   render(): void
   destroy(): void
-  next(): void
-  previous(): void
 }
 
 export default function NavablePreviousNextHandler<
@@ -51,8 +54,8 @@ export default function NavablePreviousNextHandler<
         elNext,
       }
 
-      this.#previousFn = () => this.previous()
-      this.#nextFn = () => this.next()
+      this.#previousFn = () => this.selectPrevious()
+      this.#nextFn = () => this.selectNext()
     }
 
     render() {

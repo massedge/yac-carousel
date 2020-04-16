@@ -1,42 +1,42 @@
 import { IndexableSelectMixinInstance } from '../select'
 
-export interface IndexablePreviousNextMixinOptions {
+export interface IndexableSelectNextPreviousMixinOptions {
   index?: number
 }
 
-export interface IndexablePreviousNextMixinClass {
+export interface IndexableSelectNextPreviousMixinClass {
   new (
-    options: IndexablePreviousNextMixinOptions
-  ): IndexablePreviousNextMixinInstance
+    options: IndexableSelectNextPreviousMixinOptions
+  ): IndexableSelectNextPreviousMixinInstance
 }
 
-export interface IndexablePreviousNextMixinInstance {
+export interface IndexableSelectNextPreviousMixinInstance {
   /**
    * Check if previous item can be selected.
    * @returns Returns true if successful, false otherwise.
    */
-  canPrevious(): boolean
+  canSelectPrevious(): boolean
 
   /**
    * Attempt to select previous item.
    * @returns Returns true if successful, false otherwise.
    */
-  previous(): boolean
+  selectPrevious(): boolean
 
   /**
    * Check if next item can be selected.
    * @returns Returns true if successful, false otherwise.
    */
-  canNext(): boolean
+  canSelectNext(): boolean
 
   /**
    * Attempt to select next item.
    * @returns Returns true if successful, false otherwise.
    */
-  next(): boolean
+  selectNext(): boolean
 }
 
-export interface IndexablePreviousNextMixinBase
+export interface IndexableSelectNextPreviousMixinBase
   extends Pick<
     IndexableSelectMixinInstance,
     'index' | 'canSelect' | 'select'

@@ -1,4 +1,5 @@
 import { ComposeConstructor } from '../../../types'
+import { IndexableSelectNextPreviousMixinInstance } from '../../indexable/select-next-previous'
 
 export interface NavablePreviousNextButtonOptions {
   previousText: string
@@ -16,12 +17,14 @@ export interface NavablePreviousNextButtonInstance {
   destroy: () => void
 }
 
-export interface NavablePreviousNextButtonBase {
+export interface NavablePreviousNextButtonBase
+  extends Pick<
+    IndexableSelectNextPreviousMixinInstance,
+    'selectNext' | 'selectPrevious'
+  > {
   readonly element: HTMLElement
   render(): void
   destroy(): void
-  next(): void
-  previous(): void
 }
 
 export default function NavablePreviousNextButton<
@@ -55,8 +58,8 @@ export default function NavablePreviousNextButton<
         elNext: Mixin.createButton('next', nextText),
       }
 
-      this.#previousFn = () => this.previous()
-      this.#nextFn = () => this.next()
+      this.#previousFn = () => this.selectPrevious()
+      this.#nextFn = () => this.selectNext()
     }
 
     render() {

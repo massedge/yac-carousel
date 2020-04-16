@@ -50,8 +50,8 @@ export default function WheelableMixin<
       const offset = this.getWheelEventDelta(e)
 
       let result
-      if (offset < 0) result = this.previous()
-      else if (offset > 0) result = this.next()
+      if (offset < 0) result = this.selectPrevious()
+      else if (offset > 0) result = this.selectNext()
       else result = false
 
       // prevent scrolling of parent elements, if nudge was successful

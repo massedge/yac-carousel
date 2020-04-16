@@ -1,3 +1,5 @@
+import { IndexableSelectNextPreviousMixinInstance } from '../indexable/select-next-previous'
+
 export interface WheelableMixinOptions {}
 
 export interface WheelableMixinClass {
@@ -9,10 +11,12 @@ export interface WheelableMixinInstance {
   destroy: () => void
 }
 
-export interface WheelableMixinBase {
+export interface WheelableMixinBase
+  extends Pick<
+    IndexableSelectNextPreviousMixinInstance,
+    'selectNext' | 'selectPrevious'
+  > {
   element: HTMLElement
   render(): void
-  previous(): void
-  next(): void
   destroy(): void
 }
