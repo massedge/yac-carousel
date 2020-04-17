@@ -40,6 +40,7 @@ export default function ControllableLoopMixin<
 
       this.#selectBeforeHandler = (e) => {
         if (e.defaultPrevented) return
+        if (!this.#loop) return
         e.detail.toIndex = mod(e.detail.targetIndex, this.items.length)
       }
     }

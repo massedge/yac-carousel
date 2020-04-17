@@ -22,6 +22,7 @@ const c = new (NavablePreviousNextButtonMixin(YacCarousel))({
   //   enabled: true
   // },
   items: elHorizontal.children,
+  loop: true,
 })
 c.render()
 
