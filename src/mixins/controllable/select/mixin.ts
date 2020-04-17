@@ -35,7 +35,10 @@ export default function ControllableSelectMixin<
         toItem.active = true
 
         // new position
-        const actions = this._controllableSelect(e.detail.toIndex, this.type)
+        const actions = this._controllableSelect(
+          e.detail.toIndex,
+          this.orientation
+        )
         this._processControllerActions(actions)
       })
     }

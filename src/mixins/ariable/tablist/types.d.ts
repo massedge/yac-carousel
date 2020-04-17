@@ -1,5 +1,5 @@
 import { ElementableInstance } from '../../elementable/core'
-import { HorizontalVerticalValue } from '../../typeable/horizontal-vertical/types'
+import { OrientationValue } from '../../orientationable/types'
 
 export interface AriableTablistMixinOptions {}
 
@@ -11,7 +11,7 @@ export interface AriableTablistMixinInstance {}
 
 export interface AriableTablistMixinBase
   extends Pick<ElementableInstance, 'element'> {
-  type?: HorizontalVerticalValue
+  orientation?: OrientationValue
   render(): void
   destroy(): void
 }

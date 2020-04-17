@@ -1,8 +1,8 @@
-export type HorizontalVerticalValue = 'horizontal' | 'vertical'
+export type OrientationValue = 'horizontal' | 'vertical'
 // | 'horizontal-and-vertical'
 
 export interface MixinOptions {
-  type?: HorizontalVerticalValue
+  orientation?: OrientationValue
 }
 
 export interface MixinClass {
@@ -10,7 +10,7 @@ export interface MixinClass {
 }
 
 export interface MixinInstance {
-  type: HorizontalVerticalValue
+  orientation: OrientationValue
 }
 
 export interface MixinBase {

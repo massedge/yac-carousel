@@ -34,8 +34,8 @@ import {
   ItemizableSelectOnFocusedItemMixin,
   NudgeableMixin,
   RefreshableWindowResizeMixin,
+  OrientationableMixin,
   TransformablePreventScrollMixin,
-  TypeableHorizontalVerticalMixin,
   VisibleContainerElementMixin,
   VisibleItemElementMixin,
   WheelableMixin,
@@ -80,7 +80,7 @@ const Carousel = ControllableLoopMixin(
                                         AlignableCoreMixin(
                                           DirectionableElementMixin(
                                             DirectionableCoreMixin(
-                                              TypeableHorizontalVerticalMixin(
+                                              OrientationableMixin(
                                                 ItemizableAutoRenderMixin(
                                                   ItemizableElementCoreMixin(
                                                     ItemizableCoreMixin(

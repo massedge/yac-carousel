@@ -32,7 +32,7 @@ export default function ControllableSettleMixin<
         const actions = this._controllableSettle({
           nudges: e.detail.nudges,
           time: performance.now(),
-          axis: this.type,
+          axis: this.orientation,
         })
         this._processControllerActions(actions)
       })

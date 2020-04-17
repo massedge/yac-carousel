@@ -26,10 +26,10 @@ export default function AriableTablistMixin<
       super.render()
 
       // set orientation
-      if (this.type) {
+      if (this.orientation) {
         this.#originalAriaOrientationAttribute =
           this.element.getAttribute('aria-orientation') ?? undefined
-        this.element.setAttribute('aria-orientation', this.type)
+        this.element.setAttribute('aria-orientation', this.orientation)
       }
 
       this.#ariaTablistInstance = new AriaTablist(this.element)
@@ -41,7 +41,7 @@ export default function AriableTablistMixin<
       this.#ariaTablistInstance.destroy()
 
       // reset aria-orientation attribute
-      if (this.type) {
+      if (this.orientation) {
         if (this.#originalAriaOrientationAttribute !== undefined) {
           this.element.setAttribute(
             'aria-orientation',

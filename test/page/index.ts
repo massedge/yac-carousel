@@ -42,7 +42,7 @@ if (!elNext || !(elNext instanceof HTMLButtonElement)) {
 
 const cVertical = new (NavablePreviousNextHandlerMixin(YacCarousel))({
   element: elVertical,
-  type: 'vertical',
+  orientation: 'vertical',
   elPrevious,
   elNext,
   items: elVertical.childNodes,

@@ -1,10 +1,6 @@
-import {
-  ControllableCoreMixinInstance,
-  ControllableCoreMixinAction,
-} from '../core'
+import { ControllableCoreMixinInstance } from '../core'
 import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
-import { MixinInstance as TypeableInstance } from '../../typeable/horizontal-vertical/types'
-import Nudge from '../../../classes/nudge'
+import { MixinInstance as OrientationableMixinInstance } from '../../orientationable/types'
 
 export interface ControllableSettleMixinOptions {}
 
@@ -24,6 +20,6 @@ export interface ControllableSettleMixinBase
       | '_controllerItems'
     >,
     Pick<NudgeableInstance, 'on' | 'off'>,
-    Pick<TypeableInstance, 'type'> {
+    Pick<OrientationableMixinInstance, 'orientation'> {
   render(): void
 }

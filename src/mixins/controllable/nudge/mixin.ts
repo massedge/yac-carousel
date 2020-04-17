@@ -32,7 +32,7 @@ export default function ControllableNudgeMixin<
         const actions = this._controllableNudge({
           nudge: e.detail.nudge,
           ease: false,
-          axis: this.type,
+          axis: this.orientation,
         })
         this._processControllerActions(actions)
       })
