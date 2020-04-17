@@ -31,9 +31,13 @@ const elVertical = document.querySelector<HTMLElement>(
 if (!elVertical) throw Error('Vertical carousel element not found.')
 
 const elPrevious = document.querySelector<HTMLElement>('.vertical-previous')
-if (!elPrevious) throw Error('Previous button for vertical carousel not found.')
+if (!elPrevious || !(elPrevious instanceof HTMLButtonElement)) {
+  throw Error('Previous button for vertical carousel not found.')
+}
 const elNext = document.querySelector<HTMLElement>('.vertical-next')
-if (!elNext) throw Error('Next button for vertical carousel not found.')
+if (!elNext || !(elNext instanceof HTMLButtonElement)) {
+  throw Error('Next button for vertical carousel not found.')
+}
 
 const cVertical = new (NavablePreviousNextHandlerMixin(YacCarousel))({
   element: elVertical,

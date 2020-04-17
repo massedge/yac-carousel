@@ -1,5 +1,6 @@
 import { ComposeConstructor } from '../../../types'
 import { IndexableSelectNextPreviousMixinInstance } from '../../indexable/select-next-previous'
+import { IndexableCoreMixinInstance } from '../../indexable/core'
 
 export interface NavablePreviousNextButtonOptions {
   previousText: string
@@ -19,9 +20,10 @@ export interface NavablePreviousNextButtonInstance {
 
 export interface NavablePreviousNextButtonBase
   extends Pick<
-    IndexableSelectNextPreviousMixinInstance,
-    'selectNext' | 'selectPrevious'
-  > {
+      IndexableSelectNextPreviousMixinInstance,
+      'selectNext' | 'selectPrevious' | 'canSelectNext' | 'canSelectPrevious'
+    >,
+    Pick<IndexableCoreMixinInstance, 'on' | 'off'> {
   readonly element: HTMLElement
   render(): void
   destroy(): void
@@ -36,11 +38,12 @@ export default function NavablePreviousNextButton<
     ) => NavablePreviousNextButtonBase)
     implements NavablePreviousNextButtonInstance {
     #options: {
-      elPrevious: HTMLElement
-      elNext: HTMLElement
+      elPrevious: HTMLButtonElement
+      elNext: HTMLButtonElement
     }
     #nextFn: () => void
     #previousFn: () => void
+    #stateUpdateHandler: () => void
 
     constructor({
       previousText,
@@ -60,6 +63,20 @@ export default function NavablePreviousNextButton<
 
       this.#previousFn = () => this.selectPrevious()
       this.#nextFn = () => this.selectNext()
+
+      this.#stateUpdateHandler = () =>
+        this._navablePreviousNextButtonStateUpdate()
+    }
+
+    private _navablePreviousNextButtonStateUpdate() {
+      this.#options.elNext.setAttribute(
+        'aria-disabled',
+        this.canSelectNext() ? 'false' : 'true'
+      )
+      this.#options.elPrevious.setAttribute(
+        'aria-disabled',
+        this.canSelectPrevious() ? 'false' : 'true'
+      )
     }
 
     render() {
@@ -80,6 +97,9 @@ export default function NavablePreviousNextButton<
         false
       )
       this.#options.elNext.addEventListener('click', this.#nextFn, false)
+
+      this.#stateUpdateHandler()
+      this.on('yac:select:after', this.#stateUpdateHandler)
     }
 
     destroy() {
@@ -90,6 +110,7 @@ export default function NavablePreviousNextButton<
         false
       )
       this.#options.elNext.removeEventListener('click', this.#nextFn, false)
+      this.off('yac:select:after', this.#stateUpdateHandler)
     }
 
     private static createButton(cssClass: string, text: string) {

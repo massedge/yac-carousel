@@ -1,9 +1,10 @@
 import { ComposeConstructor } from '../../../types'
 import { IndexableSelectNextPreviousMixinInstance } from '../../indexable/select-next-previous'
+import { IndexableCoreMixinInstance } from '../../indexable/core'
 
 export interface NavablePreviousNextHandlerOptions {
-  elPrevious: HTMLElement
-  elNext: HTMLElement
+  elPrevious: HTMLButtonElement
+  elNext: HTMLButtonElement
 }
 
 export interface NavablePreviousNextHandler {
@@ -19,9 +20,10 @@ export interface NavablePreviousNextHandlerInstance {
 
 export interface NavablePreviousNextHandlerBase
   extends Pick<
-    IndexableSelectNextPreviousMixinInstance,
-    'selectNext' | 'selectPrevious'
-  > {
+      IndexableSelectNextPreviousMixinInstance,
+      'selectNext' | 'selectPrevious' | 'canSelectNext' | 'canSelectPrevious'
+    >,
+    Pick<IndexableCoreMixinInstance, 'on' | 'off'> {
   render(): void
   destroy(): void
 }
@@ -37,6 +39,7 @@ export default function NavablePreviousNextHandler<
     #options: NavablePreviousNextHandlerOptions
     #nextFn: () => void
     #previousFn: () => void
+    #stateUpdateHandler: () => void
 
     constructor({
       elPrevious,
@@ -56,6 +59,20 @@ export default function NavablePreviousNextHandler<
 
       this.#previousFn = () => this.selectPrevious()
       this.#nextFn = () => this.selectNext()
+
+      this.#stateUpdateHandler = () =>
+        this._navablePreviousNextHandlerStateUpdate()
+    }
+
+    private _navablePreviousNextHandlerStateUpdate() {
+      this.#options.elNext.setAttribute(
+        'aria-disabled',
+        this.canSelectNext() ? 'false' : 'true'
+      )
+      this.#options.elPrevious.setAttribute(
+        'aria-disabled',
+        this.canSelectPrevious() ? 'false' : 'true'
+      )
     }
 
     render() {
@@ -67,6 +84,9 @@ export default function NavablePreviousNextHandler<
         false
       )
       this.#options.elNext.addEventListener('click', this.#nextFn, false)
+
+      this.#stateUpdateHandler()
+      this.on('yac:select:after', this.#stateUpdateHandler)
     }
 
     destroy() {
@@ -77,6 +97,7 @@ export default function NavablePreviousNextHandler<
         false
       )
       this.#options.elNext.removeEventListener('click', this.#nextFn, false)
+      this.off('yac:select:after', this.#stateUpdateHandler)
     }
   }
 
