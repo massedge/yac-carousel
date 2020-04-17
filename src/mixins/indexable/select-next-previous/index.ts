@@ -3,6 +3,6 @@ export {
   IndexableSelectNextPreviousMixinClass,
   IndexableSelectNextPreviousMixinOptions,
   IndexableSelectNextPreviousMixinInstance,
-} from './types'
+} from './types.d'
 
 export { default } from './mixin'
