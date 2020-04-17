@@ -1,18 +1,18 @@
 export type OrientationValue = 'horizontal' | 'vertical'
 // | 'horizontal-and-vertical'
 
-export interface MixinOptions {
+export interface OrientationableMixinOptions {
   orientation?: OrientationValue
 }
 
-export interface MixinClass {
-  new (options: MixinOptions): MixinInstance
+export interface OrientationableMixinClass {
+  new (options: OrientationableMixinOptions): OrientationableMixinInstance
 }
 
-export interface MixinInstance {
+export interface OrientationableMixinInstance {
   orientation: OrientationValue
 }
 
-export interface MixinBase {
+export interface OrientationableMixinBase {
   refresh(): void
 }

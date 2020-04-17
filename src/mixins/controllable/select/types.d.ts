@@ -3,7 +3,7 @@ import { ControllableNudgeMixinInstance } from '../nudge'
 import { IndexableCoreMixinInstance } from '../../indexable/core'
 import { ItemizableCoreMixinInstance } from '../../itemizable/core'
 import { ActivatableMixinInstance } from '../../activatable'
-import { MixinInstance as OrientationableMixinInstance } from '../../orientationable/types'
+import { OrientationableMixinInstance } from '../../orientationable'
 import Core from '../../../classes/core'
 
 export interface ControllableSelectMixinOptions {}

@@ -3,7 +3,7 @@ import {
   ControllableCoreMixinAction,
 } from '../core'
 import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
-import { MixinInstance as OrientationableMixinInstance } from '../../orientationable/types'
+import { OrientationableMixinInstance } from '../../orientationable'
 import Nudge from '../../../classes/nudge'
 
 export interface ControllableNudgeMixinOptions {}
