@@ -6,4 +6,4 @@ export {
   OrientationableMixinOptions,
 } from './types.d'
 
-export { default } from './mixins'
+export { default } from './mixin'
