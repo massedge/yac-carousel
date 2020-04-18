@@ -1,13 +1,13 @@
 import Nudge from '../../classes/nudge'
 import { MixinInstance as EventableInstance } from '../eventable/types'
 
-export interface MixinOptions {}
+export interface NudgeableMixinOptions {}
 
-export interface MixinClass {
-  new (options: MixinOptions): MixinInstance
+export interface NudgeableMixinClass {
+  new (options: NudgeableMixinOptions): NudgeableMixinInstance
 }
 
-export interface MixinInstance {
+export interface NudgeableMixinInstance {
   /**
    * @return Returns true if nudge resulted in shifting of items, false otherwise.
    */
@@ -17,30 +17,31 @@ export interface MixinInstance {
     settled?: boolean
   }) => void
   settle: (options?: { ease?: boolean }) => void
-  on: <K extends keyof MixinEventMap>(
+  on: <K extends keyof NudgeableMixinEventMap>(
     type: K,
-    listener: (ev: MixinEventMap[K]) => void
+    listener: (ev: NudgeableMixinEventMap[K]) => void
   ) => void
-  off: <K extends keyof MixinEventMap>(
+  off: <K extends keyof NudgeableMixinEventMap>(
     type: K,
-    listener: (ev: MixinEventMap[K]) => void
+    listener: (ev: NudgeableMixinEventMap[K]) => void
   ) => void
 }
 
-export interface NudgeEventDetail {
+interface NudgeEventDetail {
   readonly nudge: Nudge
   readonly settled: boolean
   readonly ease: boolean
 }
 
-export interface SettleEventDetail {
+interface SettleEventDetail {
   readonly ease: boolean
   readonly nudges: Nudge[]
 }
 
-export interface MixinEventMap {
+export interface NudgeableMixinEventMap {
   'yac:nudge': CustomEvent<NudgeEventDetail>
   'yac:settle': CustomEvent<SettleEventDetail>
 }
 
-export interface MixinBase extends Pick<EventableInstance, 'emitter'> {}
+export interface NudgeableMixinBase
+  extends Pick<EventableInstance, 'emitter'> {}

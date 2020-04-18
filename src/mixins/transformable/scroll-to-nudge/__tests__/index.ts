@@ -1,6 +1,8 @@
 import Core from '../../../../classes/core'
-import NudgeableMixin from '../../../nudgeable'
-import { MixinEventMap as NudgeableMixinEvenMap } from '../../../nudgeable/types'
+import {
+  default as NudgeableMixin,
+  NudgeableMixinEventMap,
+} from '../../../nudgeable'
 import EventableMixin from '../../../eventable/element'
 import ElementableMixin from '../../../elementable/core'
 import ScrollToNudgeTransformableMixin from '..'
@@ -12,7 +14,7 @@ test('transformable scroll-to-nudge mixin', () => {
 
   const element = document.createElement('div')
   const instance = new Cls({ element })
-  const nudgeCallback = jest.fn((e: NudgeableMixinEvenMap['yac:nudge']) => {
+  const nudgeCallback = jest.fn((e: NudgeableMixinEventMap['yac:nudge']) => {
     return {
       x: e.detail.nudge.x,
       y: e.detail.nudge.y,

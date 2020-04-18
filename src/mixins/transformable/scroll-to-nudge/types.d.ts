@@ -1,6 +1,6 @@
 import Core from '../../../classes/core'
 import { ElementableInstance } from '../../elementable/core'
-import { MixinInstance as NudgeableInstance } from '../../nudgeable/types'
+import { NudgeableMixinInstance } from '../../nudgeable'
 
 interface MixinOptions {}
 
@@ -13,6 +13,6 @@ interface MixinInstance {}
 interface MixinBase
   extends Core,
     Pick<ElementableInstance, 'element'>,
-    Pick<NudgeableInstance, 'nudge' | 'settle'> {}
+    Pick<NudgeableMixinInstance, 'nudge' | 'settle'> {}
 
 export { MixinOptions, MixinClass, MixinInstance, MixinBase }
