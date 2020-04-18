@@ -30,9 +30,6 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
       return this.emitter.off.call(this, type, listener)
     }
 
-    /**
-     * @return returns true if nudge resulted in shifting of items, false otherwise.
-     */
     nudge(
       {
         nudge = new Nudge(),
@@ -54,6 +51,7 @@ export default function Nudgeable<T extends new (o: any) => MixinBase>(
         detail: {
           nudge,
           ease,
+          settled,
         },
       })
       this.emitter.emit(event)

@@ -8,6 +8,9 @@ export interface MixinClass {
 }
 
 export interface MixinInstance {
+  /**
+   * @return Returns true if nudge resulted in shifting of items, false otherwise.
+   */
   nudge: (options?: {
     nudge?: Nudge
     ease?: boolean
@@ -26,6 +29,7 @@ export interface MixinInstance {
 
 export interface NudgeEventDetail {
   readonly nudge: Nudge
+  readonly settled: boolean
   readonly ease: boolean
 }
 
