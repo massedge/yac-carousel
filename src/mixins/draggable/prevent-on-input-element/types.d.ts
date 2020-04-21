@@ -1,4 +1,4 @@
-import { DraggableEventMap, DRAGGING_START_EVENT } from '../types'
+import { DraggableCoreMixinInstance } from '../core'
 
 export interface MixinOptions {}
 
@@ -8,15 +8,8 @@ export interface MixinClass {
 
 export interface MixinInstance {}
 
-export interface MixinBase {
+export interface MixinBase
+  extends Pick<DraggableCoreMixinInstance, 'on' | 'off'> {
   render(): void
   destroy(): void
-  on: (
-    type: typeof DRAGGING_START_EVENT,
-    listener: (ev: DraggableEventMap[typeof DRAGGING_START_EVENT]) => void
-  ) => void
-  off: (
-    type: typeof DRAGGING_START_EVENT,
-    listener: (ev: DraggableEventMap[typeof DRAGGING_START_EVENT]) => void
-  ) => void
 }

@@ -1,7 +1,7 @@
 import { ComposeConstructor } from '../../types'
 import { NudgeableMixinInstance } from '../nudgeable'
 import { ElementableInstance } from '../elementable/core'
-import { DraggableCoreInstance } from './core'
+import { DraggableCoreMixinInstance } from './core'
 import Nudge from '../../classes/nudge'
 
 export interface DraggableTouchOptions {}
@@ -18,7 +18,7 @@ export interface DraggableTouchInstance {
 export interface DraggableTouchBase
   extends Pick<ElementableInstance, 'element'>,
     Pick<NudgeableMixinInstance, 'nudge' | 'settle'>,
-    Pick<DraggableCoreInstance, '_dragging' | '_preventDragging'> {
+    Pick<DraggableCoreMixinInstance, '_dragging' | '_preventDragging'> {
   render(): void
   destroy(): void
 }

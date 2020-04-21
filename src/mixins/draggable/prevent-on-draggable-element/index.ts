@@ -1,5 +1,5 @@
 import { ComposeConstructor } from '../../../types'
-import { DRAGGING_START_EVENT, DraggingStartEventDetail } from '../types'
+import { DraggableCoreMixinEventMap } from '../core'
 import { MixinBase, MixinInstance, MixinClass, MixinOptions } from './types'
 
 export default function DraggablePreventOnDraggableElement<
@@ -7,7 +7,7 @@ export default function DraggablePreventOnDraggableElement<
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
-    #handler: (e: CustomEvent<DraggingStartEventDetail>) => void
+    #handler: (e: DraggableCoreMixinEventMap['yac:dragging:start']) => void
 
     constructor(options: MixinOptions) {
       super(options)
@@ -43,11 +43,11 @@ export default function DraggablePreventOnDraggableElement<
 
     render() {
       super.render()
-      this.on(DRAGGING_START_EVENT, this.#handler)
+      this.on('yac:dragging:start', this.#handler)
     }
 
     destroy() {
-      this.off(DRAGGING_START_EVENT, this.#handler)
+      this.off('yac:dragging:start', this.#handler)
       super.destroy()
     }
   }
