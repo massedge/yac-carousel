@@ -1,23 +1,23 @@
 import { ComposeConstructor } from '../../../types'
 import { DraggableCoreMixinEventMap } from '../core'
 import {
-  DraggablePreventOnInputElementMixinBase,
-  DraggablePreventOnInputElementMixinInstance,
-  DraggablePreventOnInputElementMixinClass,
-  DraggablePreventOnInputElementMixinOptions,
+  DraggablePreventOnEditableElementContentMixinBase,
+  DraggablePreventOnEditableElementContentMixinInstance,
+  DraggablePreventOnEditableElementContentMixinClass,
+  DraggablePreventOnEditableElementContentMixinOptions,
 } from './types'
 
-export default function DraggablePreventOnInputElementMixin<
-  T extends new (o: any) => DraggablePreventOnInputElementMixinBase
+export default function DraggablePreventOnEditableElementContentMixin<
+  T extends new (o: any) => DraggablePreventOnEditableElementContentMixinBase
 >(Base: T) {
   class Mixin
     extends (Base as new (
-      options: DraggablePreventOnInputElementMixinOptions
-    ) => DraggablePreventOnInputElementMixinBase)
-    implements DraggablePreventOnInputElementMixinInstance {
+      options: DraggablePreventOnEditableElementContentMixinOptions
+    ) => DraggablePreventOnEditableElementContentMixinBase)
+    implements DraggablePreventOnEditableElementContentMixinInstance {
     #handler: (e: DraggableCoreMixinEventMap['yac:dragging:start']) => void
 
-    constructor(options: DraggablePreventOnInputElementMixinOptions) {
+    constructor(options: DraggablePreventOnEditableElementContentMixinOptions) {
       super(options)
       this.#handler = (e) => {
         const target = e.detail.originalEvent.target
@@ -46,7 +46,7 @@ export default function DraggablePreventOnInputElementMixin<
   }
 
   return (Mixin as unknown) as ComposeConstructor<
-    DraggablePreventOnInputElementMixinClass,
+    DraggablePreventOnEditableElementContentMixinClass,
     typeof Base
   >
 }
