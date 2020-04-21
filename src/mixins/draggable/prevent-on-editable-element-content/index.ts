@@ -3,6 +3,6 @@ export {
   DraggablePreventOnEditableElementContentMixinClass,
   DraggablePreventOnEditableElementContentMixinInstance,
   DraggablePreventOnEditableElementContentMixinOptions,
-} from './types'
+} from './types.d'
 
 export { default } from './mixin'
