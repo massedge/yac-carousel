@@ -23,7 +23,12 @@ export default function DraggablePreventOnInputElementMixin<
         const target = e.detail.originalEvent.target
         if (!(target instanceof HTMLElement)) return
 
-        if (['INPUT', 'SELECT', 'TEXTAREA'].indexOf(target.nodeName) > -1) {
+        if (
+          // allow selection within input fields
+          ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(target.nodeName) > -1 ||
+          // allow selection within editable nodes
+          target.isContentEditable
+        ) {
           e.preventDefault()
         }
       }
