@@ -1,40 +1,27 @@
-import { ComposeConstructor } from '../../types'
-import { NudgeableMixinInstance } from '../nudgeable'
-import { ElementableInstance } from '../elementable/core'
-import { DraggableCoreMixinInstance } from './core'
-import Nudge from '../../classes/nudge'
+import { ComposeConstructor } from '../../../types'
+import Nudge from '../../../classes/nudge'
 
-export interface DraggableMouseOptions {}
+import {
+  DraggableMouseMixinBase,
+  DraggableMouseMixinClass,
+  DraggableMouseMixinInstance,
+  DraggableMouseMixinOptions,
+} from './types'
 
-export interface DraggableMouse {
-  new (options: DraggableMouseOptions): DraggableMouseInstance
-}
-
-export interface DraggableMouseInstance {
-  render: () => void
-  destroy: () => void
-}
-
-export interface DraggableMouseBase
-  extends Pick<ElementableInstance, 'element'>,
-    Pick<NudgeableMixinInstance, 'nudge' | 'settle'>,
-    Pick<DraggableCoreMixinInstance, '_dragging' | '_preventDragging'> {
-  render(): void
-  destroy(): void
-}
-
-export default function DraggableMouse<
-  T extends new (o: any) => DraggableMouseBase
+export default function DraggableMouseMixin<
+  T extends new (o: any) => DraggableMouseMixinBase
 >(Base: T) {
   class Mixin
-    extends (Base as new (options: DraggableMouseOptions) => DraggableMouseBase)
-    implements DraggableMouseInstance {
+    extends (Base as new (
+      options: DraggableMouseMixinOptions
+    ) => DraggableMouseMixinBase)
+    implements DraggableMouseMixinInstance {
     #mouseDownFn: (e: MouseEvent) => void
     #mouseMoveFn: (e: MouseEvent) => void
     #mouseUpFn: (e: MouseEvent) => void
     #mouseLastCoordinate: { x: number; y: number } = { x: 0, y: 0 }
 
-    constructor(options: DraggableMouseOptions) {
+    constructor(options: DraggableMouseMixinOptions) {
       super(options)
 
       this.#mouseDownFn = this.mouseDown.bind(this)
@@ -123,5 +110,8 @@ export default function DraggableMouse<
     }
   }
 
-  return (Mixin as unknown) as ComposeConstructor<DraggableMouse, typeof Base>
+  return (Mixin as unknown) as ComposeConstructor<
+    DraggableMouseMixinClass,
+    typeof Base
+  >
 }
