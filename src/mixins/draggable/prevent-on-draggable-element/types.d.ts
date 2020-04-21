@@ -1,14 +1,16 @@
 import { DraggableCoreMixinInstance } from '../core'
 
-export interface MixinOptions {}
+export interface DraggablePreventOnDraggableElementMixinOptions {}
 
-export interface MixinClass {
-  new (options: MixinOptions): MixinInstance
+export interface DraggablePreventOnDraggableElementMixinClass {
+  new (
+    options: DraggablePreventOnDraggableElementMixinOptions
+  ): DraggablePreventOnDraggableElementMixinInstance
 }
 
-export interface MixinInstance {}
+export interface DraggablePreventOnDraggableElementMixinInstance {}
 
-export interface MixinBase
+export interface DraggablePreventOnDraggableElementMixinBase
   extends Pick<DraggableCoreMixinInstance, 'on' | 'off'> {
   render(): void
   destroy(): void
