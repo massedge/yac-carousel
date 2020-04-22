@@ -1,4 +1,4 @@
-import _debounce from 'lodash/debounce'
+import _debounce from 'lodash-es/debounce'
 
 import { ComposeConstructor } from '../../types'
 

@@ -52,7 +52,7 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
     "@types/jest": "^25.1.4",
-    "@types/lodash": "^4.14.149",
+    "@types/lodash-es": "^4.17.3",
     "@types/node": "^13.9.5",
     "@types/webpack-bundle-analyzer": "^2.13.3",
     "babel-loader": "^8.1.0",
@@ -77,7 +77,7 @@
   },
   "dependencies": {
     "aria-tablist": "^1.2.0",
-    "lodash": "lodash/lodash#588bf3e",
+    "lodash-es": "^4.17.15",
     "mitt": "^1.2.0"
   }
 }
