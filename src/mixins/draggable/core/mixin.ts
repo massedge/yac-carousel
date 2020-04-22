@@ -41,9 +41,7 @@ export default function DraggableCoreMixin<
       return this.emitter.off.call(this, type, listener)
     }
 
-    _preventDragging(
-      originalEvent: MouseEvent | PointerEvent | TouchEvent
-    ): boolean {
+    _preventDragging(originalEvent: UIEvent): boolean {
       const ev: DraggableCoreMixinEventMap['yac:dragging:start'] = new CustomEvent(
         'yac:dragging:start',
         {

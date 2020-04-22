@@ -8,7 +8,7 @@ export interface DraggableCoreMixinClass {
 
 export interface DraggableCoreMixinInstance {
   _dragging: boolean
-  _preventDragging(e: MouseEvent | PointerEvent | TouchEvent): boolean
+  _preventDragging(e: UIEvent): boolean
   on: <K extends keyof DraggableCoreMixinEventMap>(
     type: K,
     listener: (ev: DraggableCoreMixinEventMap[K]) => void
@@ -27,5 +27,5 @@ export interface DraggableCoreMixinEventMap {
 }
 
 interface DraggableCoreMixinDraggingStartEventDetail {
-  originalEvent: MouseEvent | TouchEvent
+  originalEvent: UIEvent
 }
