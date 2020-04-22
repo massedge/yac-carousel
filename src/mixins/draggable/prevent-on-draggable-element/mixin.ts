@@ -19,34 +19,42 @@ export default function DraggablePreventOnDraggableElementMixin<
 
     constructor(options: DraggablePreventOnDraggableElementMixinOptions) {
       super(options)
-      this.#handler = (e) => {
-        const originalEvent = e.detail.originalEvent
-        const target = originalEvent.target
-        if (!(target instanceof HTMLElement)) return
+      this.#handler = (e) => this.__draggablePreventOnDraggableElement(e)
+    }
 
-        // only applies to mousedown
-        if (originalEvent.type !== 'mousedown') return
+    private __draggablePreventOnDraggableElement(
+      e: DraggableCoreMixinEventMap['yac:dragging:start']
+    ) {
+      const originalEvent = e.detail.originalEvent
+      const target = originalEvent.target
+      if (!(target instanceof HTMLElement)) return
 
-        // traverse through target and its parents to check if any of them are draggable
-        let el: HTMLElement = target
-        do {
-          // prevent dragging from starting, since the target element itself is meant to be dragged
-          if (el.draggable) {
-            e.preventDefault()
-            break
-          }
+      // only applies to mousedown
+      if (originalEvent.type !== 'mousedown') return
 
-          // no need to traverse beyond container element
-          if (el === this.element) break
+      // traverse through target and its parents to check if any of them are draggable
+      let el: HTMLElement = target
+      let isDraggable = false
+      do {
+        // the target element itself is meant to be dragged
+        if (el.draggable) {
+          isDraggable = true
+          break
+        }
 
-          // go to parent
-          if (el.parentNode) {
-            el = el.parentNode as HTMLElement
-          } else {
-            break
-          }
-        } while (true)
-      }
+        // no need to traverse beyond container element
+        if (el === this.element) break
+
+        // go to parent
+        if (el.parentNode) {
+          el = el.parentNode as HTMLElement
+        } else {
+          break
+        }
+      } while (true)
+
+      // prevent dragging
+      if (isDraggable) e.preventDefault()
     }
 
     render() {
