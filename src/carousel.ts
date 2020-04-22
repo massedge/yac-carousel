@@ -20,7 +20,7 @@ import {
   DraggableCoreMixin,
   DraggableMouseMixin,
   DraggableTouchMixin,
-  DraggablePreventOnDraggableElementMixin,
+  DraggableDisableNativeDraggableBehavior,
   DraggablePreventOnEditableElementContentMixin,
   ElementableCoreMixin,
   ElementableFocusMixin,
@@ -69,7 +69,7 @@ const Carousel = ControllableLoopMixin(
                   AutoplayableMixin(
                     VisibleContainerElementMixin(
                       WheelableMixin(
-                        DraggablePreventOnDraggableElementMixin(
+                        DraggableDisableNativeDraggableBehavior(
                           DraggablePreventOnEditableElementContentMixin(
                             DraggableTouchMixin(
                               DraggableMouseMixin(

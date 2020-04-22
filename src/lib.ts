@@ -16,6 +16,7 @@ export { default as DirectionableElementMixin } from './mixins/directionable/ele
 export { default as DraggableCoreMixin } from './mixins/draggable/core'
 export { default as DraggableMouseMixin } from './mixins/draggable/mouse'
 export { default as DraggableTouchMixin } from './mixins/draggable/touch'
+export { default as DraggableDisableNativeDraggableBehavior } from './mixins/draggable/disable-native-draggable-behavior'
 export { default as DraggablePreventOnDraggableElementMixin } from './mixins/draggable/prevent-on-draggable-element'
 export { default as DraggablePreventOnEditableElementContentMixin } from './mixins/draggable/prevent-on-editable-element-content'
 export { default as ElementableCoreMixin } from './mixins/elementable/core'
