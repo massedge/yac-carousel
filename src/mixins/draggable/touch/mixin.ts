@@ -53,9 +53,6 @@ export default function DraggableTouchMixin<
         nudge: new Nudge(),
         settled: false,
       })
-
-      // SAFARI - prevent scrolling the screen while dragging is active
-      e.preventDefault()
     }
 
     private touchMove(e: TouchEvent) {
