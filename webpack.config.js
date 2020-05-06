@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
     devtool: "source-map",
     module: {
       rules: [{
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: {
           loader: 'babel-loader',
         },
@@ -44,7 +44,7 @@ module.exports = (env, argv) => {
       }]
     },
     resolve: {
-      extensions: ['.ts', '.wasm', '.mjs', '.js', '.json']
+      extensions: ['.tsx', '.ts', '.wasm', '.mjs', '.js', '.json']
     },
     plugins: plugins,
     output: {
