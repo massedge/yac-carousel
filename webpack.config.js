@@ -14,6 +14,11 @@ module.exports = (env, argv) => {
       title: 'Development',
       template: 'test/page/index.html',
     }))
+    plugins.push(new HtmlWebpackPlugin({
+      title: 'Development',
+      filename: 'react.html',
+      template: 'test/react/index.html',
+    }))
   }
   
   if (!PRODUCTION) {
@@ -29,7 +34,10 @@ module.exports = (env, argv) => {
   }
   
   return {
-    entry: (!PRODUCTION) ? path.resolve(__dirname, 'test/page/index.ts') : path.resolve(__dirname, 'src/index.ts'),
+    entry: (!PRODUCTION) ? [
+      path.resolve(__dirname, 'test/page/index.ts'),
+      path.resolve(__dirname, 'test/react/index.tsx'),
+    ] : path.resolve(__dirname, 'src/index.ts'),
     devtool: "source-map",
     module: {
       rules: [{
