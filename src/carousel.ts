@@ -35,6 +35,7 @@ import {
   NudgeableMixin,
   RefreshableWindowResizeMixin,
   OrientationableMixin,
+  OrientationableTouchActionMixin,
   TransformablePreventScrollMixin,
   VisibleContainerElementMixin,
   VisibleItemElementMixin,
@@ -80,22 +81,24 @@ const Carousel = ControllableLoopMixin(
                                         AlignableCoreMixin(
                                           DirectionableElementMixin(
                                             DirectionableCoreMixin(
-                                              OrientationableMixin(
-                                                ItemizableAutoRenderMixin(
-                                                  ItemizableElementCoreMixin(
-                                                    ItemizableCoreMixin(
-                                                      BoxModelableMixin(
-                                                        NudgeableMixin(
-                                                          EventableElementMixin(
-                                                            ElementableCoreMixin(
-                                                              Core
+                                              OrientationableTouchActionMixin(
+                                                OrientationableMixin(
+                                                  ItemizableAutoRenderMixin(
+                                                    ItemizableElementCoreMixin(
+                                                      ItemizableCoreMixin(
+                                                        BoxModelableMixin(
+                                                          NudgeableMixin(
+                                                            EventableElementMixin(
+                                                              ElementableCoreMixin(
+                                                                Core
+                                                              )
                                                             )
                                                           )
-                                                        )
+                                                        ),
+                                                        CarouselItem
                                                       ),
                                                       CarouselItem
-                                                    ),
-                                                    CarouselItem
+                                                    )
                                                   )
                                                 )
                                               )

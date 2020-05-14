@@ -39,6 +39,7 @@ export { default as NavablePreviousNextButtonMixin } from './mixins/navable/prev
 export { default as NavablePreviousNextHandlerMixin } from './mixins/navable/previous-next/handler'
 export { default as NudgeableMixin } from './mixins/nudgeable'
 export { default as OrientationableMixin } from './mixins/orientationable'
+export { default as OrientationableTouchActionMixin } from './mixins/orientationable/touch-action'
 export { default as RefreshableImageLoadMixin } from './mixins/refreshable/image-load'
 export { default as RefreshableWindowResizeMixin } from './mixins/refreshable/window-resize'
 export { default as TransformablePreventScrollMixin } from './mixins/transformable/prevent-scroll'
