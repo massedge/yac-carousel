@@ -13,11 +13,13 @@ module.exports = (env, argv) => {
     plugins.push(new HtmlWebpackPlugin({
       title: 'Development',
       template: 'test/page/index.html',
+      chunks: ['vanilla-main'],
     }))
     plugins.push(new HtmlWebpackPlugin({
       title: 'Development',
       filename: 'react.html',
       template: 'test/react/index.html',
+      chunks: ['react-main'],
     }))
   }
   
@@ -34,10 +36,10 @@ module.exports = (env, argv) => {
   }
   
   return {
-    entry: (!PRODUCTION) ? [
-      path.resolve(__dirname, 'test/page/index.ts'),
-      path.resolve(__dirname, 'test/react/index.tsx'),
-    ] : path.resolve(__dirname, 'src/index.ts'),
+    entry: (!PRODUCTION) ? {
+      'vanilla-main': path.resolve(__dirname, 'test/page/index.ts'),
+      'react-main': path.resolve(__dirname, 'test/react/index.tsx'),
+    } : path.resolve(__dirname, 'src/index.ts'),
     devtool: "source-map",
     module: {
       rules: [{
