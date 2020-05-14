@@ -1,4 +1,4 @@
-dist/test/
+dist/develop-pages/
 dist/report.html
 node_modules/
 src/
