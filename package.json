@@ -42,9 +42,11 @@
     "dtslint/typescript": "^3.8.3"
   },
   "files": [
-    "dist/**/*",
-    "package.json",
-    "README.md"
+    "/dist/src/**/*",
+    "/dist/main.min.js",
+    "/dist/main.min.js.map",
+    "/package.json",
+    "/README.md"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.6",
