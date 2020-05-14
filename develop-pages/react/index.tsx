@@ -1,4 +1,5 @@
 import 'normalize.css'
+import './index.css'
 
 // IE 11 polyfills
 import 'intersection-observer'

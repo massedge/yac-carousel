@@ -18,9 +18,14 @@ module.exports = (env, argv) => {
       chunks: ['index-main'],
     }))
     plugins.push(new HtmlWebpackPlugin({
-      filename: 'page/index.html',
-      template: `${DEVELOP_PAGES_DIR}/page/index.html`,
-      chunks: ['page-main'],
+      filename: 'horizontal/index.html',
+      template: `${DEVELOP_PAGES_DIR}/horizontal/index.html`,
+      chunks: ['horizontal-main'],
+    }))
+    plugins.push(new HtmlWebpackPlugin({
+      filename: 'vertical/index.html',
+      template: `${DEVELOP_PAGES_DIR}/vertical/index.html`,
+      chunks: ['vertical-main'],
     }))
     plugins.push(new HtmlWebpackPlugin({
       filename: 'react/index.html',
@@ -52,7 +57,8 @@ module.exports = (env, argv) => {
   return {
     entry: (!PRODUCTION) ? {
       'index-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/index.ts`),
-      'page-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/page/index.ts`),
+      'horizontal-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/horizontal/index.ts`),
+      'vertical-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/vertical/index.ts`),
       'react-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/react/index.tsx`),
     } : path.resolve(__dirname, 'src/index.ts'),
     devtool: "source-map",

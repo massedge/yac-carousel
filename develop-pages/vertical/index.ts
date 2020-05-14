@@ -1,4 +1,5 @@
 import 'normalize.css'
+import './index.css'
 
 // IE 11 polyfills
 import 'intersection-observer'
@@ -7,31 +8,12 @@ import 'custom-event-polyfill'
 // IE 10 polyfills
 import 'core-js/stable/weak-map'
 
-import {
-  YacCarousel,
-  NavablePreviousNextButtonMixin,
-  NavablePreviousNextHandlerMixin,
-} from '../../src'
+import { YacCarousel, NavablePreviousNextHandlerMixin } from '../../src'
 
-const elHorizontal = document.querySelector<HTMLElement>('.carousel.flex')
-if (!elHorizontal) throw Error('Horizontal carousel element not found.')
-
-const c = new (NavablePreviousNextButtonMixin(YacCarousel))({
-  element: elHorizontal,
-  previousText: 'Previous',
-  nextText: 'Next',
-  // autoplay: {
-  //   enabled: true
-  // },
-  items: elHorizontal.children,
-  loop: true,
-})
-c.render()
-
-const elVertical = document.querySelector<HTMLElement>(
+const elContainer = document.querySelector<HTMLElement>(
   '.carousel.flex.vertical'
 )
-if (!elVertical) throw Error('Vertical carousel element not found.')
+if (!elContainer) throw Error('Vertical carousel element not found.')
 
 const elPrevious = document.querySelector<HTMLElement>('.vertical-previous')
 if (!elPrevious || !(elPrevious instanceof HTMLButtonElement)) {
@@ -43,10 +25,10 @@ if (!elNext || !(elNext instanceof HTMLButtonElement)) {
 }
 
 const cVertical = new (NavablePreviousNextHandlerMixin(YacCarousel))({
-  element: elVertical,
+  element: elContainer,
   orientation: 'vertical',
   elPrevious,
   elNext,
-  items: elVertical.childNodes,
+  items: elContainer.childNodes,
 })
 cVertical.render()
