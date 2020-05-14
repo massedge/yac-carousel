@@ -2,24 +2,38 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
   const PRODUCTION = argv.mode === 'production';
+  const DEVELOP_PAGES_DIR = path.resolve(__dirname, 'develop-pages')
 
   // plugins
   const plugins = [];
   
   if (!PRODUCTION) {
     plugins.push(new HtmlWebpackPlugin({
-      title: 'Development',
-      template: 'test/page/index.html',
-      chunks: ['vanilla-main'],
+      filename: 'index.html',
+      template: `${DEVELOP_PAGES_DIR}/index.html`,
+      chunks: ['index-main'],
     }))
     plugins.push(new HtmlWebpackPlugin({
-      title: 'Development',
-      filename: 'react.html',
-      template: 'test/react/index.html',
+      filename: 'page/index.html',
+      template: `${DEVELOP_PAGES_DIR}/page/index.html`,
+      chunks: ['page-main'],
+    }))
+    plugins.push(new HtmlWebpackPlugin({
+      filename: 'react/index.html',
+      template: `${DEVELOP_PAGES_DIR}/react/index.html`,
       chunks: ['react-main'],
+    }))
+
+    plugins.push(new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
     }))
   }
   
@@ -37,8 +51,9 @@ module.exports = (env, argv) => {
   
   return {
     entry: (!PRODUCTION) ? {
-      'vanilla-main': path.resolve(__dirname, 'test/page/index.ts'),
-      'react-main': path.resolve(__dirname, 'test/react/index.tsx'),
+      'index-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/index.ts`),
+      'page-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/page/index.ts`),
+      'react-main': path.resolve(__dirname, `${DEVELOP_PAGES_DIR}/react/index.tsx`),
     } : path.resolve(__dirname, 'src/index.ts'),
     devtool: "source-map",
     module: {
@@ -49,7 +64,17 @@ module.exports = (env, argv) => {
         },
         include: [
           path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'test'),
+          DEVELOP_PAGES_DIR,
+        ]
+      }, {
+        test: /\.css$/,
+        use: [{
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: !PRODUCTION
+            },
+          },
+          "css-loader",
         ]
       }]
     },
@@ -73,7 +98,7 @@ module.exports = (env, argv) => {
       },
       before: (app, server) => {
         // @see https://github.com/webpack/webpack-dev-server/issues/1271#issuecomment-379792541
-        server._watch(`test/*/**.html`);
+        server._watch(`develop-pages/*/**.html`);
       } 
     }
   }

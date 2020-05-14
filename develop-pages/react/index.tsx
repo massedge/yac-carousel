@@ -1,3 +1,5 @@
+import 'normalize.css'
+
 // IE 11 polyfills
 import 'intersection-observer'
 import 'custom-event-polyfill'
