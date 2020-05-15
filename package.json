@@ -9,7 +9,7 @@
     }
   ],
   "license": "UNLICENSED",
-  "main": "dist/main.min.js",
+  "main": "dist/yac-carousel.umd.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

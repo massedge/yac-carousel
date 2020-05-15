@@ -4,7 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
   return {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: {
+      'yac-carousel': path.resolve(__dirname, 'src/index.ts')
+    },
     devtool: "source-map",
     module: {
       rules: [{
@@ -36,7 +38,7 @@ module.exports = (env, argv) => {
     output: {
       library: 'YacCarousel',
       libraryTarget: 'umd',
-      filename: '[name].min.js',
+      filename: '[name].umd.js',
       path: path.resolve(__dirname, 'dist')
     },
   }
