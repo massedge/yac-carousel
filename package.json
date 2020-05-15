@@ -17,7 +17,7 @@
     "develop": "webpack-dev-server --mode development --open",
     "build": "npm run clean && npm run typescript-build && npm run webpack-build",
     "prepublishOnly": "npm run build",
-    "webpack-build": "webpack --mode production --display-modules",
+    "webpack-build": "webpack --config webpack.config.build.js --mode production --display-modules",
     "format": "prettier --write \"src/**/*.ts\" \"develop-pages/**/*.ts\"",
     "test": "jest",
     "test-watch": "jest --watch",
@@ -42,9 +42,8 @@
     "dtslint/typescript": "^3.8.3"
   },
   "files": [
-    "/dist/src/**/*",
-    "/dist/main.min.js",
-    "/dist/main.min.js.map",
+    "/dist/**/*",
+    "!/dist/report.html",
     "/package.json",
     "/README.md"
   ],
