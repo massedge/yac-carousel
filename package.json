@@ -70,6 +70,7 @@
     "jest": "^26.0.1",
     "lint-staged": "^10.2.2",
     "mini-css-extract-plugin": "^0.9.0",
+    "mitt": "^1.2",
     "normalize.css": "^8.0.1",
     "prettier": "^2.0.5",
     "react": "^16.0",
@@ -86,10 +87,10 @@
   },
   "dependencies": {
     "aria-tablist": "^1.2.0",
-    "lodash-es": "^4.17.15",
-    "mitt": "^1.2.0"
+    "lodash-es": "^4.17.15"
   },
-  "peerDependencies": {
+  "optionalDependencies": {
+    "mitt": "^1.2",
     "react": "^16.0"
   }
 }
