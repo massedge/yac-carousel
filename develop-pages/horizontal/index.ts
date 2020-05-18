@@ -28,3 +28,10 @@ const c = new (NavablePreviousNextButtonMixin(YacCarousel))({
   loop: true,
 })
 c.render()
+
+// add active class to active element
+c.items[c.index].element.classList.add('active')
+c.on('yac:select:after', (e) => {
+  c.items[e.detail.fromIndex].element.classList.remove('active')
+  c.items[e.detail.toIndex].element.classList.add('active')
+})

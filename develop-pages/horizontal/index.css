@@ -16,7 +16,14 @@
   margin: 10px;
   background-color: #ddd;
 }
+.item.active {
+  border: 1px solid red;
+}
 
 button[aria-disabled="true"] {
   opacity: 0.5;
+}
+
+*:focus {
+  outline: 2px solid lightgreen !important;
 }
