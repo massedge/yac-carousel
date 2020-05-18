@@ -24,7 +24,6 @@ import {
   DraggablePreventOnEditableElementContentMixin,
   ElementableCoreMixin,
   ElementableFocusMixin,
-  ElementableFocusIEWorkaroundMixin,
   EventableElementMixin,
   FocusableMixin,
   IndexableCoreMixin,
@@ -45,14 +44,12 @@ import {
 
 export const CarouselItem = BoxModelableMixin(
   ElementableFocusMixin(
-    ElementableFocusIEWorkaroundMixin(
-      FocusableMixin(
-        ActivatableMixin(
-          VisibleItemElementMixin(
-            CssTransformableTranslateMixin(
-              CssTransitionableMixin(
-                EventableElementMixin(ElementableCoreMixin(Core))
-              )
+    FocusableMixin(
+      ActivatableMixin(
+        VisibleItemElementMixin(
+          CssTransformableTranslateMixin(
+            CssTransitionableMixin(
+              EventableElementMixin(ElementableCoreMixin(Core))
             )
           )
         )

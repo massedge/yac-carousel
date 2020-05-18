@@ -21,7 +21,6 @@ export { default as DraggablePreventOnDraggableElementMixin } from './mixins/dra
 export { default as DraggablePreventOnEditableElementContentMixin } from './mixins/draggable/prevent-on-editable-element-content'
 export { default as ElementableCoreMixin } from './mixins/elementable/core'
 export { default as ElementableFocusMixin } from './mixins/elementable/focus'
-export { default as ElementableFocusIEWorkaroundMixin } from './mixins/elementable/focus-ie-workaround'
 export { default as EventableElementMixin } from './mixins/eventable/element'
 export { default as FocusableMixin } from './mixins/focusable'
 export { default as IndexableCoreMixin } from './mixins/indexable/core'

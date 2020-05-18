@@ -1,4 +1,5 @@
 import { ComposeConstructor } from '../../../types'
+import getFocusableElement from '../../../utils/get-focusable-element'
 
 import {
   ElementableFocusIEWorkaroundMixinBase,
@@ -49,12 +50,7 @@ export default function ElementableFocusIEWorkaroundMixin<
         if (!(e.target instanceof HTMLElement)) return
 
         // prevent focus on unfocusable element
-        if (
-          !e.target.msMatchesSelector(focusableCandidateSelector) ||
-          e.target.disabled
-        ) {
-          e.preventDefault()
-        }
+        if (getFocusableElement(e.target)) e.preventDefault()
       }
     }
 
@@ -78,22 +74,6 @@ export default function ElementableFocusIEWorkaroundMixin<
     typeof Base
   >
 }
-
-// Based on tabbable library @see https://github.com/davidtheclark/tabbable/
-// @see https://github.com/davidtheclark/tabbable/blob/4f88b5b0c0b3a6d2372a4f45bbffea368ec92060/src/index.js#L1-L11
-// @see https://github.com/davidtheclark/tabbable/blob/4f88b5b0c0b3a6d2372a4f45bbffea368ec92060/src/index.js#L96
-const focusableCandidateSelector = [
-  'input',
-  'select',
-  'textarea',
-  'a[href]',
-  'button',
-  '[tabindex]',
-  'audio[controls]',
-  'video[controls]',
-  '[contenteditable]:not([contenteditable="false"])',
-  'iframe',
-].join(',')
 
 const isIE = () => {
   return !!window.document.documentMode
