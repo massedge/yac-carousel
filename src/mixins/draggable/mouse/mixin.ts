@@ -22,14 +22,13 @@ export default function DraggableMouseMixin<
     #mouseUpFn: (e: MouseEvent) => void
     #preventMouseClickFn: (e: MouseEvent) => void
     #mouseLastCoordinate: { x: number; y: number } = { x: 0, y: 0 }
+    #draggingThresholdPassed: boolean = false
 
     #mouseDownInfo: {
-      timeStamp: number
       x: number
       y: number
       target: HTMLElement | null
     } = {
-      timeStamp: 0,
       x: 0,
       y: 0,
       target: null,
@@ -70,7 +69,6 @@ export default function DraggableMouseMixin<
       })
 
       this.#mouseDownInfo = {
-        timeStamp: e.timeStamp,
         x: this.#mouseLastCoordinate.x,
         y: this.#mouseLastCoordinate.y,
         target: e.target instanceof HTMLElement ? e.target : null,
@@ -79,6 +77,9 @@ export default function DraggableMouseMixin<
 
       // prevent focus event, will be triggered manually later
       e.preventDefault()
+
+      // keep track if threshold passed
+      this.#draggingThresholdPassed = false
     }
 
     private mouseMove(e: MouseEvent) {
@@ -92,6 +93,15 @@ export default function DraggableMouseMixin<
         settled: false,
       })
 
+      // check if dragging threshold passed
+      if (
+        !this.#draggingThresholdPassed &&
+        (Math.abs(coordinate.x - this.#mouseDownInfo.x) >= 5 ||
+          Math.abs(coordinate.y - this.#mouseDownInfo.y) >= 5)
+      ) {
+        this.#draggingThresholdPassed = true
+      }
+
       this.#mouseLastCoordinate = coordinate
     }
 
@@ -102,15 +112,8 @@ export default function DraggableMouseMixin<
 
       this._dragging = false
 
-      // determine whether the user has attempted dragging by
-      // 1. checking how long mouse was down
-      // 2. distance travelled from starting point
-      const coord = this.getMouseEventCoordinate(e)
-      if (
-        e.timeStamp - this.#mouseDownInfo.timeStamp > 200 ||
-        Math.abs(coord.x - this.#mouseDownInfo.x) >= 5 ||
-        Math.abs(coord.y - this.#mouseDownInfo.y) >= 5
-      ) {
+      // determine whether the user has attempted dragging
+      if (this.#draggingThresholdPassed) {
         // don't allow click to propagate
         this.element.addEventListener('click', this.#preventMouseClickFn, true)
       } else {
