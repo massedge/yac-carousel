@@ -12,6 +12,7 @@
   "main": "dist/yac-carousel.umd.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "clean": "rimraf dist",
     "develop": "webpack-dev-server --mode development --open",
@@ -77,6 +78,7 @@
     "react-dom": "^16.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^25.5.1",
+    "ts-loader": "^7.0.4",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.9.2",

@@ -8,12 +8,21 @@ module.exports = (env, argv) => {
       'yac-carousel': path.resolve(__dirname, 'src/index.ts')
     },
     devtool: "source-map",
+    optimization: {
+      // concatenateModules: false,
+      // minimize: false,
+    },
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: {
+        use: [{
           loader: 'babel-loader',
-        },
+        }, {
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig.build.json'
+          },
+        }],
         include: [
           path.resolve(__dirname, 'src'),
         ]
