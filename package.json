@@ -2,6 +2,10 @@
   "name": "yac-carousel",
   "version": "0.0.14",
   "description": "YAC Carousel (Yet Another Carousel)",
+  "repository": {
+    "type": "git",
+    "url": "github:massedge/yac-carousel"
+  },
   "contributors": [
     {
       "name": "Andrej Pavlovic",
