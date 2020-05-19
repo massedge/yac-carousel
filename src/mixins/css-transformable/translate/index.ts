@@ -37,6 +37,7 @@ export default function CssTransformableTranslate<
       return this.#translateX
     }
     set translateX(value) {
+      if (this.#translateX === value) return
       this.#translateX = value
       this._cssTransformTranslateUpdateStyle()
     }
@@ -45,6 +46,7 @@ export default function CssTransformableTranslate<
       return this.#translateY
     }
     set translateY(value) {
+      if (this.#translateY === value) return
       this.#translateY = value
       this._cssTransformTranslateUpdateStyle()
     }

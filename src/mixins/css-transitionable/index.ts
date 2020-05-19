@@ -34,6 +34,7 @@ export default function CssTransitionable<
       return this.#transition
     }
     set transition(value: string) {
+      if (this.#transition === value) return
       this.#transition = value
       this._cssTransitionUpdateStyle()
     }

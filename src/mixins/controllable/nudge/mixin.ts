@@ -87,7 +87,7 @@ export default function ControllableNudgeMixin<
             type: 'itemTranslate',
             x: axis === 'horizontal' ? this._position.x : 0,
             y: axis === 'vertical' ? this._position.y : 0,
-            ease: ease ? `${300 + 'ms'} transform` : '',
+            ease: ease ? `transform ${300 + 'ms'}` : '',
           })
         })
       } while (false)

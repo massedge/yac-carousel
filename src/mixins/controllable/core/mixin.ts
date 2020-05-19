@@ -76,9 +76,16 @@ export default function ControllableCoreMixin<
             case 'itemTranslate':
               const item = this.items[action.index]
 
-              if (action.x !== undefined) item.translateX = action.x
-              if (action.y !== undefined) item.translateY = action.y
               item.transition = action.ease !== undefined ? action.ease : ''
+
+              if (action.x !== undefined || action.y !== undefined) {
+                // TODO: add logic to clear timeout when necessary
+                setTimeout(() => {
+                  if (item.destroyed) return
+                  if (action.x !== undefined) item.translateX = action.x
+                  if (action.y !== undefined) item.translateY = action.y
+                }, 0)
+              }
               break
 
             default:
