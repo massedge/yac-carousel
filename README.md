@@ -1,6 +1,6 @@
 # YAC Carousel (Yet Another Carousel)
-<a href="https://www.npmjs.com/package/yac-carousel/v/0.0.12"><img src="https://img.shields.io/badge/yac--carousel-v0.0.12-brightgreen" alt="npm"></a>
-<a href="https://unpkg.com/yac-carousel@0.0.12/dist/yac-carousel.umd.js"><img src="https://img.badgesize.io/https://unpkg.com/yac-carousel@0.0.12/dist/yac-carousel.umd.js?compression=gzip" alt="gzip size"></a>
+<a href="https://www.npmjs.com/package/yac-carousel/v/0.0.13"><img src="https://img.shields.io/badge/yac--carousel-v0.0.13-brightgreen" alt="npm"></a>
+<a href="https://unpkg.com/yac-carousel@0.0.13/dist/yac-carousel.umd.js"><img src="https://img.badgesize.io/https://unpkg.com/yac-carousel@0.0.13/dist/yac-carousel.umd.js?compression=gzip" alt="gzip size"></a>
 
 ## Development
 
