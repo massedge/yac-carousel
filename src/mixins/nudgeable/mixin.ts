@@ -51,6 +51,7 @@ export default function Nudgeable<T extends new (o: any) => NudgeableMixinBase>(
         'yac:nudge',
         {
           cancelable: true,
+          bubbles: false,
           detail: {
             nudge,
             ease,
@@ -72,6 +73,7 @@ export default function Nudgeable<T extends new (o: any) => NudgeableMixinBase>(
       const event: NudgeableMixinEventMap['yac:settle'] = new CustomEvent(
         'yac:settle',
         {
+          bubbles: false,
           detail: {
             ease,
             nudges: this.#unsettledNudges,

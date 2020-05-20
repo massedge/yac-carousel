@@ -46,6 +46,7 @@ export default function DraggableCoreMixin<
         'yac:dragging:start',
         {
           cancelable: true,
+          bubbles: false,
           detail: {
             originalEvent,
           },

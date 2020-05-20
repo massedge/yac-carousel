@@ -29,6 +29,7 @@ export default function VisibleItemElementMixin<
       const event: VisibleItemElementMixinEventMap['yac:item:visible'] = new CustomEvent(
         'yac:item:visible',
         {
+          bubbles: false,
           detail: {
             visible: this.#visible,
           },

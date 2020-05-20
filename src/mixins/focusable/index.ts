@@ -38,6 +38,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
 
       const e: MixinEventMap['yac:focus'] = new CustomEvent('yac:focus', {
         cancelable: true,
+        bubbles: false,
       })
       this.emitter.emit(e)
 
@@ -47,6 +48,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       const eChanged: MixinEventMap['yac:focus:changed'] = new CustomEvent(
         'yac:focus:changed',
         {
+          bubbles: false,
           detail: {
             focused: this.#focused,
           },
@@ -62,6 +64,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
 
       const e: MixinEventMap['yac:blur'] = new CustomEvent('yac:blur', {
         cancelable: true,
+        bubbles: false,
       })
       this.emitter.emit(e)
 
@@ -71,6 +74,7 @@ export default function FocusableMixin<T extends new (o: any) => MixinBase>(
       const eChanged: MixinEventMap['yac:focus:changed'] = new CustomEvent(
         'yac:focus:changed',
         {
+          bubbles: false,
           detail: {
             focused: this.#focused,
           },

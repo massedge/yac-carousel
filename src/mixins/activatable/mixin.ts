@@ -29,6 +29,7 @@ export default function ActivatableMixin<
       const event: ActivatableMixinEventMap['yac:active'] = new CustomEvent(
         'yac:active',
         {
+          bubbles: false,
           detail: {
             active: this.#active,
           },
