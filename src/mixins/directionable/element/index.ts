@@ -1,6 +1,9 @@
 import { ComposeConstructor } from '../../../types'
 
-import { Direction } from '../core/types'
+import {
+  Direction,
+  MixinEventMap as DirectionableCoreMixinEventMap,
+} from '../core/types'
 
 import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
 
@@ -9,9 +12,36 @@ export default function DirectionableElement<
 >(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
+    #computeAutoHandler: (
+      e: DirectionableCoreMixinEventMap['yac:computed-direction:compute-auto']
+    ) => void
     #originalDirectionStyle: { value: string; priority: string } = {
       value: '',
       priority: '',
+    }
+
+    constructor(options: MixinOptions) {
+      super(options)
+
+      this.#computeAutoHandler = (e) => {
+        if (e.defaultPrevented) return
+
+        this._directionableElementResetDirectionStyle()
+
+        const computedDirection = getComputedStyle(this.element).direction
+        if (computedDirection === 'ltr' || computedDirection === 'rtl') {
+          e.detail.computedDirection = computedDirection
+        }
+
+        this._directionableElementSetDirectionStyle(e.detail.computedDirection)
+      }
+
+      this.on('yac:computed-direction:compute-auto', this.#computeAutoHandler)
+    }
+
+    refresh() {
+      super.refresh()
+      this._directionableElementSetDirectionStyle(this.computedDirection)
     }
 
     render() {
@@ -23,37 +53,24 @@ export default function DirectionableElement<
         priority: this.element.style.getPropertyPriority('direction'),
       }
 
-      this._directionableElementSetDirectionStyle()
-    }
-
-    refresh() {
-      super.refresh()
-      this._directionableElementSetDirectionStyle()
+      this._directionableElementSetDirectionStyle(this.computedDirection)
     }
 
     destroy() {
+      this.off('yac:computed-direction:compute-auto', this.#computeAutoHandler)
       this._directionableElementResetDirectionStyle()
-      this.destroy()
+      super.destroy()
     }
 
-    directionAutoUpdate(defaultDirection?: Direction) {
+    private _directionableElementSetDirectionStyle(
+      direction: Exclude<Direction, 'auto'>
+    ) {
       this._directionableElementResetDirectionStyle()
 
-      const directionAttr = getComputedStyle(this.element).direction
-      if (directionAttr === 'ltr' || directionAttr === 'rtl') {
-        defaultDirection = directionAttr
-      }
+      const computerStyleDirection = getComputedStyle(this.element).direction
+      if (computerStyleDirection === direction) return
 
-      return super.directionAutoUpdate(defaultDirection)
-    }
-
-    private _directionableElementSetDirectionStyle() {
-      this._directionableElementResetDirectionStyle()
-
-      const direction = getComputedStyle(this.element).direction
-      if (direction === this.direction) return
-
-      this.element.style.setProperty('direction', this.direction, 'important')
+      this.element.style.setProperty('direction', direction, 'important')
     }
 
     private _directionableElementResetDirectionStyle() {

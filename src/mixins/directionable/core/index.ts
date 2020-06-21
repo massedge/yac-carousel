@@ -6,28 +6,18 @@ import {
   MixinClass,
   MixinInstance,
   MixinOptions,
+  MixinEventMap,
 } from './types.d'
 
 function DirectionableCore<T extends new (o: any) => MixinBase>(Base: T) {
   class Mixin extends (Base as new (options: MixinOptions) => MixinBase)
     implements MixinInstance {
-    #auto: boolean
-    #direction: Direction = 'ltr'
+    #direction: Direction
+    #computedDirection?: Exclude<Direction, 'auto'>
 
-    constructor({ direction, ...otherOptions }: MixinOptions) {
+    constructor({ direction = 'auto', ...otherOptions }: MixinOptions) {
       super({ direction, ...otherOptions })
-      this.#auto = !direction
-      if (direction) this.#direction = direction
-    }
-
-    render() {
-      super.render()
-      if (this.#auto) this.directionAutoUpdate()
-    }
-
-    refresh() {
-      super.refresh()
-      if (this.#auto) this.directionAutoUpdate()
+      this.#direction = direction
     }
 
     get direction() {
@@ -35,21 +25,51 @@ function DirectionableCore<T extends new (o: any) => MixinBase>(Base: T) {
     }
 
     set direction(value) {
-      this.#auto = false
       if (value === this.#direction) return
       this.#direction = value
       this.refresh()
     }
 
-    directionAutoUpdate(defaultDirection?: Direction) {
-      this.#auto = true
+    get computedDirection() {
+      if (this.#computedDirection) return this.#computedDirection
 
-      if (defaultDirection && this.#direction !== defaultDirection) {
-        this.#direction = defaultDirection
-        this.refresh()
-      }
+      // trigger computed direction changed event
+      const ev: MixinEventMap['yac:computed-direction:compute-auto'] = new CustomEvent(
+        'yac:computed-direction:compute-auto',
+        {
+          cancelable: true,
+          bubbles: false,
+          detail: {
+            computedDirection: 'ltr',
+          },
+        }
+      )
+      this.emitter.emit(ev)
 
-      return defaultDirection
+      this.#computedDirection = ev.detail.computedDirection
+      return this.#computedDirection
+    }
+
+    refresh() {
+      super.refresh()
+
+      // reset computed direction
+      this.#computedDirection =
+        this.#direction !== 'auto' ? this.#direction : undefined
+    }
+
+    on<K extends keyof MixinEventMap>(
+      type: K,
+      listener: (ev: MixinEventMap[K]) => void
+    ) {
+      return this.emitter.on.call(this, type, listener)
+    }
+
+    off<K extends keyof MixinEventMap>(
+      type: K,
+      listener: (ev: MixinEventMap[K]) => void
+    ) {
+      return this.emitter.off.call(this, type, listener)
     }
   }
 
