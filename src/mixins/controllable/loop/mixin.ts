@@ -51,8 +51,8 @@ export default function ControllableLoopMixin<
     }
 
     destroy() {
-      super.destroy()
       this.off('yac:select:before', this.#selectBeforeHandler)
+      super.destroy()
     }
   }
 

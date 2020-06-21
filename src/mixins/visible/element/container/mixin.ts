@@ -45,8 +45,8 @@ export default function VisibleContainerElementMixin<
     }
 
     destroy() {
-      super.destroy()
       this.items.map((item: Item) => this.#io.unobserve(item.element))
+      super.destroy()
     }
   }
 

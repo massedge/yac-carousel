@@ -51,7 +51,7 @@ export default function AlignableFlexElement<
 
     destroy() {
       this._alignableElementResetInlineStyles()
-      this.destroy()
+      super.destroy()
     }
 
     alignAutoUpdate(defaultAlign?: Align | Align2d) {

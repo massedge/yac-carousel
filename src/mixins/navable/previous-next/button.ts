@@ -103,7 +103,6 @@ export default function NavablePreviousNextButton<
     }
 
     destroy() {
-      super.destroy()
       this.#options.elPrevious.removeEventListener(
         'click',
         this.#previousFn,
@@ -111,6 +110,7 @@ export default function NavablePreviousNextButton<
       )
       this.#options.elNext.removeEventListener('click', this.#nextFn, false)
       this.off('yac:select:after', this.#stateUpdateHandler)
+      super.destroy()
     }
 
     private static createButton(cssClass: string, text: string) {

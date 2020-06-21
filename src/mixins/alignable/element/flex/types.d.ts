@@ -18,6 +18,7 @@ export interface MixinBase
     Pick<ElementableInstance, 'element'> {
   render(): void
   refresh(): void
+  destroy(): void
   alignAutoUpdate(defaultAlign?: Align | Align2d): Align2d | undefined
   _alignableCoreNormalize(align: Align | Align2d): Align2d
 }
