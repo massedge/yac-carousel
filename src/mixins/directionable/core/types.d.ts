@@ -2,40 +2,41 @@ import { MixinInstance as EventableInstance } from '../../eventable/types'
 
 export type Direction = 'ltr' | 'rtl' | 'auto'
 
-export interface MixinOptions {
+export interface DirectionableCoreMixinOptions {
   direction?: Direction
 }
 
-export interface MixinClass {
-  new (options: MixinOptions): MixinInstance
+export interface DirectionableCoreMixinClass {
+  new (options: DirectionableCoreMixinOptions): DirectionableCoreMixinInstance
 }
 
-export interface MixinInstance {
+export interface DirectionableCoreMixinInstance {
   direction: Direction
   readonly computedDirection: Exclude<Direction, 'auto'>
 
-  on: <K extends keyof MixinEventMap>(
+  on: <K extends keyof DirectionableCoreMixinEventMap>(
     type: K,
-    listener: (ev: MixinEventMap[K]) => void
+    listener: (ev: DirectionableCoreMixinEventMap[K]) => void
   ) => void
-  off: <K extends keyof MixinEventMap>(
+  off: <K extends keyof DirectionableCoreMixinEventMap>(
     type: K,
-    listener: (ev: MixinEventMap[K]) => void
+    listener: (ev: DirectionableCoreMixinEventMap[K]) => void
   ) => void
 }
 
-export interface MixinBase extends Pick<EventableInstance, 'emitter'> {
+export interface DirectionableCoreMixinBase
+  extends Pick<EventableInstance, 'emitter'> {
   render(): void
   refresh(): void
   readonly rendered: boolean
 }
 
-export interface MixinEventMap {
+export interface DirectionableCoreMixinEventMap {
   ['yac:computed-direction:compute-auto']: CustomEvent<
     ComputedDirectionComputeAutoEventDetail
   >
 }
 
 interface ComputedDirectionComputeAutoEventDetail {
-  computedDirection: MixinInstance['computedDirection']
+  computedDirection: DirectionableCoreMixinInstance['computedDirection']
 }

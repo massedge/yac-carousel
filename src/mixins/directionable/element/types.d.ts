@@ -1,4 +1,4 @@
-import { MixinInstance as DirectionableCoreInstance } from '../core/types'
+import { DirectionableCoreMixinInstance } from '../core'
 import { ElementableInstance } from '../../elementable/core'
 
 export interface MixinOptions {}
@@ -11,7 +11,7 @@ export interface MixinInstance {}
 
 export interface MixinBase
   extends Pick<
-      DirectionableCoreInstance,
+      DirectionableCoreMixinInstance,
       'direction' | 'computedDirection' | 'on' | 'off'
     >,
     Pick<ElementableInstance, 'element'> {

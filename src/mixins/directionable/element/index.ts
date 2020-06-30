@@ -1,9 +1,6 @@
 import { ComposeConstructor } from '../../../types'
 
-import {
-  Direction,
-  MixinEventMap as DirectionableCoreMixinEventMap,
-} from '../core/types'
+import { Direction, DirectionableCoreMixinEventMap } from '../core'
 
 import { MixinBase, MixinClass, MixinInstance, MixinOptions } from './types'
 
