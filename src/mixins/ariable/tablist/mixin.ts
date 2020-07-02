@@ -19,7 +19,7 @@ export default function AriableTablistMixin<
       options: AriableTablistMixinOptions
     ) => AriableTablistMixinBase)
     implements AriableTablistMixinInstance {
-    #ariaTablistInstance?: typeof AriaTablist
+    #ariaTablistInstance?: ReturnType<typeof AriaTablist>
     #originalAriaOrientationAttribute?: string
 
     render() {
@@ -32,13 +32,13 @@ export default function AriableTablistMixin<
         this.element.setAttribute('aria-orientation', this.orientation)
       }
 
-      this.#ariaTablistInstance = new AriaTablist(this.element)
+      this.#ariaTablistInstance = AriaTablist(this.element)
     }
 
     destroy() {
       super.destroy()
 
-      this.#ariaTablistInstance.destroy()
+      if (this.#ariaTablistInstance) this.#ariaTablistInstance.destroy()
 
       // reset aria-orientation attribute
       if (this.orientation) {
