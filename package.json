@@ -94,7 +94,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "aria-tablist": "^1.2.1",
+    "aria-tablist": "^1.2.2",
     "lodash-es": "^4.17.15"
   },
   "optionalDependencies": {
