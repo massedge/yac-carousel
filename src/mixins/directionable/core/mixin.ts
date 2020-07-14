@@ -9,6 +9,13 @@ import {
   DirectionableCoreMixinEventMap,
 } from './types'
 
+/**
+ * Adds `direction` and `computedDirection` properties. `computedDirection` property
+ * should be used to determine what is the actual direction when `direction` is `auto`.
+ * Other mixins can use the `yac:computed-direction:compute-auto` event
+ * to override the `computedDirection` value when `direction` is `auto`.
+ * @param Base
+ */
 export default function DirectionableCoreMixin<
   T extends new (o: any) => DirectionableCoreMixinBase
 >(Base: T) {

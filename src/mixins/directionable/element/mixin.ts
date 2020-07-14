@@ -9,6 +9,10 @@ import {
   DirectionableElementMixinOptions,
 } from './types'
 
+/**
+ * Uses the CSS [direction](https://developer.mozilla.org/en-US/docs/Web/CSS/direction) property to apply/retrieve overall direction.
+ * @param Base
+ */
 export default function DirectionableElementMixin<
   T extends new (o: any) => DirectionableElementMixinBase
 >(Base: T) {
